@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import firebase from "../../firebaseConfig";
 import "./AppointmentHistory.css";
 import Modal from "react-modal";
 import swal from "sweetalert";
@@ -91,25 +92,25 @@ function AppointmentHistory() {
 
   const orderedItemNames = bookings.length > 0 ? bookings.filter((b) => b.status == "Pending") : [];
 
-  //   const cancelAppointment = async (id) =>{
-  //     try{
-  //       setloadinga(true)
-  //       const email = localStorage.getItem('email');
-  //       await firebase.firestore().collection('deletedAppointment').doc(email).collection('list').add({id: id});
-  //       swal({
-  //         title: "Request successful",
-  //         text: `Appointment Deleted Successfully`,
-  //         icon: "success",
-  //         button: "Ok",
-  //     });
-  //       await respondRequest('Rejected', id);
+    const cancelAppointment = async (id) =>{
+      try{
+        setloadinga(true)
+        const email = localStorage.getItem('email');
+        await firebase.firestore().collection('deletedAppointment').doc(email).collection('list').add({id: id});
+        swal({
+          title: "Request successful",
+          text: `Appointment Deleted Successfully`,
+          icon: "success",
+          button: "Ok",
+      });
+        await respondRequest('Rejected', id);
 
-  //     }catch(e){
-  //       console.log(e)
-  //       setloadinga(false)
-  //     }
+      }catch(e){
+        console.log(e)
+        setloadinga(false)
+      }
 
-  //   }
+    }
 
   return (
     <MainLayout>
@@ -138,7 +139,95 @@ function AppointmentHistory() {
             </div>
           </div>
         </div>
-        <p>Testing</p>
+        <div class="amblance-history-container">
+          <div>
+            <Tabs value={index} onChange={onTabClicked}>
+              <Tab className={classes.tab} label="Upcoming" />
+              <Tab className={classes.tab} label="Past" />
+            </Tabs>
+            <div class="history-content">
+              <Panel value={index} index={0}>
+                <div className="top-history-container">
+                  <div class="row-his">
+                    <div className="column-his-1">
+                      <div class="col-container">
+                        <div class="his-container-cont-lab">
+                          {upcoming.length === 0 && loaded ? (
+                            <img src={loading} alt="" className="loader-img" />
+                          ) : upcoming.length ? (
+                            upcoming.map((item) => (
+                              <>
+                                <div className="single-ambulance">
+                                  <div>
+                                    <p style={{ color: "#2d8f88" }}>
+                                      {item.physician.fullName}
+                                    </p>
+
+                                    <div className="request-test">
+                                      <p> schedules for</p>
+                                      <p>
+                                        {new Date(item.scheduledFor)
+                                          .toString()
+                                          .substring(0, 21)}
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div className="divider"></div>
+                                  <div className="booked-container">
+                                    <p onClick={()=>cancelAppointment(item.id)} className='cancel-booking-btn'>Cancel Booking</p>
+                                  </div>
+                                </div>
+                              </>
+                            ))
+                          ) : (
+                            "No appointments to show"
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Panel>
+              <Panel value={index} index={1}>
+                <div className="top-history-container">
+                  <div class="row-his">
+                    <div className="column-his-1">
+                      <div class="col-container">
+                        <div class="his-container-cont-lab">
+                          {filtered.length === 0 && loaded ? (
+                            <img src={loading} alt="" className="loader-img" />
+                          ) : filtered.length ? (
+                            filtered.map((item) => (
+                              <>
+                                <div className="single-ambulance">
+                                  <div>
+                                    <p style={{ color: "#2d8f88" }}>
+                                      {item.physician.fullName}
+                                    </p>
+                                    <div className="request-test">
+                                      <p>Was on</p>
+                                      <p>
+                                        {new Date(item.scheduledFor)
+                                          .toString()
+                                          .substring(0, 21)}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </>
+                            ))
+                          ) : (
+                            "No pending appointments"
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Panel>
+            </div>
+          </div>
+        </div>
       </div>
     </MainLayout>
   );

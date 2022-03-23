@@ -20,7 +20,7 @@ import 'firebase/messaging';
   if (firebase.messaging.isSupported()){
     messaging = firebase.messaging();
 }
-  // const messaging = firebase.messaging();
+  
 
   export const requestFirebaseNotificationPermission = () =>
   new Promise((resolve, reject) => {

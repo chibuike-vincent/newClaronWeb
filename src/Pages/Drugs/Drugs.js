@@ -114,7 +114,7 @@ function Drugs() {
         </div>
       
 
-      {/* <div class="drugs-order-history">
+      <div class="drugs-order-history">
         <h2>Drugs Order History</h2>
 
         <section class="two-column">
@@ -150,7 +150,7 @@ function Drugs() {
             </div>
       
         </section>
-      </div> */}
+      </div>
       <Modal
         open={open}
         onClose={handleClose}
@@ -164,7 +164,7 @@ function Drugs() {
           <p className="upload-prescribe">Please upload images of valid Prescription from your doctor.</p>
           <input type="file" onChange={(e) => setFile(e.target.files[0])}/>
           <br />
-          {/* <button className="upload-prescr-btn" onClick={() => prescriptionUpload()}>{loadinga ? "Uploading..." : "Upload Prescription"}</button> */}
+          <button className="upload-prescr-btn" onClick={() => prescriptionUpload()}>{loadinga ? "Uploading..." : "Upload Prescription"}</button>
         </Box>
       </Modal>
       <div>
