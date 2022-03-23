@@ -1,0 +1,189 @@
+/* body{
+    background-color: black !important;
+    width: 100% !important;
+} */
+
+.stand-by{
+    font-size: 20px;
+    font-weight: 800;
+    color: #545958;
+    padding-bottom: 20px !important;
+}
+
+.stand-by-select{
+    font-size: 20px;;
+    font-weight: 800;
+    margin-bottom: 10px !important;
+    color: #545958;
+}
+
+.doc-btn{
+    background: #16a085;
+    color: #fff;
+    padding: 10px !important;
+    font-size: 25px;
+    border-radius: 10px !important;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.doc-call-container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.call-em{
+    margin-left: 20px !important;
+    background-color:  #61cd88;
+    padding: 10px;
+    font-size: 40px;
+    border-radius: 50%;
+}
+
+.controls{
+    background-color: green !important;
+     height: 100%;
+     width: 100vw;
+     /* position: absolute; */
+     display: flex;
+     flex-direction: column;
+    justify-content: space-around;
+    /* align-items: flex-end; */
+    border-radius: 20px;
+ }
+ 
+ .claron-audio-logo-container h2{
+     color: #fff !important;
+     text-align: center;
+     padding-bottom: 20px;
+ }
+ .inner-control{
+     display: flex;
+     width: 100%;
+     align-items: center;
+     align-content: center;
+     text-align: center;
+     justify-content: space-around;
+ }
+ .mute{
+     background-color: #16a085;
+     color: #fff;
+     padding: 15px;
+     cursor: pointer;
+     display: flex;
+     font-size: 20px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     text-align: center;
+     border-radius: 50%;
+     margin-bottom: 20px !important;
+ }
+ 
+ .leav{
+     background-color: red;
+     color: #fff;
+     padding: 20px;
+     cursor: pointer;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     text-align: center;
+     border-radius: 50%;
+     margin-bottom: 20px !important;
+ }
+ 
+ .leav-icon, .mute-audio-control{
+     font-size: 20px !important;
+ }
+ 
+ .controls p.on{
+ background-color: black !important;
+ border: none !important;
+ }
+ 
+ .controls p {
+   background-color: black !important;
+   border: none !important;
+ }
+ 
+ .cal-logo-img{
+     max-width: 70%;
+     height: 40%;
+     display: block;
+     margin: 0 auto;
+ }
+
+ .closeBtn {
+     width:40px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+    
+    float: right;
+    
+ }
+
+ .closeBtn :hover {
+    background-color: #545958;
+    cursor: pointer;
+    width:40px;
+    border-radius: 15px;
+    display: flex;
+     justify-content: center;
+     align-items: center;
+     color: #fff;
+ }
+
+ @media(max-width:569px){
+     .call-container-modal{
+         width: 95% !important;
+     }
+
+     .doc-btn{
+         font-size: 20px;
+     }
+
+     .controls{
+        
+         height: 90% !important;
+         margin-bottom: 30px !important;
+        position: absolute !important;
+        top: 50px !important;
+        width: 100% !important;
+     }
+
+     .mute{
+        background-color: #16a085;
+        color: #fff;
+        padding: 15px;
+        cursor: pointer;
+        display: flex;
+        font-size: 15px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        border-radius: 50%;
+        margin-bottom: 20px !important;
+    }
+    
+    .leav{
+        background-color: red;
+        color: #fff;
+        padding: 15px !important;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        border-radius: 50%;
+        margin-bottom: 20px !important;
+    }
+
+   
+ }
+
+
+ /* CALL PAGE STYLING */

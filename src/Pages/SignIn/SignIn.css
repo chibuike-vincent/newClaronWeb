@@ -1,0 +1,167 @@
+
+.logo-img{
+    width: 150px;
+    height: 100px;
+    display: none;
+}
+
+.container{
+    display: flex;
+    margin-top: 30px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: #fff !important;
+    overflow-y: auto;
+}
+
+.inputContainer{
+    width: 60%;
+}
+
+
+.text-field{
+    margin-bottom: 20px !important;
+}
+
+.input-field{
+    width: 100%;
+    border: 1px solid #777;
+    border-radius: 4px;
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    outline: none;
+    position: relative;
+}
+
+.label-text{
+    position: absolute;
+    left: 20px;
+}
+
+
+.sigInBtn {
+    background-color: #61CD88 !important;
+    border: none;
+    color: white !important;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .passForgotContainer{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+  }
+
+  .passForgotContainer p{
+      color: #61CD88;
+      cursor: pointer;
+  }
+  .socialContainer{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin-top: 20px;
+  }
+  .or{
+      align-self: center;
+      text-align: center;
+  }
+
+  .facebook{
+    background-color: #166FE5;
+    color: #fff;
+    width: 100%;
+    padding: 10px 32px;
+    font-size: 20px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    display: flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .icon{
+    font-size: 20px;
+    margin-right: 20px;
+  }
+
+.google{
+    box-shadow: 5px 3px 20px #888888;
+    background-color: #fff;
+    color: #777;
+    width: 100%;
+    padding: 10px 32px;
+    border-radius: 3px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.dont-have-account{
+    margin-top: 10px !important;
+    color: #777;
+    font-size: 20px;
+}
+
+.sign-up{
+color: #61CD88;
+}
+
+/* MEDIA QUERY */
+
+/* MEDIA QUERY */
+@media  (max-width: 500px) {
+    .container{
+        margin-top: 160px !important;
+        height: 100%;
+    }
+    .dont-have-account{
+        text-align: center;
+        padding-top: 10px;
+    }
+}
+
+@media only screen and (max-width: 737px) {
+    .SignIn-Img{
+        display: none;
+    }
+    .inputContainer{
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .logo-img{
+        display: block;
+        width: 150px;
+        height: 100px;
+        margin-bottom: 30px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .container{
+        margin-top: 2px;
+    }
+    .socialContainer{
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .dont-have-account{
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+}
+

@@ -1,0 +1,222 @@
+.homecare-main-container{
+width: 100%;
+margin-left: 20px;
+}
+
+.home-care-container-1{
+    margin: 30px;
+    margin-top: 60px;
+    width: 98%;
+    margin-left: 24px;
+    padding: 20px;
+}
+
+.homecare-inner-container-2{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.homecare-history-container{
+    background: #fff;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    border-radius: 10px;
+}
+.individual-request{
+    margin-top: 10px !important;
+}
+
+.his-header{
+    border-bottom: 1px solid #e8e8e8;
+    display: flex;
+    justify-content: space-between;
+}
+.his-header p{
+    padding-bottom: 10px;
+    color: #0d2344;
+    font-weight: 600;
+}
+
+.col-container{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+/* one */
+
+.top-history-container{
+    margin-bottom: 150px;
+    margin-top: -20px;
+}
+.row-his{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem,1fr));
+    gap: 1rem;
+   
+  }
+  .column-his-1{
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  }
+ 
+  .his-container-title p{
+      padding: 7px;
+      font-size: 18px;
+      color: #0d2344;
+      font-weight: bold;
+  }
+
+  .his-container-cont p{
+    padding: 7px;
+    font-size: 18px;
+  }
+
+  .head-his{
+      border-bottom: 2px solid #b8babe;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+  }
+
+  .drug-his-btn-h{
+    background: #f8343d;
+    color: #fff;
+    padding: 10px;
+    font-size: 17px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    margin-left: 350px;
+  }
+
+  .single-home-car{
+   margin-right: 20px;
+   padding: 10px;
+   margin-bottom: 20px;
+   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+
+  .col-container-home{
+    display: grid;
+    grid-template-columns: 50% 50% ;	
+    margin-top: 20px;
+  }
+
+  .symtomss{
+   font-size: 20px;
+  }
+
+  .pending{
+    color: #f9df06;
+  }
+  
+  .booked-container-home{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+  }
+
+  .reason{
+      color: #16a085 !important;
+  }
+
+  .inner-individual-container-request{
+      margin-bottom: 600px;
+  }
+
+  .home-care-form-btn{
+      background-color: #16a085;
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 20px;
+      cursor: pointer;
+  }
+
+.home-care-container-1{
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.closeBtn {
+    width:40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   align-self: flex-end;
+   background-color: #eceeed;
+   border-radius: 5px;
+  }
+  
+  .closeBtn:hover {
+   background-color: #545958;
+   cursor: pointer;
+   width:40px;
+   border-radius: 15px;
+   display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
+
+  .individual-request-container-outer{
+      /* background-color: red; */
+      height: 100%;
+      overflow-y: scroll;
+      width: 98%;
+  }
+
+  @media (max-width:569px){
+      .homecare-main-container{
+          margin-left: -30px !important;
+      }
+
+      .making-request-for{
+          min-width: 300px !important;
+      }
+
+
+      .symptoms{
+          margin-bottom: 20px !important;
+      }
+
+      .homecare-header-title{
+          font-size: 20px !important;
+      }
+
+      .appointment-container-box{
+          margin-left: 10px !important;
+      }
+      .homecare-inner-container-2{
+          display: flex;
+          flex-direction: column;
+          margin-left: 15px !important;
+          margin-top: -20px !important;
+      }
+
+      .individual-btn{
+          margin-top: 20px !important;
+      }
+
+      .col-container-home{
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+      }
+
+      .booked-container-home{
+          font-size: 13px !important;
+      }
+
+      .booked-container-home{
+          flex-direction: column;
+      }
+      
+  }

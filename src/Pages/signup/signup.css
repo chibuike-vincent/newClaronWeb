@@ -1,0 +1,146 @@
+.signup-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: auto;
+}
+
+.sign-up-img{
+    max-width: 80%;
+}
+
+:focus{
+    outline: none;
+}
+
+.wrapper{
+    min-height: 100vh;
+    background-color: #fff !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inner{
+    padding: 10px;
+    background: #F5F4F4;
+    width: 90%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
+    overflow-y: scroll;
+    height: 100%;
+    overflow: hidden; /* Hide scrollbars */
+}
+.inner .image-holder{
+    width: 40%;
+}
+
+.inner form{
+    width: 55%;
+    padding-top: 30px;
+    padding-left: 45px;
+    padding-right: 50px;
+    margin-bottom: 30px;
+}
+
+.inner h3{
+    text-transform: uppercase;
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 15px;
+    margin-top: 90px;
+    color: #61cd88;
+}
+
+.form-group{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.form-group input{
+    width: 50%;
+}
+
+.form-group input:first-child{
+    margin-right: 25px;
+}
+
+.form-wrapper{
+  margin-top: 15px;
+}
+
+.sign-up-button{
+    border: none;
+    width: 100%;
+    height: 51px;
+    margin: auto;
+    border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 0;
+    background: #1BCC88;
+    color: #fff;
+    font-size: 18px;
+}
+.terms{
+    padding-top: 20px !important;
+}
+
+.first-input-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* MEDIA QUERY */
+@media  (max-width: 500px) {
+    .wrapper{
+        margin-top: 150px;
+    }
+    .inner{
+        flex-direction: column;
+    }
+    .form-group{
+        flex-direction: column;
+        margin: 0 !important;
+    }
+    .inner form{
+        width: 90%;
+        margin: 10px;
+        padding-top: 0 !important;
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-bottom: 30px;
+    }
+
+    .sign-up-img{
+        display: none;
+    }
+  
+    .first-input-sign-up{
+        margin-bottom: 10px !important;
+        width: 100% !important;
+    }
+    .first-input-container{
+      flex-direction: column;
+    }
+
+    .form-group{
+        margin-top: 15px !important;
+    }
+
+   .age-input{
+       width: 100% !important;
+       margin-bottom: 15px;
+   }
+   .sign-up-form h3{
+       margin-top: 0 !important;
+   }
+    
+}

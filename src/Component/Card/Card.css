@@ -1,0 +1,353 @@
+
+:root{
+    --green:#16a085;
+    --black:#444;
+    --light-color:#777;
+    --box-shadow:.5rem .5rem 0 rgba(22, 160, 133, .2);
+    --text-shadow:.4rem .4rem 0 rgba(0, 0, 0, .2);
+    --border:.2rem solid var(--green);
+}
+
+
+.dashboar-higher-container{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    margin-left: 60px;
+}
+
+
+.main-area-card-container{
+    overflow-y: scroll;
+    height: 100%;
+    overflow-x: hidden;    
+}
+
+.notifcation-container{
+    margin-top: 40px;
+    width: 100%;
+}
+.first-container{
+    margin-top: 50px;
+    width: 94%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+}
+.name-container h4{
+    font-size: 27.2px;
+    color: #0d2344;
+}
+
+.update-profile{
+    background: #d1ecf1;
+    padding: 20px;
+    color: #6397a0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    /* width: calc(100% - 20px); */
+    width: 92%;
+    /* width: 86%; */
+    /* margin-left: 40px; */
+}
+
+.update-btn-user{
+    background-color: #ffffff;
+    padding: 10px;
+    outline: none;
+    border: none;
+
+    color: #444;;
+    border-radius: 5px;
+    transition: 0.3s ease-in;
+    cursor: pointer;
+    transition: 0.2s ease-in;
+}
+
+.update-subscription{
+    background: #f9cacf;
+    padding: 20px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: #9f5a61;
+    display: flex;
+    justify-content: space-between;
+    width: 92%;
+}
+
+.subscribe-upd-btn-user{
+    background-color: #ffffff;
+    padding: 10px;
+    outline: none;
+    border: none;
+    color: #444;;
+    border-radius: 5px;
+    transition: 0.3s ease-in;
+    cursor: pointer;
+    transition: 0.2s ease-in;
+}
+
+.name-container p{
+    font-size: 16px;
+    padding-top: 10px;
+    letter-spacing: 5px;
+}
+
+.doctor-book-btn button{
+    background-color: #27AE60;
+    padding: 10px;
+    outline: none;
+    border: none;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 5px;
+    transition: 0.3s ease-in;
+    cursor: pointer;
+    transition: 0.2s ease-in;
+}
+
+.doctor-book-btn button:hover{
+    box-shadow: rgba(25,25,25,.05) 0 0 1px 0,rgba(0,0,0,.3) 0 3px 4px 0;
+}
+
+/* CARD STYLING */
+
+.cards{
+    /* width: calc(100% - 150px); */
+    margin-left: 3%;
+    width: 100%;
+    /* margin-left: 2rem; */
+}
+.card-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem,1fr));
+    gap: 1rem;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    width: 93%;
+}
+
+.card-box-history{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    background:#fff;
+    border-radius: .5rem;
+    border:var(--border);
+    box-shadow: var(--box-shadow);
+    padding:1rem;
+    cursor: pointer;
+}
+
+.card-box-history img{
+    width: 50%;
+    height: 60%;
+}
+/* .cards .card-container .card-box{
+    
+    text-align: center;
+    background:#fff;
+    border-radius: .5rem;
+    border:var(--border);
+    box-shadow: var(--box-shadow);
+    padding:2rem;
+    cursor: pointer;
+} */
+
+.card-box h4{
+    color: #0d2344;
+    padding-bottom: 10px;
+}
+
+.card-box img{
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 15px;
+}
+
+.card-box span{
+   color: var(--black);
+}
+
+/* .over-view{
+    margin-top: -50px;
+    font-size: 7rem;
+} */
+
+.over-view{
+    height: auto;
+    margin-bottom: 100px;
+}
+
+.over-view p{
+    font-size: 20px;
+    margin-top: -40px;
+}
+
+.over-view-header{
+    background: #ffffff;
+    padding: 20px;
+    flex: 1;
+    color: #777;
+    border-radius: 10px;
+}
+.over-view-header h3{
+    margin-bottom: 10px;
+}
+
+.appointment{
+    margin-right: 20px;
+}
+
+.inner-over-view{
+    display: flex;
+    justify-content: space-between;
+}
+
+.prescription-conent{
+    padding: 30PX;
+    border-top: 1px solid #66cc99;
+}
+
+.main-area-card-container{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    background-color: red;
+}
+
+
+.his-container-cont-lab{
+    
+}
+
+.his-title{
+    color: #2d8f88 !important;
+    padding-bottom: 5px !important;
+}
+
+.book-btn-doc{
+    background: #1bcc88;
+    margin-top: 60px;
+    margin-right: 20px;
+    padding: 20px;
+    font-size: 18px;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+/* #nav-toggle:checked~.main-content .main-area-card-container {
+    width: calc(100% - 70px) !important;
+    left: 70px !important;
+    
+} */
+
+/* RESPONSIVENSESS */
+@media  (max-width: 560px)  {
+    main{
+        width: 100%;
+    }
+
+    .welcome-name{
+        font-size: 15px !important;
+    }
+    .dashboar-higher-container{
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+        margin-left: 15px;
+    }
+
+    .single-ambulance{
+        margin-left: 0px !important;
+    }
+
+    .update-btn-user{
+        background-color: #ffffff;
+        padding: 5px;
+        outline: none;
+        border: none;
+        font-size: 12px;
+        color: #444;;
+        border-radius: 5px;
+        transition: 0.3s ease-in;
+        cursor: pointer;
+        transition: 0.2s ease-in;
+    }
+
+    .update-profile-head-text{
+        font-size: 12px;
+    }
+
+    .book-btn-doc{
+        background: #1bcc88;
+        margin-top: 60px;
+       
+        padding: 10px;
+        font-size: 12px;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    .first-container{
+        margin-top: 50px;
+        width: 98%;
+ 
+    }
+   /* .cards{
+
+    width: 95%;
+    margin-left: 1rem !important;
+} */
+    .card .card-container{
+        /* display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(25rem,1fr));
+        margin-top: 30px;
+        margin-bottom: 100px;
+        width: 100%;
+        align-items: center; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+    .his-container-cont-lab{
+        display: flex !important;
+        flex-direction: column;
+        width: 100% !important;
+    }
+
+    .cards .card-container .card-box{
+        text-align: center;
+        background:#fff;
+        border-radius: .5rem;
+        border:var(--border);
+        box-shadow: var(--box-shadow);
+        padding: 10px;
+        cursor: pointer;
+        width: 50%;
+    }
+    
+    .update-subscription p{
+        font-size: 12px;
+    }
+
+}
+
+
+
+
