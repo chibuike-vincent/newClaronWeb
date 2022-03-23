@@ -16,7 +16,7 @@ import {useNavigate} from 'react-router-dom'
 // import { uploadFile } from 'react-s3';
 import S3FileUpload from 'react-s3';
 import S3 from 'react-aws-s3';
-import firebase from '../../firebaseConfig';
+// import firebase from '../../firebaseConfig';
 
 const style = {
   position: 'absolute',
@@ -64,31 +64,31 @@ function Drugs() {
     setOpen(false)
 }
 
-  const prescriptionUpload = async(e)=>{
-    setloadinga(true)
-    if(file){
+  // const prescriptionUpload = async(e)=>{
+  //   setloadinga(true)
+  //   if(file){
 
-        await firebase.storage().ref('prescriptions/' + file.name).put(file);
-        let url = await firebase.storage().ref(`prescriptions`).child(file.name).getDownloadURL()
+  //       await firebase.storage().ref('prescriptions/' + file.name).put(file);
+  //       let url = await firebase.storage().ref(`prescriptions`).child(file.name).getDownloadURL()
         
-         if(url){
-            setloadinga(false)
-            setPrescription(url)
-            setprescriptiona(false)
-            localStorage.setItem('prescription', JSON.stringify(url))
-            handleClose()
+  //        if(url){
+  //           setloadinga(false)
+  //           setPrescription(url)
+  //           setprescriptiona(false)
+  //           localStorage.setItem('prescription', JSON.stringify(url))
+  //           handleClose()
             
-            swal({
-                title: "Prescription Upload",
-                text: "uploaded prescription to server",
-                icon: "success",
-                button: "Ok",
-              });
-              navigate("/prescribedDrugs")
-         }
-    }
+  //           swal({
+  //               title: "Prescription Upload",
+  //               text: "uploaded prescription to server",
+  //               icon: "success",
+  //               button: "Ok",
+  //             });
+  //             navigate("/prescribedDrugs")
+  //        }
+  //   }
     
-  }
+  // }
 
   return (
     <MainLayout>
@@ -164,7 +164,7 @@ function Drugs() {
           <p className="upload-prescribe">Please upload images of valid Prescription from your doctor.</p>
           <input type="file" onChange={(e) => setFile(e.target.files[0])}/>
           <br />
-          <button className="upload-prescr-btn" onClick={() => prescriptionUpload()}>{loadinga ? "Uploading..." : "Upload Prescription"}</button>
+          {/* <button className="upload-prescr-btn" onClick={() => prescriptionUpload()}>{loadinga ? "Uploading..." : "Upload Prescription"}</button> */}
         </Box>
       </Modal>
       <div>

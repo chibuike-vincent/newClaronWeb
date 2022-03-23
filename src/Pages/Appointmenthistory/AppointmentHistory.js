@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import firebase from "../../firebaseConfig";
 import "./AppointmentHistory.css";
 import Modal from "react-modal";
 import swal from "sweetalert";
