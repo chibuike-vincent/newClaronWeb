@@ -14,7 +14,13 @@ import 'firebase/messaging';
     });
 
   firebase.initializeApp(config)
-  const messaging = firebase.messaging();
+
+  let messaging;
+
+  if (firebase.messaging.isSupported()){
+    messaging = firebase.messaging();
+}
+  // const messaging = firebase.messaging();
 
   export const requestFirebaseNotificationPermission = () =>
   new Promise((resolve, reject) => {
