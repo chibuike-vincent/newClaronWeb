@@ -166,7 +166,7 @@ export const getLabTestIndividual = async (email) => {
             'Content-Type': 'application/json',
 
             'Authorization': `Bearer ${auth}`,
-            'x-api-key': key
+            'x-api-key': key.at,
         }
     })
 
