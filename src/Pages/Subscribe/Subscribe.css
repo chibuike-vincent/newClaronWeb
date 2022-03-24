@@ -160,6 +160,7 @@
 @media only screen and (max-width: 569px) {
   .snip1214 .plan {
     width: 100%;
+    margin-top: 10px;
   }
 
   .plan-features{
@@ -175,7 +176,7 @@
   }
 
   .plan {
-    margin-top: 35px !important;
+    margin-top: 10px !important;
     height: 100% !important;
     margin-bottom: 50px !important;
   }
