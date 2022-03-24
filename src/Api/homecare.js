@@ -12,9 +12,6 @@ export const requestHomeCare = async (data, token) => {
         data,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Credentials': true,
             'Authorization': `Bearer ${auth}`,
             'x-payment-token': token,
             'x-api-key': key
@@ -33,9 +30,6 @@ export const getSymptoms = async () => {
         url: `https://api.clarondoc.com/symptoms`,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Credentials': true,
             'Authorization': `Bearer ${auth}`,
             'x-api-key': key
         }
@@ -59,8 +53,6 @@ export const apiKey = async () => {
             },
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': '*',
                 'Access-Control-Allow-Credentials': true,
             }
         })
@@ -84,9 +76,6 @@ export const insurancerequestHomeCare = async (data, token) => {
         data: data,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Credentials': true,
             'Authorization': `Bearer ${auth}`,
             'x-payment-token': token,
             'x-api-key': key
@@ -105,8 +94,6 @@ export const get_insurance_provider = async()=>{
         url: `https://api.clarondoc.com/payments/insurance/providers`,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
             'Access-Control-Allow-Credentials': true,
             'Authorization': `Bearer ${auth}`,
             'x-api-key': key
@@ -126,8 +113,6 @@ export const request_payment_through_insurance = async(data)=>{
         url: `https://api.clarondoc.com/payments/insurance/pay`,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
             'Access-Control-Allow-Credentials': true,
             'Authorization': `Bearer ${auth}`,
             'x-api-key': key

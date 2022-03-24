@@ -12,8 +12,6 @@ export const facilityLabRequest = async (data) => {
         data,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
             'Access-Control-Allow-Credentials': true,
             'Authorization': `Bearer ${auth}`,
             'x-api-key': key
@@ -35,8 +33,6 @@ export const individualLabRequest = async (data) => {
             data,
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': '*',
                 'Access-Control-Allow-Credentials': true,
                 'Authorization': `Bearer ${auth}`,
                 'x-api-key': key
@@ -61,8 +57,6 @@ export const getLabTests = async () => {
         url: `https://api.clarondoc.com/tests`,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
             'Access-Control-Allow-Credentials': true,
             'Authorization': `Bearer ${auth}`,
             'x-api-key': key
@@ -87,8 +81,6 @@ export const apiKey = async () => {
             },
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': '*',
                 'Access-Control-Allow-Credentials': true,
             }
         })
@@ -113,9 +105,6 @@ export const insurancefacilityLabRequest = async (data) => {
         data,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Credentials': true,
             'Authorization': `Bearer ${auth}`,
             'x-api-key': key
         }
@@ -136,9 +125,6 @@ export const insuranceindividualLabRequest = async (data) => {
             data: data,
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': '*',
-                'Access-Control-Allow-Credentials': true,
                 'Authorization': `Bearer ${auth}`,
                 'x-api-key': key
             }
@@ -162,9 +148,6 @@ export const insurancegetLabTests = async () => {
         url: `https://api.clarondoc.com/tests`,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Credentials': true,
             'Authorization': `Bearer ${auth}`,
             'x-api-key': key
         }
@@ -181,11 +164,9 @@ export const getLabTestIndividual = async (email) => {
         url: `https://api.clarondoc.com/requests/tests/individual/users/${email}`,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Credentials': true,
+
             'Authorization': `Bearer ${auth}`,
-            'x-api-key': key
+            'x-api-key': key.at,
         }
     })
 
@@ -203,9 +184,6 @@ export const getLabTestFacility = async (email) => {
         url: `https://api.clarondoc.com/requests/tests/facility/users/${email}`,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Credentials': true,
             'Authorization': `Bearer ${auth}`,
             'x-api-key': key
         }

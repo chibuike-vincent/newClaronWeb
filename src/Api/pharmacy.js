@@ -11,9 +11,6 @@ export const fetchDrugs = async (prescribed) => {
         url: `https://api.clarondoc.com/drugs?limit=10000&prescribed=${prescribed}`,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Credentials': true,
             'Authorization': `Bearer ${auth}`,
             'x-api-key': key
         },
@@ -27,9 +24,6 @@ export const fetchDrugs = async (prescribed) => {
         url: `https://api.clarondoc.com/drugs?limit=10000&prescribed=true`,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Credentials': true,
             'Authorization': `Bearer ${auth}`,
             'x-api-key': key
         },
@@ -56,9 +50,6 @@ export const buyDrugs = async (data, token) => {
         data,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Credentials': true,
             'Authorization': `Bearer ${auth}`,
             'x-payment-token': token,
             'x-api-key': key
@@ -80,9 +71,6 @@ export const myLabTests = async (sel) => {
         url: `https://api.clarondoc.com/requests/tests/${sel}/users/${email}`,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Credentials': true,
             'Authorization': `Bearer ${auth}`,
             'x-api-key': key
         }
@@ -102,9 +90,7 @@ export const myPharmacyOrders = async () => {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${auth}`,
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Credentials': true,
+
             'x-api-key': key
         }
     })
@@ -122,9 +108,7 @@ export const myAmbulanceRequests = async () => {
         url: `https://api.clarondoc.com/requests/ambulance/users/${email}`,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Credentials': true,
+
             'Authorization': `Bearer ${auth}`,
             'x-api-key': key
         }
@@ -143,9 +127,7 @@ export const myHomecareRequests = async () => {
         url: `https://api.clarondoc.com/requests/homeCare/users/${email}`,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Credentials': true,
+
             'Authorization': `Bearer ${auth}`,
             'x-api-key': key
         }
@@ -179,9 +161,6 @@ export const requestAmbulance = async (address, emergency, comment) => {
         },
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Credentials': true,
             'Authorization': `Bearer ${auth}`,
             'x-api-key': key
         }
@@ -207,9 +186,7 @@ export const apiKey = async (data) => {
             },
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': '*',
-                'Access-Control-Allow-Credentials': true,
+
             }
         })
 
