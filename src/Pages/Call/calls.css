@@ -42,7 +42,7 @@
 }
 
 .controls{
-    background-color: green !important;
+    background-color: black !important;
      height: 100%;
      width: 100vw;
      /* position: absolute; */
@@ -135,6 +135,16 @@
      align-items: center;
      color: #fff;
  }
+
+
+
+/* NEW STYLINGS FOR CALLS */
+
+.controls-calls{
+    background-color: red;
+}
+
+
 
  @media(max-width:569px){
      .call-container-modal{

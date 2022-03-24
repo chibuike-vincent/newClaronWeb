@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 import MainLayout from '../MainLayout';
 import 'date-fns';
 import * as API from '../../Api/pharmacy'
-import {getLabTestIndividual,getLabTestFacility} from '../../Api/lab'
+import { getLabTestIndividual, getLabTestFacility } from '../../Api/lab'
 import loading from '../../images/loading.gif'
 import { useSelector } from 'react-redux'
 const useStyles = makeStyles(theme => ({
@@ -48,22 +48,22 @@ function Laboratory() {
     };
 
     const classes = useStyles();
-    const userData = useSelector((state) => state.user.value)    
+    const userData = useSelector((state) => state.user.value)
     const [loaded, setLoaded] = useState(false)
-    const [individual, setIndividual]=useState([])
-    const [facility,setFacility] = useState([])
+    const [individual, setIndividual] = useState([])
+    const [facility, setFacility] = useState([])
     useEffect(() => {
 
         (async () => {
 
             if (!loaded) {
                 try {
-                 const dataIndividual =   await getLabTestIndividual(userData.email);
-                 setIndividual(dataIndividual.requests)
-                 
-                 const dataIndFacility =   await getLabTestFacility(userData.email); 
-                 setFacility(dataIndFacility.requests)
-    
+                    const dataIndividual = await getLabTestIndividual(userData.email);
+                    setIndividual(dataIndividual.requests)
+
+                    const dataIndFacility = await getLabTestFacility(userData.email);
+                    setFacility(dataIndFacility.requests)
+
                 } catch (e) {
                     console.log(e)
                 }
@@ -74,43 +74,37 @@ function Laboratory() {
     })
     return (
         <MainLayout>
-            
-                <div class="ambulance">
-                    <div class="heading-container">
-                        <h2 class="ambulanc-heading">LABORATORY REQUEST OVERVIEWS</h2>
+            <div class="lab-wrapper">
+                <div class="lab-header">
+                    <h2>LABORATORY REQUEST OVERVIEW</h2>
+                    <Link to="" className="facility-btn lab-text">LABORATORY REQUEST</Link>
+                </div>
 
-                            <div class="medical-facility">
-                                <Link to="/facilityrequest" className="facility-btn">LABORATORY REQUEST</Link>
-                            </div>
-
+                <div class="box-wrapper">
+                    <div class="box-one box-lab">
+                        <div className='upcoming-num'>0</div>
+                        <p>Pending Individual Request</p>
                     </div>
 
-                        <div class="ambulance-container">
-                        <div class="appointment-container-box">
-                            <div class="appointment-box one">
-                                <div className="upcoming-num">{individual.length}</div>
-                                <p>Pending Individual Request</p>
-                            </div>
-
-                            <div class="appointment-box two">
-                                <div className="pending-num">0</div>
-                                <p>Completed Individual Request</p>
-                            </div>
-
-                            <div class="appointment-box three">
-                                <div className="completed-num">{facility.length}</div>
-                                <p>Pending Facility Request</p>
-                            </div>
-
-                            <div class="appointment-box four">
-                                <div className="cancelled-num">0</div>
-                                <p>Completed Facility Request</p>
-                            </div>
-                        </div>
+                    <div class="box-two box-lab">
+                        <div className='pending-num'>0</div>
+                        <p>Pending Individual Request</p>
                     </div>
-                    <div class="amblance-history-container">
+
+                    <div class="box-three box-lab">
+                        <div className='completed-num'>0</div>
+                        <p>Pending Individual Request</p>
+                    </div>
+
+                    <div class="box-four box-lab">
+                        <div className='cancelled-num'>0</div>
+                        <p>Pending Individual Request</p>
+                    </div>
+                </div>
+
+                    
                         <div>
-                            <Tabs value={index} onChange={onTabClicked}>
+                            <Tabs style={{marginTop: "30px"}} value={index} onChange={onTabClicked}>
                                 <Tab className={classes.tab} label="Individual" />
                                 <Tab className={classes.tab} label="Facility" />
                             </Tabs>
@@ -204,9 +198,6 @@ function Laboratory() {
                             </div>
                         </div>
                     </div>
-
-                </div>
-            
         </MainLayout>
     )
 }

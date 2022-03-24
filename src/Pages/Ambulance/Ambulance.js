@@ -133,34 +133,33 @@ function Ambulance() {
     return (
         <MainLayout>
        
-            <div class="ambulance">
-                <div class="heading-container">
-                    <h2 class="ambulanc-heading">AMBULANCE REQUEST OVERVIEW</h2>
-
-                    <div class="doctor-book-btn" onClick={() => setOpen(true)}>
-                        <button>Book Ambulance</button>
-                    </div>
+       <div class="lab-wrapper">
+                <div class="lab-header">
+                    <h2>AMBULANCE REQUEST OVERVIEW</h2>
+                    <button onClick={() => setOpen(true)} className="facility-btn lab-text">Book Ambulance</button>
+                    {/* <Link to="" className="facility-btn lab-text">LABORATORY REQUEST</Link> */}
                 </div>
 
-                <div class="ambulance-container">
-                    <div class="appointment-container-box">
-                        <div class="appointment-box one">
-                            <div className="upcoming-num">{filtered.length}</div>
-                            <p>Completed Bookings</p>
-                        </div>
-
-                        <div class="appointment-box two">
-                            <div className="pending-num">{bookings.length}</div>
-                            <p>Pending Bookings</p>
-                        </div>
-
-                        <div class="appointment-box four">
-                            <div className="cancelled-num">0</div>
-                            <p>Cancelled Bookings</p>
-                        </div>
+                <div class="box-wrapper">
+                    <div class="box-one box-lab">
+                        <div className='upcoming-num'>{filtered.length}</div>
+                        <p>Completed Bookings</p>
                     </div>
 
-                    <Modal
+                    <div class="box-two box-lab">
+                        <div className='pending-num'>{bookings.length}</div>
+                        <p>Pending Bookings</p>
+                    </div>
+
+                    <div class="box-three box-lab">
+                        <div className='completed-num'>0</div>
+                        <p>Cancelled Bookings</p>
+                    </div>
+
+                </div>
+
+                {/* MODAL CONTAINER */}
+                <Modal
                         isOpen={open}
                         onRequestClose={() => setOpen(false)}
                         closeTimeoutMS={100}
@@ -230,11 +229,10 @@ function Ambulance() {
                             </div>
                         </div>
                     </Modal>
-               
-                </div>
-                <div class="amblance-history-container">
+
+             <div>
                 <div>
-                    <Tabs value={index} onChange={onTabClicked}>
+                    <Tabs style={{marginTop: "30px"}} value={index} onChange={onTabClicked}>
                         <Tab className={classes.tab} label="Pending Request" />
                         <Tab className={classes.tab} label="Completed Request" />
                     </Tabs>
@@ -306,10 +304,10 @@ function Ambulance() {
                     </div>
                 </div>
             </div>
-                
-            </div>
-            
-       
+
+                    
+                       
+                    </div>
         </MainLayout>
     )
 }
