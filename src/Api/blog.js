@@ -53,7 +53,7 @@ export const apiKey = async (data) => {
                 password: 'Basket012Ball'
             },
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             }
         })
 
