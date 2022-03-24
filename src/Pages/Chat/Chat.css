@@ -11,13 +11,13 @@
     padding: 20px;
     border-radius: 10px;
     width: 100%;
-    height: auto;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
     margin-top: 50px;
     margin-left: 70px;
     margin-bottom: 100px;
     overflow-y: scroll;
-    height: 100%;
+    max-height: 75%;
+    height: 75%;
 }
 
 .chat-msg-user{
@@ -121,6 +121,44 @@
     width: 5%;
 }
 
+/* TESTING STYLES */
+.chat-input-wrapper{
+    width: 100% !important;
+    margin-top: 50px !important;
+    height: 50px !important;
+    position: relative;
+}
+
+#file-input {
+    display: none;
+  }
+
+.send-icon{
+    position: absolute;
+    right: 5px;
+    top: 10px;
+    font-size: 35px !important;
+    color: #16a085;
+    cursor: pointer;
+}
+
+.send-icon-upload-file{
+    position: absolute;
+    right: 50px;
+    top: 10px;
+    font-size: 35px !important;
+    color: #16a085;
+    cursor: pointer;
+}
+
+.chat-box-message-input-c{
+    height: 50px !important;
+    width: 90% !important;
+    padding: 10px;
+    border: 2px solid #ACACAD !important;
+    border-radius: 5px !important;
+}
+
 @media(max-width:569px){
     .chart-cantaner{
         background: #fff;
@@ -161,5 +199,16 @@
         margin-top: 20px;
         margin-left: 40px;
     }
+
+    .send-icon{
+        position: absolute;
+        right: -5px;
+        top: 10px;
+        font-size: 35px !important;
+        color: #16a085;
+        cursor: pointer;
+    }
     
 }
+
+
