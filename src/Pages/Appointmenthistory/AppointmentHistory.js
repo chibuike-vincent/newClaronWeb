@@ -114,32 +114,35 @@ function AppointmentHistory() {
 
   return (
     <MainLayout>
-      <div class="ambulance">
-        <div class="heading-container">
-          <h2 class="ambulanc-heading">APPOINTMENTS REQUEST OVERVIEWS</h2>
+                 <div class="lab-wrapper">
+                <div class="lab-header">
+                    <h2>APPOINTMENTS REQUEST OVERVIEWS</h2>
+                   
+                </div>
 
-          <div class="laboratory-container-btn"></div>
-        </div>
+                <div class="box-wrapper">
+                    <div class="box-one box-lab">
+                        <div className='upcoming-num'>0</div>
+                        <p>Pending Individual Request</p>
+                    </div>
 
-        <div class="ambulance-container">
-          <div class="appointment-container-box">
-            <div class="appointment-box one">
-              <div className="upcoming-num">{upcoming.length}</div>
-              <p>Upcoming Appointments</p>
-            </div>
+                    <div class="box-two box-lab">
+                        <div className='pending-num'>0</div>
+                        <p>Pending Individual Request</p>
+                    </div>
 
-            <div class="appointment-box two">
-              <div className="pending-num">{orderedItemNames.length}</div>
-              <p>Pending Appointments</p>
-            </div>
+                    <div class="box-three box-lab">
+                        <div className='completed-num'>0</div>
+                        <p>Pending Individual Request</p>
+                    </div>
 
-            <div class="appointment-box four">
-              <div className="cancelled-num">0</div>
-              <p>Cancelled Appointments</p>
-            </div>
-          </div>
-        </div>
-        <div class="amblance-history-container">
+                    <div class="box-four box-lab">
+                        <div className='cancelled-num'>0</div>
+                        <p>Pending Individual Request</p>
+                    </div>
+                </div>
+
+            <div class="">
           <div>
             <Tabs value={index} onChange={onTabClicked}>
               <Tab className={classes.tab} label="Upcoming" />
@@ -228,7 +231,10 @@ function AppointmentHistory() {
             </div>
           </div>
         </div>
-      </div>
+                    
+                       
+                            
+                    </div>
     </MainLayout>
   );
 }

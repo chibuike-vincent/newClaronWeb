@@ -17,7 +17,7 @@ function Subscribe() {
       // console.log(userData,'fffff')
     return (
         <MainLayout>
-          <div className='subscription-main-container'>
+<div className='subscription-main-container'>
 <div class="snip1214">
 { userData.subscription != 'Basic' ?
   <div class="plan">
@@ -73,7 +73,7 @@ function Subscribe() {
   </div>:<></> }
 
   { userData.subscription != 'Family' ?
-  <div class="plan featured">
+  <div class="plan featured family-plan">
     <h3 class="plan-title">
     Family Plan
     </h3>

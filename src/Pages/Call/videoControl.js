@@ -35,7 +35,7 @@ export const Controls = (props) => {
   };
 
   return (
-    <>
+    <div className='top-controls'>
       <div className="controls">
       <div class="claron-audio-logo-container">
         <h2>Urgents Care</h2>
@@ -61,6 +61,6 @@ export const Controls = (props) => {
         {<button className='leav' onClick={() => leaveChannel()}><FaPhoneSlash className='leav-icon' />End Call</button>}
         </div>
     </div>
-    </>
+    </div>
   );
 };
