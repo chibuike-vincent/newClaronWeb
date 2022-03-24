@@ -11,9 +11,6 @@ export const fetchArticles = async (from, to) => {
             url: `https://api.clarondoc.com/articles`,
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': '*',
-                'Access-Control-Allow-Credentials': true,
                 'Authorization': `Bearer ${auth}`,
                 'x-api-key': key
             }
@@ -36,9 +33,6 @@ export const mediumPosts = async()=>{
         url: 'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@clarondoc',
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Credentials': true,
         }
     })
 
@@ -59,10 +53,7 @@ export const apiKey = async (data) => {
                 password: 'Basket012Ball'
             },
             headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': '*',
-                'Access-Control-Allow-Credentials': true,
+                'Content-Type': 'application/json'
             }
         })
 
