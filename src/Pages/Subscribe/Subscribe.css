@@ -162,6 +162,10 @@
     width: 100%;
   }
 
+  .plan-features{
+    margin-bottom: 50px !important;
+  }
+
   .snip1214 {
     margin-top: 0px !important;
   }
@@ -172,6 +176,8 @@
 
   .plan {
     margin-top: 35px !important;
+    height: 100% !important;
+    margin-bottom: 50px !important;
   }
   .support-header{
     font-size: 15px;
