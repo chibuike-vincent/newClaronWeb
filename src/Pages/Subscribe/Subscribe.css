@@ -162,6 +162,10 @@
     width: 100%;
   }
 
+  .plan-features{
+    margin-bottom: 50px !important;
+  }
+
   .snip1214 {
     margin-top: 0px !important;
   }
@@ -172,6 +176,8 @@
 
   .plan {
     margin-top: 35px !important;
+    height: 100% !important;
+    margin-bottom: 50px !important;
   }
   .support-header{
     font-size: 15px;
@@ -180,6 +186,11 @@
   .order-container{
     margin: 0 !important;
     width: 100%;
+  }
+
+  .featured{
+    margin-bottom: 200px !important;
+
   }
  
 }
@@ -193,5 +204,5 @@
 .subscription-main-container{
   width: 100%;
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
 }

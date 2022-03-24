@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './Chat.css'
-import { FaTelegramPlane, FaRegArrowAltCircleUp } from "react-icons/fa";
+import { FaTelegramPlane, FaArrowAltCircleUp } from "react-icons/fa";
+import { TiAttachment } from "react-icons/ti";
 import MainLayout from '../MainLayout';
 import { useLocation } from 'react-router-dom'
-import { sendMessage} from '../../Api/chats';
+import { sendMessage } from '../../Api/chats';
 import { userDetails } from '../../Api/Auth'
 import firebase from 'firebase';
 import loader from '../../images/spinner.gif'
@@ -36,26 +37,27 @@ function Chat() {
     const [message, setmessage] = useState('')
     const [loading, setloading] = useState(false)
     const [conversation, setconversation] = useState([])
-  
+
     const [error, seterror] = useState()
 
     const [sendingNow, setsendingNow] = useState(false)
-    
+
     const [image, setImage] = useState("")
     const emailR = useRef(null);
+    const messagesEndRef = useRef(null)
 
-    const handleImageAsFile = async(e) => {
+    const handleImageAsFile = async (e) => {
         setloading(true)
         const image = e.target.files[0]
-       await firebase.storage().ref(`new-attaches/${image.name}`).put(image);
-     
-       const url = await firebase.storage().ref(`new-attaches`).child(image.name).getDownloadURL()
-        
+        await firebase.storage().ref(`new-attaches/${image.name}`).put(image);
 
-        if(url){
+        const url = await firebase.storage().ref(`new-attaches`).child(image.name).getDownloadURL()
+
+
+        if (url) {
             setImage(url)
             setloading(false)
-          }
+        }
     }
     const chat_code = (patient, doctor) => {
         return patient + '-' + doctor;
@@ -82,7 +84,7 @@ function Chat() {
             };
 
             sendMessage(sen)
-            
+
             await firebase.firestore().collection('newSMessages').doc(chat_code(user.email, state.doctor.email)).collection('messages').add(sen);
 
             if (true) {
@@ -130,45 +132,49 @@ function Chat() {
             })
         })()
     }, [])
-    
+
+
+    // THIS USEEFFECT TRIGGER WHEN THEIR IS A NEW MESSAGE
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+      }, [conversation]);
 
     function timeSince(date) {
 
         var seconds = Math.floor((new Date() - date) / 1000);
-      
+
         var interval = seconds / 31536000;
-      
+
         if (interval > 1) {
-          return Math.floor(interval) + " years";
+            return Math.floor(interval) + " years";
         }
         interval = seconds / 2592000;
         if (interval > 1) {
-          return Math.floor(interval) + " months";
+            return Math.floor(interval) + " months";
         }
         interval = seconds / 86400;
         if (interval > 1) {
-          return Math.floor(interval) + " days";
+            return Math.floor(interval) + " days";
         }
         interval = seconds / 3600;
         if (interval > 1) {
-          return Math.floor(interval) + " hours";
+            return Math.floor(interval) + " hours";
         }
         interval = seconds / 60;
         if (interval > 1) {
-          return Math.floor(interval) + " minutes";
+            return Math.floor(interval) + " minutes";
         }
         return Math.floor(seconds) + " seconds";
-      }
-      
-//  console.log(conversation, 'rrrrrr')
+    }
+
     return (
         <MainLayout>
-            
+
             <div className="chart-cantaner">
 
                 <h4 className="dr-chat-detail">You are Chatting with <span>Dr {state.doctor.firstname} {age}</span></h4>
 
-                {conversation.length> 0? conversation.map(chat => {
+                {conversation.length > 0 ? conversation.map(chat => {
                     return (
                         <>
                             <div key={chat.sender} className={`${chat.sender === user.email ? 'chat-msg-doc' : 'chat-msg-user'}`}>
@@ -181,33 +187,32 @@ function Chat() {
                                 <p className='created-date'> about {timeSince(new Date(chat.createDate))} ago</p>
                             </div>
 
+                            <div ref={messagesEndRef} />
+
                         </>
                     )
-                }): 'No chat history'}
-                
-                <div class="input-chat-conatiner">
-
+                }) : 'No chat history'}
+                <div className='chat-input-wrapper'>
                 {loading? '':(<div className='img_upload_user' style={{display: image ? "block" : "none"}}>
                     {image !=="" ? <img src={image} alt="" className='upload-image-attachment'/> : ''}
                 </div>)}
-
-                    <div className='message-container-outer'>
-                    <textarea style={{display: image || loading ? "none" : "block"}} 
+                    <textarea type="text" placeholder='Enter your message' 
                     value={message} onChange={(e) => setmessage(e.target.value)}
-                     placeholder="type your message" className="chat-text"
-                     autofocus 
-                     >
-
+                    style={{display: image || loading ? "none" : "block"}}
+                    className='chat-box-message-input-c'>
                     </textarea>
-                    <div className='chat-upload'>
-                    {loading || image !==""? '': <label for="fileimg"><FaRegArrowAltCircleUp className="upload-icon" /></label>}
-                   
-                   {loading && image == ""? <img className='loader-img-file' src={loader} alt=""/> :(<><input type="file" onChange={handleImageAsFile}id="fileimg" className="file-upload-file" />
-                    <FaTelegramPlane onClick={send} className="upload-icon" /></>)}
+                    <div className='actions-wrapper'>
+                    {loading && image == ""? <img className='loader-img-file' src={loader} alt=""/> :(<><input type="file" onChange={handleImageAsFile} id="file-input" />
+                    <FaTelegramPlane onClick={send} className="send-icon" /></>)}
+
+                        {loading || image !==""? '': <label for="file-input" className="send-icon-upload-file">
+                            <TiAttachment onChange={handleImageAsFile}/>
+                        </label>}
+                        <input id="file-input" type="file" />
                     </div>
 
-                    </div>
                 </div>
+
             </div>
         </MainLayout>
     )
