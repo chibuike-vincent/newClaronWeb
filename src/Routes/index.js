@@ -79,26 +79,17 @@ function index() {
                 <Route exact path="/call" element={< Call />} />
                 <Route exact path="/Referral" element={< Referral />} />
                 <Route exact path="/AppointmentHistory" element={<AppointmentHistory/>} />
-              
-               
-               
-                
-               
                 <Route exact path="/profile" element={<UserProfile />} />
                 <Route exact path="/Editpatient" element={<Editpatient />} />
                 <Route exact path="/demandbooking"  element={< DemandBooking />} />
                 <Route exact path="/individualRequest" element={< IndividualRequest />}/>
-                
-                
                 <Route exact path="/otcdrugs" element={< OtcDrugs />} />
                 <Route exact path="/prescribedDrugs" element={< PrescribedDrugs />} />
                 <Route exact path="/prescribed" element={< Prescribed />} />
                 <Route  exact path="/OrderReview" element={< OrderReview />} />
-               
                 <Route exact path="/blog"  element={< Blog />}/>
                 <Route exact path="/pending" element={< PendingOrders />} />
                 <Route exact path="/SavedDoctors" element={< SavedDoctors />} />
-                
                 <Route exact path="/Wallet" element={< Wallet />} />
                 <Route exact path="/notification" element={< Notification />} />
                 <Route exact path="/chat" element={< Chat />} />
