@@ -155,7 +155,7 @@ background: linear-gradient(to right, #F09819, #FF512F); /* W3C, IE 10+/ Edge, F
     display: flex;
     flex-grow: 1;
     justify-content: space-between;
-    gap: 10px;
+    gap: 1rem;
     margin-right: 5px;
 }
 
