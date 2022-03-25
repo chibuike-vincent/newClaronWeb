@@ -1,7 +1,7 @@
 import "core-js/stable";
 import './App.css';
 import React from 'react'
-import IndexRoutes from './Routes/index'
+import IndexRoutes from './Routes/Index'
 // import { requestFirebaseNotificationPermission, onMessageListener } from "./firebaseConfig"
 // import {ShowMessage, type} from "../src/Component/Toaster"
 
