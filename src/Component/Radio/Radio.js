@@ -17,7 +17,7 @@ export default function RowRadioButtonsGroup({value,handleChange}) {
         value={value}
         onChange={handleChange}
       >
-        <FormControlLabel value="Doctor" control={<Radio />} label="Doctor" />
+        {/* <FormControlLabel value="Doctor" control={<Radio />} label="Doctor" /> */}
         <FormControlLabel value="Patient" control={<Radio />} label="Patient" />
       </RadioGroup>
       </div>
