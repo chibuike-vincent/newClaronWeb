@@ -63,10 +63,7 @@ import TermsandCondition from '../Pages/Settings/TermsandCondition'
 import ChangePassword from '../Pages/ChangePassword/ChangePassword'
 import Navbar from '../Component/Navbar/Navbar'
 function Index() {
-    const [user,setUser] = useState()
-       const data =  JSON.parse(localStorage.getItem('user'));
-       
-    console.log(data,'vvvvvv')
+    const data =  JSON.parse(localStorage.getItem('user'));
     return (
         <div>
             <Routes>
