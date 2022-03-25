@@ -1,14 +1,20 @@
 import "core-js/stable";
 import './App.css';
-import React from 'react'
+import React,{useEffect} from 'react'
 import IndexRoutes from './Routes/Index'
+import {  useNavigate} from "react-router-dom"
 // import { requestFirebaseNotificationPermission, onMessageListener } from "./firebaseConfig"
 // import {ShowMessage, type} from "../src/Component/Toaster"
 
 
 function App() {
-  // const [token, setToken] = useState("")
+  const navigate = useNavigate()
+  const data =  JSON.parse(localStorage.getItem('user'));
 
+  useEffect(()=>{
+    data? navigate("userDashboard"): navigate("/")
+  },[])
+  // const [token, setToken] = useState("")
 
   // requestFirebaseNotificationPermission()
   // .then((firebaseToken) => {
