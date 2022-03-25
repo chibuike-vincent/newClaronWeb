@@ -26,9 +26,9 @@ function LandingPage() {
                 </div>
             </section>
 
-            <footer>
+            {/* <footer>
                 <p>© 2020 ClaronDoc. All rights reserved.</p>
-            </footer>
+            </footer> */}
         </div>
         </>
     )
