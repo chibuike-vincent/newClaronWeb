@@ -2,7 +2,8 @@ import React,{useState,useRef,useEffect} from 'react'
 import './Chat.css'
 import { userDetails } from '../../Api/DoctorApi'
 import DoctorLayout from '../../Pages/DoctorLayout'
-import firebase from 'firebase';
+// import firebase from 'firebase';
+import firebase from "../../firebaseConfig"
 import { useLocation } from 'react-router-dom'
 import { FaTelegramPlane} from "react-icons/fa";
 import loader from '../../images/spinner.gif'
@@ -10,20 +11,20 @@ import { TiAttachment } from "react-icons/ti";
 import { useSelector, useDispatch } from 'react-redux'
 import * as API from '../../Api/DoctorApi';
 function Chat() {
-	if (!firebase.apps.length) {
-        firebase.initializeApp({
-            apiKey: "AIzaSyA07_A7At-J9Mu6NMXBpoLVYcrKWR3ezy4",
-            authDomain: "fcm-notify-db9b8.firebaseapp.com",
-            databaseURL: "https://fcm-notify-db9b8.firebaseio.com",
-            projectId: "fcm-notify-db9b8",
-            storageBucket: "fcm-notify-db9b8.appspot.com",
-            messagingSenderId: "77071010064",
-            appId: "1:77071010064:web:e693b1fa22167a00e27d95",
-            measurementId: "G-VWCS7XBQC3"
-        });
-    } else {
-        firebase.app(); // if already initialized, use that one
-    }
+	// if (!firebase.apps.length) {
+    //     firebase.initializeApp({
+    //         apiKey: "AIzaSyA07_A7At-J9Mu6NMXBpoLVYcrKWR3ezy4",
+    //         authDomain: "fcm-notify-db9b8.firebaseapp.com",
+    //         databaseURL: "https://fcm-notify-db9b8.firebaseio.com",
+    //         projectId: "fcm-notify-db9b8",
+    //         storageBucket: "fcm-notify-db9b8.appspot.com",
+    //         messagingSenderId: "77071010064",
+    //         appId: "1:77071010064:web:e693b1fa22167a00e27d95",
+    //         measurementId: "G-VWCS7XBQC3"
+    //     });
+    // } else {
+    //     firebase.app(); // if already initialized, use that one
+    // }
 
     const [email, setemail] = useState('')
     const [user, setUser] = useState({})

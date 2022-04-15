@@ -2,6 +2,7 @@
 
 import firebase from "firebase/app"
 import 'firebase/messaging';
+
     const config = ({
       apiKey: "AIzaSyA07_A7At-J9Mu6NMXBpoLVYcrKWR3ezy4",
       authDomain: "fcm-notify-db9b8.firebaseapp.com",
