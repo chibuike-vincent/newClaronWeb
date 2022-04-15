@@ -1,5 +1,7 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import './DoctorNotifcation.css'
+import DoctorLayout from '../../Pages/DoctorLayout';
+import * as API from "../../Api/DoctorApi";
 const notification = [
     {
         id: 1,
@@ -31,18 +33,34 @@ const notification = [
     }
 ]
 function DoctorNotification() {
+    const [notifications, setNotifications] = useState(null)
+
+    useEffect(() => {
+        const getNotifications = async() => {
+            const response = await API.getNotifications()
+            console.log(response, "notifications")
+            setNotifications(response)
+        }
+
+        getNotifications()
+    },[])
     return (
-        <div className="notification-top-container">
+        <>
+         <DoctorLayout>
+         <div className="notification-top-container">
             <h4>Notifications</h4>
-                {notification.map((data)=>{
+                {notifications && notifications.length ? notifications.map((data)=>{
                     return(
                 <div class="notification-container">
                 <h4  class="notification-title">{data.title}<span className="time">{data.date}</span></h4>
                 <p>{data.prescription}</p>
               </div>
                     )
-                })}
+                }) : <h2>No notifications available</h2>}
         </div>
+         </DoctorLayout>
+        </>
+       
     )
 }
 

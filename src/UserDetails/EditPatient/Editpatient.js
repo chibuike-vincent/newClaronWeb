@@ -141,12 +141,12 @@ function Editpatient() {
             </div>
             <h2 className='update-kindly'>Kndly Update Your Profile {userData.firstname}</h2>
             <img src={userData.avatar !== "undefined"? userData.avatar:image} alt="" className="pro-img" />
-           
-            <Grid className='top-beda-edit' container spacing={2}>
             <div class="parent-div">
                 <button class="btn-upload" >{imgloading ? "Uploading" : "Change Photo"}</button>
                 <input onChange={(e) => ImageUpload(e)} type="file" name="upfile" />
             </div>
+            <Grid className='top-beda-edit' container spacing={2}>
+
                 <p>{error?error:''}</p>
                 <Grid item xs={12} md={6}>
                     <input
@@ -166,7 +166,7 @@ function Editpatient() {
                 </Grid>
             </Grid>
 
-            <Grid container spacing={2}>
+            <Grid className='top-beda-edit' container spacing={2}>
         
                 <Grid item xs={12} md={6}>
                     <input
@@ -177,21 +177,19 @@ function Editpatient() {
                     
                     />
                 </Grid>
-            </Grid>
-
-            <Grid container spacing={2}>
-              
 
                 <Grid item xs={12} md={6}>
 
-                    <input
-                        className="edit-input-beda"
-                        value={phoneNumber}
-                        onChange={(e)=>setPhoneNumber(e.target.value)}
-                      
-                    />
-                </Grid>
+<input
+    className="edit-input-beda"
+    value={phoneNumber}
+    onChange={(e)=>setPhoneNumber(e.target.value)}
+  
+/>
+</Grid>
             </Grid>
+
+           
             <Button
              disabled={loading}
              onClick={saveAccount} 

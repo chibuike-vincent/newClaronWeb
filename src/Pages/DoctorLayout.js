@@ -1,26 +1,20 @@
-
-import React, { useState,useEffect } from 'react'
-import TextField from '@mui/material/TextField';
-import {FaAlignJustify,FaCartPlus} from "react-icons/fa";
-import { Routes, Route, Link } from "react-router-dom"
-import Badge from '@mui/material/Badge';
-import {SidebarMenus} from '../DoctorPages/Sidbar/SidebarMenu'
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import '../DoctorPages/Dashboard/Dashboard.css'
+import React, { useState, useEffect } from "react";
+import TextField from "@mui/material/TextField";
+import { FaAlignJustify, FaCartPlus } from "react-icons/fa";
+import { useNavigate, Link } from "react-router-dom";
+import Badge from "@mui/material/Badge";
+import { SidebarMenus } from "../DoctorPages/Sidbar/SidebarMenu";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import "../DoctorPages/Dashboard/Dashboard.css";
+import * as API from "../Api/DoctorApi";
 // PAGES IMPORTS
-import docuser from '../images/doc-1.jpg'
-import LabRequest from '../DoctorPages/LabRequest/LabRequest'
-import PrescribeDrugs from '../DoctorPages/PrescribedDrugs/PrescribeDrugs'
-import Settings from '../DoctorPages/Settings/Settings'
-import Home from '../DoctorPages/Home/Home'
-import DocDrugs from '../DoctorPages/PrescribedDrugs/DocDrugs'
-import Chat from '../DoctorPages/Chat/Chat'
-import DrugHistory from '../DoctorPages/DrugPrescriptionHistory/DrugHistory'
-import LabRequestDoctor from '../DoctorPages/LabRequestDoctor/LabRequestDoctor'
-import Actions from '../DoctorPages/Actions/Actions'
-import Switch from '../DoctorPages/DocComponent/Switch'
+import docuser from "../images/doc-1.jpg";
+import { FaCaretDown } from "react-icons/fa";
+import { LOGOUT } from "../features/user";
+import { useSelector, useDispatch } from "react-redux";
+import Switch from "../DoctorPages/DocComponent/Switch";
 // import UserDropDown from './UserDropDown'
-import doc from '../images/doc-1.jpg'
+import doc from "../images/doc-1.jpg";
 // import DocFacilityRequest from '../DocFacilityRequest/DocFacilityRequest'
 // import DoctorNotification from '../DoctorNotification/DoctorNotification'
 // import UpdateProfile from '../Settings/UpdateProfile'
@@ -31,90 +25,149 @@ import doc from '../images/doc-1.jpg'
 // import Switch from '../DocComponent/Switch'
 // import CartModal from '../Modals/CartModal'
 function DoctorLayout({ children }) {
-    const [open, setOpen] = useState(false)
-    const [sidebar, setSidebar] = useState(true)
-    const [activeRoute, setActiveRoute] = useState('')
-    const [anchorEl, setAnchorEl] = useState(null);
-    const openAction = Boolean(anchorEl);
+  const [open, setOpen] = useState(false);
+  const [sidebar, setSidebar] = useState(true);
+  const [activeRoute, setActiveRoute] = useState("");
+  const [anchorEl, setAnchorEl] = useState(null);
+  const dispatch = useDispatch();
+  const openAction = Boolean(anchorEl);
+  const userData = useSelector((state) => state.user.value);
+  const navigate = useNavigate();
+  const [notifications, setNotifications] = useState([]);
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-        console.log(activeRoute)
-      };
-      const handleClose = () => {
-        setAnchorEl(null);
-      };
+  useEffect(() => {
+    const getNotifications = async () => {
+      const response = await API.getNotifications();
+      console.log(response.length, "notifications");
+      setNotifications(response);
+    };
 
-    return (
-        <>
-            <div className="static-dashboard">
-            <div className="dashboard-container">
-                <div className={sidebar?'sidabar-container':'sidebar-container-sm'}>
-                        {sidebar?(
-                        <>
-                            <div className="profile-container doc">
-                            <img src={doc} alt="" className="user-left" />
-                        </div>
-                        <div class="user-detail">
-                            <p className="name">Vincent Chibuike</p>
-                            <p className="title">Patients</p>
-                        </div>
-                            </>
-                        ):''}
-                        
-                    <div className="services-container">
-                        {SidebarMenus.map(item=>(
-                           <Link
-                            onClick={() => setActiveRoute(item.path)}
-                            key={item.id}
-                            to={item.path} 
-                            className={activeRoute === item.path ? 'active service' : 'service'}
-                            > {item.name} {item.icon}</Link>      
-                        )
-                        )}
-                        {/* <Link to="/" className="service"> {sidebar?'Dashboard':''}  <FaTh className="icon-single" /></Link> */}
-                    </div>
-                </div>
-                <div className="content">
-                    <div class="content-container">
-                        <div class={sidebar?'navbar-container':'navbar-container-full'}>
-                            <div className="menu-container">
-                                <FaAlignJustify className="menu-icon" onClick={()=>setSidebar(!sidebar)}/>
-                            </div>
-                      
-                             {activeRoute==="/PrescribeDrugsUser" && <Link to="/CartModal" class="cat-container">
-                            <h5 className="cart-items"> <FaCartPlus className="cart"/>0</h5>
-                            </Link>}  
-                             
-                            <Link to="/DoctorNotification" class="notification">
-                                <Badge badgeContent={4} color="success">
-                                    <NotificationsIcon color="action" />
-                                </Badge>
-                            </Link>
+    getNotifications();
+  }, []);
 
-                        <div className="doc-info">
-                        <Switch/>
-                        <img src={docuser} alt="" />
-                        <div onClick={handleClick} className="name-prof">
-                            <p className="info-name">Spunky Henry</p>
-                            <p>Health Professional</p>
-                        </div>
-                        {/* <UserDropDown handleClose={handleClose} handleClick={handleClick} anchorEl={anchorEl} openAction={openAction}/> */}
-                    </div>
-                        </div>
+  const handleClick = (event) => {
+    setOpen(!open);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-                    </div>
+  const logOut = () => {
+    localStorage.removeItem("email");
+    localStorage.removeItem("access-token");
+    localStorage.removeItem("api-key");
+    localStorage.removeItem("login-expiry");
+    localStorage.removeItem("user");
+    dispatch(LOGOUT());
+    navigate("/");
+  };
 
-                    {/* =====ROUTES TO DIFFRENT PAGES */}
-                   
-                </div>
-                <div className="individual-content-lg">
-                    {children}
-                </div>
-            </div>
+  return (
+    <>
+      <input type="checkbox" id="nav-toggle" />
+      <div class="sidebar">
+        <div className="profile-container">
+          <img
+            src={userData.avatar !== "undefined" ? userData.avatar : docuser}
+            alt=""
+            className="user"
+          />
         </div>
-        </>
-    )
+        <div className="responsive-title">
+          <p className="name">
+            {userData ? userData.firstname : ""}{" "}
+            {userData ? userData.lastname : null}
+          </p>
+          <p className="title">{userData.seniority}</p>
+        </div>
+        <div class="sidebar-menu">
+          <ul>
+            <li className="service-d">
+              <Link to="/doctorDashboard">
+                <span class="las la-table"></span>
+                <span className="dash-mobile">Dashboard</span>
+              </Link>
+            </li>
+            <li className="service-d">
+              <Link to="/LabRequestUser">
+                <span class="las la-stethoscope"></span>
+                <span>Request Lab Test</span>
+              </Link>
+            </li>
+            <li className="service-d">
+              <Link to="/PrescribeDrugsUser">
+                <span class="las la-user-injured"></span>
+                <span>Prescribe Drugs</span>
+              </Link>
+            </li>
+            {/* <li className="service-d">
+              <Link to="/DrugHistoryDoctor">
+                <span class="las la-history"></span>
+                <span>Prescription History</span>
+              </Link>
+            </li> */}
+            <li className="service-d">
+              <Link to="/Consultations">
+                <span class="las la-ambulance"></span>
+                <span>Consultation</span>
+              </Link>
+            </li>
+            {/* <li className="service-d">
+              <Link to="/RequestHistoryDoctor">
+                <span class="las la-clinic-medical"></span>
+                <span>Lab Request History</span>
+              </Link>
+            </li> */}
+          </ul>
+        </div>
+      </div>
+
+      <div class="main-content">
+        <header className="main-content-toggle">
+          <div className="nav-okay">
+            <label for="nav-toggle">
+              <span class="las la-bars"></span>
+            </label>
+          </div>
+
+          {notifications && notifications.length ? (
+            <Link to="/DoctorNotification" class="notification">
+              <Badge badgeContent={notifications.length} color="success">
+                <NotificationsIcon color="action" />
+              </Badge>
+            </Link>
+          ) : null}
+
+          <div class="user-wrapper">
+            <Switch />
+            <img
+              src={userData.avatar !== "undefined" ? userData.avatar : docuser}
+              width="40px"
+              height="40px"
+              alt="user"
+            />
+            <div>
+              <div className="responsive-mobile-profile">
+                <h4 onClick={handleClick}>Profile</h4>
+                <FaCaretDown />
+              </div>
+
+              {open ? (
+                <div className="hover-menu">
+                  <Link to="/Settings">Settings</Link>
+                  <Link to="/Availability">Availability</Link>
+                  <Link to="/ClaronTerms">Terms and Condition</Link>
+                  <span onClick={logOut}>Logout</span>
+                
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </header>
+        <main>{children}</main>
+      </div>
+    </>
+  );
 }
 
-export default DoctorLayout
+export default DoctorLayout;

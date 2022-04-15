@@ -136,3 +136,12 @@
 } 
 
 
+.drug-patient-container{
+    display: flex;
+    flex-flow: wrap;
+    margin-left: 5px;
+    overflow: scroll;
+    height: 800px;
+    padding-bottom: 60px;
+}
+

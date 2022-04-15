@@ -52,6 +52,8 @@ function Index() {
   const [trackState, setTrackState] = useState({ video: true, audio: true });
   const [muteAudio, setMuteAudio] = useState(false);
   const [initializing, setInitializing] = useState(false)
+  const [doctor, setDoctor] = useState("")
+  const [userEmail, setUserEmail] = useState("")
 
   let countt_r = useRef(0)
   countt_r.current = 0;
@@ -83,10 +85,10 @@ function Index() {
       let clientInstance = await Agora.createClient(config);
       const type = location.state.mediaType
       setTrackType(type)
-     setOpen(true)
-  
       setClient(clientInstance);
       setClientInstance(clientInstance)
+        setOpen(true)
+      
     }
     getClienInstance()
    
@@ -147,26 +149,24 @@ function Index() {
   };
 
 
-  const startUrgent = async()=>{
-
+  const startUrgent = async(email)=>{
     setInitializing(true)
     
     try{
       
       let res = await axios.get('https://api.clarondoc.com/urgent/token')
      
-      let doc = await firebase.firestore().collection('calls').doc(recp).set({data: {
+      let doc = await firebase.firestore().collection('calls').doc(email).set({data: {
         time: new Date(),
-        recipient: recp,
+        recipient: email,
         caller: userDetail.email,
         status: 'started',
         channel: res.data.RTCChannel,
         token: res.data.RTCAccessToken
       }})
-      call_id = (recp)
+      // call_id = (recp)
       await join(res.data.RTCChannel,res.data.RTCAccessToken)
-      console.log('started')
-
+      
     }catch(e){
       console.log(e)
       alert('Unable to start call', e.message)
@@ -181,12 +181,14 @@ function Index() {
     // start
     setrecp(email)
     email_r.current = email;
+
+  
     
-    await startUrgent();
+    await startUrgent(email);
     
 
       firebase.firestore().collection('calls').doc(email).onSnapshot(async snapshot=>{
-         
+       console.log(snapshot, "snapshotsnapshot")
             try {
               if(true){
                 urgent = snapshot.data().data;
@@ -241,7 +243,8 @@ function Index() {
 
   return (
     <div className="out-container-call">
-     <Modal
+      
+          <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -268,11 +271,15 @@ function Index() {
          
         </Box>
       </Modal>
+     
       {inCall ? (
          <>
          <div className="controls">
          <div class="claron-audio-logo-container">
-           <h2>Urgents Care</h2>
+           
+               <h2>Urgents Care</h2>
+           
+          
            <img className='cal-logo-img' src={image} alt="" />
          </div>
          <div id="local_stream"></div>

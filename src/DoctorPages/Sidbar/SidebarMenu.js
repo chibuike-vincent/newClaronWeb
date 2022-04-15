@@ -20,12 +20,12 @@ export const SidebarMenus =[
         path: '/PrescribeDrugsUser',
         icon: <FaNotesMedical/>
     },
-    {
-        id: 4,
-        name:"Drug Prescription History",
-        path: '/DrugHistoryDoctor',
-        icon: <FaUserMd/>
-    },
+    // {
+    //     id: 4,
+    //     name:"Drug Prescription History",
+    //     path: '/DrugHistoryDoctor',
+    //     icon: <FaUserMd/>
+    // },
     {
         id: 5,
         name:"Consultation",
@@ -33,11 +33,11 @@ export const SidebarMenus =[
         icon: <FaHeadset/>
     },
 
-    {
-        id:6,
-        name:"Lab Request History",
-        path: '/RequestHistoryDoctor',
-        icon: <FaVial/>
-    },
+    // {
+    //     id:6,
+    //     name:"Lab Request History",
+    //     path: '/RequestHistoryDoctor',
+    //     icon: <FaVial/>
+    // },
 ]
 

@@ -6,15 +6,6 @@
 }
 
 .container{
-    /* display: flex;
-    margin-top: 30px;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-    background-color: #fff !important;
-    overflow-y: auto; */
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,9 +13,32 @@
     height: 100vh;
     background-color: #fff !important;
     overflow-y: auto;
+    
 }
 
+.signin-container{
+    overflow: hidden;
+}
 
+.loginContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    padding: 50px;
+    height: 100vh;
+    background-color: rgb(217, 233, 226) !important;
+    overflow-y: auto;
+    text-align: center;
+}
+.title{
+    margin-bottom: 30px;
+}
+
+.SignIn-Img{
+    width: 50%;
+}
 
 .inputContainer{
     width: 60%;
@@ -33,6 +47,7 @@
 
 .text-field{
     margin-bottom: 20px !important;
+    width: 80% !important;
 }
 
 .input-field{
@@ -50,24 +65,19 @@
     position: absolute;
     left: 20px;
 }
-.SignIn-Img{
-    width: 50%;
-}
 
 
 .sigInBtn {
     background-color: #61CD88 !important;
     border: none;
     color: white !important;
-    padding: 50px;
+    padding: 10px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 32px;
+    font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
-    width: 30%;
-    height: 60px;
   }
 
   .passForgotContainer{
@@ -75,13 +85,10 @@
       justify-content: space-between;
       align-items: center;
       margin-top: 20px;
-      width: 80%;
-      margin-bottom: 20px;
-      font-size: large;
   }
 
   .passForgotContainer p{
-      color: salmon;
+      color: #61CD88;
       cursor: pointer;
   }
   .socialContainer{
@@ -134,7 +141,7 @@
 }
 
 .sign-up{
-color: #61CD88;
+color: salmon;
 }
 
 /* MEDIA QUERY */

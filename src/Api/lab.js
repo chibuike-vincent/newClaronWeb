@@ -12,7 +12,6 @@ export const facilityLabRequest = async (data) => {
         data,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Credentials': true,
             'Authorization': `Bearer ${auth}`,
             'x-api-key': key
         }
@@ -22,7 +21,7 @@ export const facilityLabRequest = async (data) => {
 }
 
 export const individualLabRequest = async (data) => {
-    console.log(data, 'ggggggggg')
+  
     try{
         const key = await apiKey()
         const auth = await localStorage.getItem('access-token');
@@ -33,7 +32,6 @@ export const individualLabRequest = async (data) => {
             data,
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Credentials': true,
                 'Authorization': `Bearer ${auth}`,
                 'x-api-key': key
             }
@@ -57,7 +55,6 @@ export const getLabTests = async () => {
         url: `https://api.clarondoc.com/tests`,
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Credentials': true,
             'Authorization': `Bearer ${auth}`,
             'x-api-key': key
         }
@@ -81,7 +78,6 @@ export const apiKey = async () => {
             },
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Credentials': true,
             }
         })
 
@@ -166,7 +162,7 @@ export const getLabTestIndividual = async (email) => {
             'Content-Type': 'application/json',
 
             'Authorization': `Bearer ${auth}`,
-            'x-api-key': key.at,
+            'x-api-key': key,
         }
     })
 

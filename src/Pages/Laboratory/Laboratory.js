@@ -52,53 +52,67 @@ function Laboratory() {
     const [loaded, setLoaded] = useState(false)
     const [individual, setIndividual] = useState([])
     const [facility, setFacility] = useState([])
+
+    console.log(userData)
     useEffect(() => {
 
-        (async () => {
-
-            if (!loaded) {
-                try {
+        const getLab = async () => {
+            setLoaded(true)
+            // if (!loaded) {
+                // try {
                     const dataIndividual = await getLabTestIndividual(userData.email);
-                    setIndividual(dataIndividual.requests)
-
                     const dataIndFacility = await getLabTestFacility(userData.email);
-                    setFacility(dataIndFacility.requests)
 
-                } catch (e) {
-                    console.log(e)
-                }
-                setLoaded(true)
+                    console.log(dataIndFacility,dataIndividual)
+
+                    if(dataIndFacility || dataIndividual){
+                        console.log(dataIndividual)
+                        setIndividual(dataIndividual.requests)
+
+                        
+                        console.log(dataIndFacility)
+                        setFacility(dataIndFacility.requests)
+                        setLoaded(false)
+                    }
+                    
+
+                // } catch (e) {
+                //     console.log(e)
+                // }
+                
             }
 
-        })()
-    })
+            getLab()
+
+        // })()
+    }, [])
     return (
         <MainLayout>
             <div class="lab-wrapper">
                 <div class="lab-header">
                     <h2>LABORATORY REQUEST OVERVIEW</h2>
-                    <Link to="" className="facility-btn lab-text">LABORATORY REQUEST</Link>
+                    <Link to="/facilityrequest" className="facility-btn lab-text">LABORATORY REQUEST</Link>
                 </div>
 
                 <div class="box-wrapper">
                     <div class="box-one box-lab">
-                        <div className='upcoming-num'>0</div>
+                        <div className='upcoming-num'>{individual.length}</div>
                         <p>Pending Individual Request</p>
                     </div>
 
                     <div class="box-two box-lab">
                         <div className='pending-num'>0</div>
-                        <p>Pending Individual Request</p>
+                        <p>Completed Individual Request</p>
                     </div>
 
                     <div class="box-three box-lab">
-                        <div className='completed-num'>0</div>
-                        <p>Pending Individual Request</p>
+                        <div className='completed-num'>{facility.length}</div>
+                        <p>Pending Facility Request</p>
                     </div>
 
                     <div class="box-four box-lab">
                         <div className='cancelled-num'>0</div>
-                        <p>Pending Individual Request</p>
+                        <p>Completed Individual Request</p>
                     </div>
                 </div>
 

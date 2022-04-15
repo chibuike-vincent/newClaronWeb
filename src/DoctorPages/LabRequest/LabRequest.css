@@ -89,3 +89,12 @@
   .search-doc-conatainer h2{
     text-align: center;
   }
+
+  .lab-patient-container{
+    display: flex;
+    flex-flow: wrap;
+    margin-left: 5px;
+    overflow: scroll;
+    height: 800px;
+    padding-bottom: 60px;
+}

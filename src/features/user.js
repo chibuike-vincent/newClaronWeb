@@ -9,6 +9,7 @@ const userSlice = createSlice({
     },
     reducers:{
         LOGIN: (state,action)=>{
+            console.log(action.payload, "action.payload")
             state.value = action.payload
         },
         LOGOUT:(state)=>{
@@ -20,6 +21,10 @@ const userSlice = createSlice({
 
         UPDATESUB: (state,action)=>{
             state.value.subscription = action.payload
+        },
+
+        UPDATEAVAILABILITY: (state,action)=>{
+            state.value.availability = action.payload
         },
 
         UPDATEUSERINFO: (state,action)=>{
@@ -55,5 +60,5 @@ const userSlice = createSlice({
         },
     }
 })
-export const {LOGIN,LOGOUT,UPDATE,UPDATESUB,UPDATEUSERINFO,UPDATECARTINFO,REMOVEFROMCART, UPDATECARTQUANTITY, NOTIFICATIONS,CLEARCARTINFO} = userSlice.actions
+export const {UPDATEAVAILABILITY,LOGIN,LOGOUT,UPDATE,UPDATESUB,UPDATEUSERINFO,UPDATECARTINFO,REMOVEFROMCART, UPDATECARTQUANTITY, NOTIFICATIONS,CLEARCARTINFO} = userSlice.actions
 export default userSlice.reducer;

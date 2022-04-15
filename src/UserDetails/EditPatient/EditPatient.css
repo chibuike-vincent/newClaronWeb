@@ -12,6 +12,7 @@
     justify-content: center;
     align-items: center;
     width: 93%;
+
     height: 80%;
     overflow-y: auto;
     margin-left: 50px;
@@ -81,7 +82,9 @@
   }
 
   .top-beda-edit{
-    margin-top: 30px !important;
+    margin-top: 20px !important;
+    width: 80% !important;
+
   }
 
   @media(max-width:569px){

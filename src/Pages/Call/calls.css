@@ -45,12 +45,68 @@
     background-color: black !important;
      height: 100%;
      width: 100vw;
-     /* position: absolute; */
      display: flex;
      flex-direction: column;
     justify-content: space-around;
-    /* align-items: flex-end; */
     border-radius: 20px;
+ }
+ .vid-main{
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    z-index: 1;
+    border-width: 1px;
+    right: 0;
+    bottom: 0;
+  }
+
+  .vid{
+    position: relative;
+    height: 97vh;
+    width: 100%;
+  }
+
+ .video-controls{
+     height: 10%;
+     width: 30vw;
+     position: absolute;
+     z-index: 1;
+     color: red;
+     display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 20px;
+    bottom: 0;
+ }
+
+ .video-controls p{
+    cursor: pointer;
+
+ }
+
+ .video-controls-button{
+    background-color: #fff !important;
+    height: 70px;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border-radius: 100px;
+    
+ }
+
+ .leave-video-controls-button{
+    background-color: red !important;
+    height: 70px;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border-radius: 100px;
+    color: #fff;
+    
  }
  
  .claron-audio-logo-container h2{

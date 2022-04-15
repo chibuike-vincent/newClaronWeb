@@ -18,13 +18,14 @@ import ActionsModal from './ActionsModal';
 import DoctorProfile from './DoctorProfile';
 import './Consultation.css'
 // import PrescriptionModal from '../../Component/PrescriptionModal/PrescriptionModal'
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 import { userDetails, downgrade } from '../../Api/Auth'
 import { fetchDoctors } from '../../Api/doctors';
 import { makeBooking } from '../../Api/doctors';
 import doctorDefault from '../../images/doctor.png'
-import loading from '../../images/loading.gif'
+import load from '../../images/loading.gif'
+
 import { useSelector } from 'react-redux'
 const style = {
     position: 'absolute',
@@ -40,6 +41,7 @@ const style = {
 function Consultation() {
     const userData = useSelector((state) => state.user.value)
     const [openModal, setOpenModal] = useState(false)
+    const [searchParams] = useSearchParams()
     const [open, setOpen] = useState(false);
     const [call, setCall] = useState(false)
     const handleOpen = (doctor) => {
@@ -63,6 +65,7 @@ function Consultation() {
     const [user, setUser] = useState({})
     const [expiry, setexpiry] = useState()
     const [loaded, setloaded] = useState(false)
+    const [loader, setLoader] = useState(false)
     const [favorites, setfavorites] = useState([])
     const [loading, setloading] = useState(false)
     const available = ['06:00 - 07:00', '07:00 - 08:00', '08:00 - 09:00', '09:00 - 10:00', '10:00 - 11:00', '11:00 - 12:00', '12:00 - 13:00', '13:00 - 14:00', '14:00 - 15:00', '15:00 - 16:00', '16:00 - 17:00', '17:00 - 18:00', '18:00 - 19:00', '19:00 - 20:00', '20:00 - 21:00'];
@@ -87,27 +90,27 @@ function Consultation() {
         setOpenP(true)
     };
 
-    const checkSubscription = async (date) => {
+    // const checkSubscription = async (date) => {
 
-        if (date == null) {
-            return
-        }
+    //     if (date == null) {
+    //         return
+    //     }
 
-        const days = moment().diff(date, 'days')
-        const left = moment(date).add(1, 'day').fromNow()
+    //     const days = moment().diff(date, 'days')
+    //     const left = moment(date).add(1, 'day').fromNow()
 
-        if (days === 0) {
-            setexpiry('Your subscription ends today. Renew now to avoid losing access to services')
-        } else if (days < 0 && days > -11) {
-            setexpiry(`Your subscription ends in ${left}. Renew now to avoid losing access to services`)
-        } else if (days > 0 && days < 10) {
-            setexpiry(`Your subscription ended ${left}. Renew now to avoid losing access to services`)
-        } else if (days > 10) {
-            let res = await downgrade()
-            console.info(res)
-            // setexpiry(`Your subscription ended ${left}. Renew now to avoid losing access to services`)
-        }
-    }
+    //     if (days === 0) {
+    //         setexpiry('Your subscription ends today. Renew now to avoid losing access to services')
+    //     } else if (days < 0 && days > -11) {
+    //         setexpiry(`Your subscription ends in ${left}. Renew now to avoid losing access to services`)
+    //     } else if (days > 0 && days < 10) {
+    //         setexpiry(`Your subscription ended ${left}. Renew now to avoid losing access to services`)
+    //     } else if (days > 10) {
+    //         let res = await downgrade()
+    //         console.info(res)
+    //         // setexpiry(`Your subscription ended ${left}. Renew now to avoid losing access to services`)
+    //     }
+    // }
 
     // SEARCH FUNCTIONALITY FUNCTION
     const searchPatient = (searchValue) => {
@@ -122,41 +125,33 @@ function Consultation() {
         }
     }
 
+    
+    // let token = localStorage.getItem('access-token')
+    // let key = localStorage.getItem('api-key');
+
+    console.log(searchParams, "from consultation")
 
     useEffect(() => {
-        (async () => {
-            let account = localStorage.getItem('user')
-            let token = localStorage.getItem('access-token')
-            let key = localStorage.getItem('api-key');
-            setUser(JSON.parse(account))
-            let found = await fetchDoctors()
-            setDoctors(found)
-            console.log(favorites)
-            userDetails(JSON.parse(account).email, key, token).then(data => {
-                setUser(data)
-            }).catch(e => {
-                console.log('Error: ', e)
-            })
+       setLoader(true)
+        const getDoctors = async () => {
 
-            if (!loaded) {
-                let saved = localStorage.getItem('saved')
-                if (saved == null) {
-                    return
-                }
-                // console.log(saved)
-                setfavorites(saved.split(','))
-                setloaded(true)
-            }
+            setTimeout(async() => {
+                let account = localStorage.getItem('user')
+                setUser(JSON.parse(account))
+                let found = await fetchDoctors()
+                setDoctors(found)
+                console.log(favorites)
+                userDetails().then(data => {
+                    setUser(data)
+                }).catch(e => {
+                    console.log('Error: ', e)
+                })
+                setLoader(false)
+            }, 3000)
 
-            try {
-                checkSubscription(JSON.parse(account).subscription_end);
-            } catch (e) { }
+        }
 
-            // ['Family', 'Premium'].includes(JSON.parse(account).subscription) ?
-            //     setMenu(secondary) :
-            // ['Basic'].includes(JSON.parse(account).subscription) ? setMenu(basic) : setMenu(main)
-
-        })()
+        getDoctors()
 
     }, [])
 
@@ -225,7 +220,7 @@ function Consultation() {
                         onChange={(e) => searchPatient(e.target.value)}
                         placeholder="Search for doctor by name, department or email" />
                 </div>
-                {searchInput.length > 0 ?
+                { searchInput.length > 0 ?
                     <div class="box-container">
 
                         {filtered.length ? filtered.map((doctor) => (
@@ -297,7 +292,7 @@ function Consultation() {
                     (
                         <div class="box-container">
 
-                            {doctors.length ? doctors.map((doctor) => (
+                            {loader ? (<img src={load} alt="" className="loader-img" /> ) : doctors.length && doctors.map((doctor) => (
                                 <div key={doctor.email} class="box" id={doctor.email}>
                                     {doctor.availability === 'Online' ? <div className="active-state">Active</div> : ''}
 
@@ -337,7 +332,7 @@ function Consultation() {
                                     </div>
                                 </div>
 
-                            )) : (<img src={loading} alt="" className="loader-img" />)}
+                            ))}
 
                             {/* BOOK DOCTOR MODAL */}
                             <Modal

@@ -71,16 +71,13 @@ function SignIn() {
         setLoading(true);
         try {
             const response = await login(email, password)
-            if (response.success && value === "Patient") {
+            if (response.success) {
                 setLoading(false)
-                console.log(response)
+                console.log(response, "from login")
                 let currentUser = localStorage.getItem('user');
                 dispatch(LOGIN(JSON.parse(currentUser)))
                 navigate("/userDashboard")
             }
-            // else if (value === "Doctor") {
-            //     navigate("/doctorDashboard")
-            // }
             else {
                 setError(response.message, 'fffff')
                 setLoading(false)
@@ -197,10 +194,12 @@ function SignIn() {
         <div className='signin-container'>
             <Navbar />
             <div className="container">
-                <img src={signIn} alt="login" style={{ width: '500px', height: 400 }} className="SignIn-Img" />
+                <img src={signIn} alt="login"  className="SignIn-Img" />
 
                 <div className="loginContainer">
-                    <div className="inputContainer">
+                    {/* <div className="inputContainer"> */}
+
+                    <h2 className='title'>Login</h2>
                         
                         <p style={{ color: 'red', marginTop: 5, textAlign: 'center', fontSize: 20, paddingBottom: 10 }}>{error ? error : ''}</p>
                         
@@ -214,28 +213,23 @@ function SignIn() {
                         <TextField
                             value={password}
                             type="password"
+                            className='text-field'
                             onChange={(e) => setPassword(e.target.value)}
                             fullWidth id="outlined-basic" label="Password" variant="outlined" />
 
-                        <Radio value={value} handleChange={handleChange} />
+                        
 
                         <div className="passForgotContainer">
                             <p onClick={handleOpen}>forgot Password</p>
-                            {/* <button  className="sigInBtn" onClick={loginUser}>{loading ? 'Please wait...' : 'Login'}</button> */}
 
-                            <Button disabled={disablebtn} onClick={ value==="Doctor"?loginDoctor:loginUser}  className={!disablebtn ? 'sigInBtn':null} variant="contained">{loading ? 'Please wait...' : 'Login'}</Button>
+                            <Button onClick={loginUser}  className='sigInBtn' variant="contained">Login</Button>
                         </div>
                         <p className="or">Or</p>
-                    </div>
+                    {/* </div> */}
                     <div className="socialContainer">
 
                         <button className="facebook"><FaFacebookF className="icon" />Sign in with Facebook</button>
-                        {/* <FacebookLogin
-                            appId="2426070504190344"
-                            
-                            onClick={componentClicked}
-                            callback={facebook} /> */}
-                        {/* <button className="google"><FcGoogle className="icon" />Sign in with Google</button> */}
+                       
                         <GoogleLogin
                             clientId="975805596889-071l5f7rtmfbeqjov22r8i03m6rh5q2j.apps.googleusercontent.com"
                             onSuccess={loginSuccess}

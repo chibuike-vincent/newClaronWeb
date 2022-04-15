@@ -1,17 +1,12 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 import homeImage from '../../images/home-img.svg'
-import doc2 from '../../images/claron-2.jpeg'
-import playstore from '../../images/playstore.png'
-import call from '../../images/help-call.jpg'
 import './LandingPage.css'
 import 'aos/dist/aos.css'
-import Aos from 'aos'
 import Navbar from '../../Component/Navbar/Navbar'
 
+
 function LandingPage() {
-    useEffect(() => {
-        Aos.init()
-    }, [])
+
     return (
         <>
         <Navbar/>
@@ -25,10 +20,6 @@ function LandingPage() {
                     <p>ClaronDoc is a leading digital health organization which connect patients with top healthcare professionals.</p>
                 </div>
             </section>
-
-            {/* <footer>
-                <p>© 2020 ClaronDoc. All rights reserved.</p>
-            </footer> */}
         </div>
         </>
     )

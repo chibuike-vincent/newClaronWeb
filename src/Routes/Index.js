@@ -54,22 +54,26 @@ import TermsD from '../DoctorPages/Terms/Terms'
 import AboutD from '../DoctorPages/About/About'
 import CartModal from '../DoctorPages/Modals/CartModal'
 import Call from '../Pages/Call/audioCalls'
+import Video from '../Pages/Call/Video'
 // PUBLIC PAGES
 import SignUp from '../Pages/signup/Signup'
 import SignIn from '../Pages/SignIn/SignIn'
+import DocSignIn from "../Pages/DoctorSignIn/SignIn"
 import About from '../Pages/Settings/About'
 import LandingPage from '../Pages/landingPage/LandingPage';
 import TermsandCondition from '../Pages/Settings/TermsandCondition'
 import ChangePassword from '../Pages/ChangePassword/ChangePassword'
+import LoginOptions from "../Pages/LoginOption/options"
 import Navbar from '../Component/Navbar/Navbar'
+import Availability from '../DoctorPages/Availability/Availability'
 function Index() {
-    const data =  JSON.parse(localStorage.getItem('user'));
+
     return (
         <div>
             <Routes>
                 {/* PATIENT ROUTES */}
-                {
-                   data? 
+                {/* {
+                   data?   */}
                 <>
                 <Route exact path="/userDashboard" element={<Card/>} />
                 <Route exact path="/ambulance" element={<Ambulance />} />
@@ -81,6 +85,7 @@ function Index() {
                 <Route exact path="/facilityrequest" element={< FacilityRequest />} />
                 <Route exact path="/HomeCareForm" element={< HomeCareForm />} />
                 <Route exact path="/call" element={< Call />} />
+                <Route exact path="/video-call" element={<Video />} />
                 <Route exact path="/Referral" element={< Referral />} />
                 <Route exact path="/AppointmentHistory" element={<AppointmentHistory/>} />
                 <Route exact path="/profile" element={<UserProfile />} />
@@ -104,8 +109,9 @@ function Index() {
                 <Route exact path="/Book" element={< Book />} />
                 <Route exact path="/ChangePassword" element={<ChangePassword />}></Route>
                 <Route exact path="/Dash" element={<Dash/>}></Route>
-                   </> :<Route path="*" element={<Navigate to="/" />} />
-                }
+                   </> 
+                    {/* :<Route path="*" element={<Navigate to="/" />} />
+                }  */}
                 
                 {/* DOCTOR ROUTES */}
                 <Route exact path="/doctorDashboard" element={<Home />}></Route>
@@ -124,11 +130,14 @@ function Index() {
                     <Route exact path="/Terms" element={<TermsD/>}></Route>
                     <Route exact path="/About" element={<AboutD />}></Route>
                     <Route exact path="/CartModal" element={<CartModal />}></Route>
+                    <Route exact path="/Availability" element={<Availability />}></Route>
 
                 {/* PUBLIC PAGES */}
                 
                 <Route exact path="/" element={<LandingPage />}></Route>
+                <Route exact path="/options" element={<LoginOptions />}></Route>
                 <Route exact path="/SignIn" element={<SignIn/>}></Route>
+                <Route exact path="/DocSignIn" element={<DocSignIn/>}></Route>
                 <Route exact path="/SignUp" element={<SignUp />}></Route>
                 <Route exact path="/about" element={<About />}></Route>
                 <Route exact path="/privacy" element={<TermsandCondition />}></Route>

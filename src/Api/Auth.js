@@ -166,6 +166,8 @@ export const update = async (data) => {
 }
 
 
+
+
 // PATIENT LOGIN
 export const login = async (email, password) => {
     const key = await apiKey()
@@ -188,11 +190,14 @@ export const login = async (email, password) => {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         })
+
+        console.log(response, "wake up")
         
         localStorage.setItem('access-token',response.data.accessToken);
         localStorage.setItem('login-expiry', response.data.tokenExpiryUTC)
         localStorage.setItem('email',email)
-        await userDetails(email, key, response.data.accessToken)
+        const userInfo = await userDetails(email, key, response.data.accessToken)
+        localStorage.setItem('user', JSON.stringify(userInfo))
         return response.data
     }catch(e){
         return {
@@ -224,7 +229,7 @@ export const userDetails = async (email) => {
     })
 
     if(response.data.success){
-        localStorage.setItem('user', JSON.stringify(response.data.userDetails))
+        // localStorage.setItem('user', JSON.stringify(response.data.userDetails))
         return response.data.userDetails
     }
 }

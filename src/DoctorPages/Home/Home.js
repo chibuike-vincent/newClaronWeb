@@ -1,15 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
 import TextField from '@mui/material/TextField';
+import * as API from "../../Api/DoctorApi";
 import doc from '../../images/doc-1.jpg'
+import {useNavigate } from "react-router-dom"
 import './Home.css'
 import DoctorLayout from '../../Pages/DoctorLayout';
 import { Patients } from './Patients'
 import { FaPhone, FaVideo, FaRocketchat } from "react-icons/fa";
 function Home() {
-    const [data, setData]= useState(Patients)
+    const [data, setData]= useState([])
     const [filtered,setFiltered]= useState([]);
     const [searchInput, setSearchInput] = useState("")
+    const [user, setUser] = useState(null)
+    const [loaded, setLoaded] = useState(false);
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const userInfo = localStorage.getItem("user")
+        setUser(JSON.parse(userInfo))
+        const getPatints = async () => {
+          setLoaded(true);
+          const res = await API.getPatients();
+          if (res) {
+            setData(res);
+            setLoaded(false);
+          }
+        };
+        getPatints();
+      }, []);
 
     const searchPatient =(searchValue)=>{
         setSearchInput(searchValue);
@@ -37,40 +56,40 @@ function Home() {
                     {filtered.map(patient => (
                         <div class="card-container-patient" key={patient.id}>
                             <img src={doc} alt="" />
-                            <Link to={`/actions/${patient.id}`} className="pat-info-claron-docs">
-                                <p className="p-name-c">{patient.name}</p>
+                            <div className="pat-info-claron-docs">
+                                <p className="p-name-c">{patient.firstname} {patient.lastname}</p>
                                 <p><span className="p-title-doc">{patient.phone}</span></p>
                                 <p><span className="p-title-doc">{patient.email}</span></p>
 
                                 <div className="perform-actions-container">
-                                    <Link to="/ChChatDoctorat">
-                                        <FaRocketchat className="phone-doc" />
-                                    </Link>
-                                    <FaPhone className="phone-doc" />
-                                    <FaVideo className="phone-doc" />
+                                    <FaRocketchat onClick={()=>navigate("/ChatDoctor",{state:{patient}})}  className="phone-doc" />
+                                    <FaPhone className="phone-doc" onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: user, patientEmail: patient.email } })} />
+                                    {/* <FaVideo className="phone-doc" onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: user, patientEmail: patient.email } })} /> */}
                                 </div>
-                            </Link>
+                            </div>
                         </div>
                     ))}
                 </div>:<div className="all-patient-container">
-                    {data.map(patient => (
+                    {data && data.length ? data.map(patient => (
                         <div className="card-container-patient" key={patient.id}>
                             <img src={doc} alt="" />
-                            <Link to={`/actions/${patient.id}`} className="pat-info-claron-docs">
-                                <p className="p-name-c">{patient.name}</p>
+                            <div className="pat-info-claron-docs">
+                                <p className="p-name-c">{patient.firstname} {patient.lastname}</p>
                                 <p><span className="p-title-doc">{patient.phone}</span></p>
                                 <p><span className="p-title-doc">{patient.email}</span></p>
 
                                 <div className="perform-actions-container">
-                                    <Link to="/ChatDoctor">
-                                        <FaRocketchat className="phone-doc" />
-                                    </Link>
-                                    <FaPhone className="phone-doc" />
-                                    <FaVideo className="phone-doc" />
+                                
+                                        <FaRocketchat onClick={()=>navigate("/ChatDoctor",{state:{patient}})}  className="phone-doc" />
+                                    
+                                    <FaPhone className="phone-doc" onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: user, patientEmail: patient.email } })} />
+                                    {/* <FaVideo className="phone-doc" onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: user, patientEmail: patient.email } })} /> */}
+                                    {/* <FaPhone className="phone-doc" /> */}
+                                    {/* <FaVideo className="phone-doc" /> */}
                                 </div>
-                            </Link>
+                            </div>
                         </div>
-                    ))}
+                    )): (<p>Loading</p>)}
                 </div>}
             </div>
             </DoctorLayout>

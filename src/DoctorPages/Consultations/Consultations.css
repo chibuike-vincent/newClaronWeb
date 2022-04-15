@@ -4,10 +4,12 @@
     color: #383838;
 }
 .container-notification-card{
-    width: 70%;
-    margin: 0 auto;
+    width: 96%;
+    margin-left: 50px;
     margin-top: 10px;
     height: 100vh;
+    overflow: auto;
+    margin-bottom: 200px;
 }
 
 .reject-accept-container{
@@ -16,6 +18,12 @@
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     margin-bottom: 15px;
+    margin-right: 10px;
+}
+
+.reject-accept-container:last-child{
+
+    margin-bottom: 100px;
 }
 
 .actions-doc-claron{
@@ -101,4 +109,9 @@
     margin-top: 10px;
     font-weight: bold;
     color: #424240;
+}
+
+.date-container{
+    width: 99% !important;
+    
 }

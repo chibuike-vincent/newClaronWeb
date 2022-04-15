@@ -3,14 +3,14 @@
 import firebase from "firebase/app"
 import 'firebase/messaging';
     const config = ({
-        apiKey: "AIzaSyA07_A7At-J9Mu6NMXBpoLVYcrKWR3ezy4",
-        authDomain: "fcm-notify-db9b8.firebaseapp.com",
-        databaseURL: "https://fcm-notify-db9b8.firebaseio.com",
-        projectId: "fcm-notify-db9b8",
-        storageBucket: "fcm-notify-db9b8.appspot.com",
-        messagingSenderId: "77071010064",
-        appId: "1:77071010064:web:e693b1fa22167a00e27d95",
-        measurementId: "G-VWCS7XBQC3"
+      apiKey: "AIzaSyA07_A7At-J9Mu6NMXBpoLVYcrKWR3ezy4",
+      authDomain: "fcm-notify-db9b8.firebaseapp.com",
+      databaseURL: "https://fcm-notify-db9b8.firebaseio.com",
+      projectId: "fcm-notify-db9b8",
+      storageBucket: "fcm-notify-db9b8.appspot.com",
+      messagingSenderId: "77071010064",
+      appId: "1:77071010064:web:b20aa04838db1e16e27d95",
+      measurementId: "G-VFLB32265E"
     });
 
   firebase.initializeApp(config)
@@ -24,8 +24,9 @@ import 'firebase/messaging';
 
   export const requestFirebaseNotificationPermission = () =>
   new Promise((resolve, reject) => {
-    messaging.getToken()
+    messaging.getToken({vapidKey: "BHOy1wXMZwd0Mdy8EXQMA4qsV3sEzFmB34sqNjsSifcjQpTfIymePD2EpfXjGi20U5R7ZBAozUz66GFbBekno04"})
       .then((firebaseToken) => {
+        console.log(firebaseToken, "firebaseToken ddddd")
         resolve(firebaseToken);
       })
       .catch((err) => {
@@ -36,6 +37,8 @@ import 'firebase/messaging';
 export const onMessageListener = () =>
   new Promise((resolve) => {
     messaging.onMessage((payload) => {
+      console.log("firebaseToken, firebaseToken ddddd")
+      console.log(payload, "payload")
       resolve(payload);
     });
   });

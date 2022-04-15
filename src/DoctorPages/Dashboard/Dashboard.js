@@ -11,6 +11,8 @@ import docuser from '../../images/doc-1.jpg'
 import UserDropDown from './UserDropDown'
 import Switch from '../DocComponent/Switch'
 
+import * as API from '../../Api/DoctorApi';
+
 function Dashboard() {
     const [open, setOpen] = useState(false)
     const [sidebar, setSidebar] = useState(true)
@@ -78,7 +80,7 @@ function Dashboard() {
                         <img src={docuser} alt="" />
                         <div onClick={handleClick} className="name-prof">
                             <p className="info-name">Spunky Henry</p>
-                            <p>Health Professional</p>
+                            <p>Health </p>
                         </div>
                         <UserDropDown handleClose={handleClose} handleClick={handleClick} anchorEl={anchorEl} openAction={openAction}/>
                     </div>

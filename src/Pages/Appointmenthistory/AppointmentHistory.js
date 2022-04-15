@@ -122,23 +122,13 @@ function AppointmentHistory() {
 
                 <div class="box-wrapper">
                     <div class="box-one box-lab">
-                        <div className='upcoming-num'>0</div>
-                        <p>Pending Individual Request</p>
+                        <div className='upcoming-num'>{upcoming.length}</div>
+                        <p>Upcoming Appointment</p>
                     </div>
 
                     <div class="box-two box-lab">
-                        <div className='pending-num'>0</div>
-                        <p>Pending Individual Request</p>
-                    </div>
-
-                    <div class="box-three box-lab">
-                        <div className='completed-num'>0</div>
-                        <p>Pending Individual Request</p>
-                    </div>
-
-                    <div class="box-four box-lab">
-                        <div className='cancelled-num'>0</div>
-                        <p>Pending Individual Request</p>
+                        <div className='pending-num'>{filtered.length}</div>
+                        <p>Past Appointment</p>
                     </div>
                 </div>
 

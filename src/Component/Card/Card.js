@@ -143,7 +143,7 @@ function Card({ sidebar }) {
                     {/* <h3>Appointments</h3> */}
 
                     <div className="his-container-cont-lab">
-                    {bookings.length > 0 && (bookings.length ? bookings.map((item) => (
+                    {bookings && bookings.length ? bookings.map((item) => (
 
                             <>
                             <div className='single-ambulance'>
@@ -157,7 +157,10 @@ function Card({ sidebar }) {
                                 </div>
                             </div>
                             </>
-                             )) : (<img src={loading} alt="" className="loader-img" />))}
+                             )) 
+                             : <p>Loading...</p>
+                            //  (<img src={loading} alt="" className="loader-img" />))
+                        }
 
                     </div>
                     </div>
