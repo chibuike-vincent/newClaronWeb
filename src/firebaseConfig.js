@@ -10,8 +10,9 @@ import 'firebase/messaging';
       projectId: "fcm-notify-db9b8",
       storageBucket: "fcm-notify-db9b8.appspot.com",
       messagingSenderId: "77071010064",
-      appId: "1:77071010064:web:b20aa04838db1e16e27d95",
-      measurementId: "G-VFLB32265E"
+      appId: "1:77071010064:web:b20aa04838db1e16e27d95"
+
+
     });
 
   firebase.initializeApp(config)
@@ -38,7 +39,6 @@ import 'firebase/messaging';
 export const onMessageListener = () =>
   new Promise((resolve) => {
     messaging.onMessage((payload) => {
-      console.log("firebaseToken, firebaseToken ddddd")
       console.log(payload, "payload")
       resolve(payload);
     });

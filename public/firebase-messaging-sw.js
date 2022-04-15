@@ -1,5 +1,7 @@
-importScripts('https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/7.14.2/firebase-messaging.js');
+// importScripts('https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js');
+// importScripts('https://www.gstatic.com/firebasejs/7.14.2/firebase-messaging.js');
+importScripts('https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js');
+ importScripts('https://www.gstatic.com/firebasejs/8.2.3/firebase-messaging.js');
 
 const config = {
   apiKey: "AIzaSyA07_A7At-J9Mu6NMXBpoLVYcrKWR3ezy4",
@@ -9,7 +11,6 @@ const config = {
   storageBucket: "fcm-notify-db9b8.appspot.com",
   messagingSenderId: "77071010064",
   appId: "1:77071010064:web:b20aa04838db1e16e27d95",
-  measurementId: "G-VFLB32265E"
 };
 
 firebase.initializeApp(config);
