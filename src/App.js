@@ -84,22 +84,24 @@ function App() {
         localStorage.setItem("firebaseToken", firebaseToken);
         setToken(firebaseToken);
         await API.updateFCMToken(firebaseToken)
+
+        onMessageListener()
+        .then((payload) => {
+          console.log("firebaseToken, firebaseToken ddddd")
+
+          if (payload?.notification?.title){
+            notify(payload?.notification)
+          }
+        
+          // setNotification({title: payload?.notification?.title, body: payload?.notification?.body});     
+        })
+        .catch((err) => console.log('failed: ', err));
       })
       .catch((err) => {
         return err;
       });
 
-    onMessageListener()
-    .then((payload) => {
-      console.log("firebaseToken, firebaseToken ddddd")
-
-      if (payload?.notification?.title){
-        notify(payload?.notification)
-       }
-     
-      // setNotification({title: payload?.notification?.title, body: payload?.notification?.body});     
-    })
-    .catch((err) => console.log('failed: ', err));
+    
 
     
 
