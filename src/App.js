@@ -90,14 +90,20 @@ function App() {
       return err;
     });;
 
-  },[]);
+    onMessageListener().then(payload => {
+      notify(payload.notification)
+      setNotification({title: payload.notification.title, body: payload.notification.body})
+      console.log(payload);
+      }).catch(err => console.log('failed: ', err));
+
+  },[notification]);
 
 
-  onMessageListener().then(payload => {
-    notify(payload.notification)
-    setNotification({title: payload.notification.title, body: payload.notification.body})
-    console.log(payload);
-    }).catch(err => console.log('failed: ', err));
+  // onMessageListener().then(payload => {
+  //   notify(payload.notification)
+  //   setNotification({title: payload.notification.title, body: payload.notification.body})
+  //   console.log(payload);
+  //   }).catch(err => console.log('failed: ', err));
 
     
  
