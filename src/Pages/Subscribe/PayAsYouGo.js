@@ -90,7 +90,7 @@ function PayAsYouGo() {
     const [tnx_ref, settnx_ref] = useState('')
     const [button, setButton] = useState('Pay Now')
     const [open, setOpen] = useState(false);
-    
+    const userData = useSelector((state)=>state.user.value)
     const [phone_error, setPhoneError] = useState()
     const [card_error, setCardError] = useState()
     const [otp, setOTP] = useState("")
@@ -151,8 +151,8 @@ function PayAsYouGo() {
           }
           setLoading(true)
           setButton('Initializing Transaction...')
-          let init = await cardPayment(card, price);
-          // console.log(card)
+          let init = await cardPayment(card, price,userData.email);
+          console.log(init)
 
           if(init.status){
             if(init.data.status === 'send_otp'){
@@ -186,7 +186,7 @@ function PayAsYouGo() {
           }else{
             setLoading(false)
             setButton('Subscribe Now')
-            setPhoneError(init.data.message)
+            setPhoneError('Invalid')
             alert(init.data.message)
             return
           }
@@ -213,7 +213,7 @@ function PayAsYouGo() {
       
               setLoading(true)
               setButton('Initializing Transaction...')
-              let init = await initPayment(price, phone, network)
+              let init = await initPayment(price, phone, network,userData.email)
               
               console.log(init)
       
@@ -264,13 +264,11 @@ function PayAsYouGo() {
     }
 
 
-    
-
     const process_otp = async()=>{
         setLoading(true)
         setButton('Initializing Verification for Otp...')
     
-        let init = await verOtp(tnx_ref, otp);
+        let init = await verOtp(tnx_ref, otp,userData.email);
         // start
         if(init.status){
     

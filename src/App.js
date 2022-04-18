@@ -15,8 +15,8 @@ import {
 import queryString from "query-string";
 import * as API from "./Api/DoctorApi";
 import {
-  requestFirebaseNotificationPermission,
-  onMessageListener,
+  getTokenFn,
+  onMessageListener
 } from "./firebaseConfig";
 import toast, { Toaster } from 'react-hot-toast';
 import { ShowMessage, type } from "../src/Component/Toaster";
@@ -28,6 +28,9 @@ function App() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [token, setToken] = useState("");
+  const [show, setShow] = useState(false);
+  const [notification, setNotification] = useState({title: '', body: ''});
+  const [isTokenFound, setTokenFound] = useState(false);
   // const [notification, setNotification] = useState({title: '', body: ''});
 
   const notify = (notification) =>  toast( <div>
@@ -49,6 +52,7 @@ function App() {
       const userData = Object.fromEntries([...searchParams]);
       const data = JSON.parse(localStorage.getItem("user"));
       const type = localStorage.getItem("type");
+      
 
       const response = await userDetails(userData.email);
 
@@ -79,35 +83,43 @@ function App() {
   },[]);
 
 
-  requestFirebaseNotificationPermission()
-      .then(async(firebaseToken) => {
-        localStorage.setItem("firebaseToken", firebaseToken);
-        setToken(firebaseToken);
-        await API.updateFCMToken(firebaseToken)
+  // requestFirebaseNotificationPermission()
+  //     .then(async(firebaseToken) => {
+  //       localStorage.setItem("firebaseToken", firebaseToken);
+  //       setToken(firebaseToken);
+  //       await API.updateFCMToken(firebaseToken)
+  //     })
+  //     .catch((err) => {
+  //       return err;
+  //     });
 
-        onMessageListener()
-        .then((payload) => {
-          console.log("firebaseToken, firebaseToken ddddd")
+  //   onMessageListener()
+  //   .then((payload) => {
+  //     console.log("firebaseToken, firebaseToken ddddd")
 
-          if (payload?.notification?.title){
-            notify(payload?.notification)
-          }
-        
-          // setNotification({title: payload?.notification?.title, body: payload?.notification?.body});     
+  //     if (payload?.notification?.title){
+  //       notify(payload?.notification)
+  //      }
+
+    
+  getTokenFn(setTokenFound).then(async(firebaseToken) => {
+          localStorage.setItem("firebaseToken", firebaseToken);
+          setToken(firebaseToken);
+          await API.updateFCMToken(firebaseToken)
         })
-        .catch((err) => console.log('failed: ', err));
-      })
-      .catch((err) => {
-        return err;
-      });
+        .catch((err) => {
+          return err;
+        });;
 
-    
-
-    
+  onMessageListener().then(payload => {
+    notify(payload.notification)
+    setNotification({title: payload.notification.title, body: payload.notification.body})
+    console.log(payload);
+  }).catch(err => console.log('failed: ', err));
 
   return (
     <>
-    <Toaster/>
+      <Toaster/>
       <IndexRoutes />
     </>
   );

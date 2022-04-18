@@ -76,11 +76,11 @@ function Signup() {
                 sex: gender
             });
             if (response.success) {
-                navigate("/userDashboard")
+                
                 let currentUser = localStorage.getItem('user');
                 dispatch(LOGIN(JSON.parse(currentUser)))
                 setLoading(false)
-
+                navigate("/userDashboard")
             } else {
                 setError(response.message)
                 swal("Network Error!", "You dont have internet connection!", "error");

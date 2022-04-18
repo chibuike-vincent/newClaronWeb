@@ -9,6 +9,7 @@ import { userDetails } from '../../Api/Auth'
 // import firebase from 'firebase';
 import firebase from "../../firebaseConfig"
 import loader from '../../images/spinner.gif'
+import { useSelector, useDispatch } from 'react-redux'
 // import { formatRelative } from 'date-fns'
 // import moment from 'moment';
 
@@ -38,6 +39,9 @@ function Chat() {
     const [message, setmessage] = useState('')
     const [loading, setloading] = useState(false)
     const [conversation, setconversation] = useState([])
+    const userData = useSelector((state) => state.user.value)
+
+    console.log(userData.email,state.doctor.email, "userData.email")
 
     const [error, seterror] = useState()
 
@@ -78,7 +82,7 @@ function Chat() {
                 recipient: state.doctor.email,
                 attachment: image,
                 file_type: type,
-                sender: user.email,
+                sender: userData.email,
                 symptoms: [],
                 createDate: (new Date()).toLocaleString(),
                 timeStamp: Date.now()
@@ -86,7 +90,7 @@ function Chat() {
 
             sendMessage(sen)
 
-            await firebase.firestore().collection('newSMessages').doc(chat_code(user.email, state.doctor.email)).collection('messages').add(sen);
+            await firebase.firestore().collection('newSMessages').doc(chat_code(userData.email, state.doctor.email)).collection('messages').add(sen);
 
             if (true) {
                 setmessage('')
@@ -106,8 +110,8 @@ function Chat() {
     }
 
     // LOAD FIREBASE CHAT FUNCTION
-    const loadfirebasechat = async (data) => {
-        firebase.firestore().collection('newSMessages').doc(chat_code(data.email, state.doctor.email)).collection('messages').orderBy('timeStamp', 'asc').onSnapshot(snapshot => {
+    const loadfirebasechat = async () => {
+        firebase.firestore().collection('newSMessages').doc(chat_code(userData.email, state.doctor.email)).collection('messages').orderBy('timeStamp', 'asc').onSnapshot(snapshot => {
             var r = snapshot.docs.map(doc => {
                 return (doc.data())
             });
@@ -122,15 +126,17 @@ function Chat() {
     useEffect(() => {
         (async () => {
             let account = localStorage.getItem("user")
+            console.log(account, "account fro chat")
             let token = localStorage.getItem('access-token')
             let key = localStorage.getItem('api-key');
             let ema = localStorage.getItem('email');
             setemail(ema)
             emailR.current = ema;
-            userDetails(JSON.parse(account).email, key, token).then(data => {
-                setUser(data)
-                loadfirebasechat(data)
-            })
+            loadfirebasechat()
+            // userDetails(JSON.parse(account).email, key, token).then(data => {
+            //     setUser(data)
+                
+            // })
         })()
     }, [])
 
@@ -178,7 +184,7 @@ function Chat() {
                 {conversation.length > 0 ? conversation.map(chat => {
                     return (
                         <>
-                            <div key={chat.sender} className={`${chat.sender === user.email ? 'chat-msg-doc' : 'chat-msg-user'}`}>
+                            <div key={chat.sender} className={`${chat.sender === userData.email ? 'chat-msg-doc' : 'chat-msg-user'}`}>
                                 {chat.message && chat.attachment === "" ? (<p className='chat-msg'>{chat.message}</p>) : chat.message && chat.attachment != "" ?
                                     <div>
                                         <img src={chat.attachment} alt="" className='msg-img' />

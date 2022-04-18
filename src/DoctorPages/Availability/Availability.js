@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { FaTimes } from "react-icons/fa";
 
-import firebase from 'firebase';
+import firebase from '../../firebaseConfig';
 const style = {
   position: 'absolute',
   top: '50%',

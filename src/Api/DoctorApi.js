@@ -1,4 +1,5 @@
-import firebase from 'firebase';
+// import firebase from 'firebase/app';
+import firebase from '../firebaseConfig';
 const axios = require('axios').default
 let base_url = 'https://api.clarondoc.com'
 //authenticate doctors into the app

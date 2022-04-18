@@ -78,13 +78,37 @@ const axios = require('axios');
 const sk_key = "sk_test_b99f2f6df4585689836cad3d63d8b1d145789934";
 // const sk_key = "sk_live_10b0401836f2ba502abc0ee39c1264797d5e0213";
 
-const getUser = async()=>{
-    let account = await localStorage.getItem('user')
-    return JSON.parse(account)
+// const getUser = async()=>{
+//     let account = await localStorage.getItem('user')
+//     return JSON.parse(account)
+// }
+const userDetails = async (email) => {
+    const key = await apiKey();
+    const auth = localStorage.getItem('access-token');
+    const response = await axios({
+        method: 'GET',
+        url: 'https://api.clarondoc.com/users/'+email,
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Credentials': true,
+            'Authorization': `Bearer ${auth}`,
+            'x-api-key': key
+        },
+        options: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+
+    if(response.data.success){
+        localStorage.setItem('user', JSON.stringify(response.data.userDetails))
+        return response.data.userDetails
+    }
 }
 
-export const initPayment = async(price, phone, network)=>{
-    let user = await getUser()
+export const initPayment = async(price, phone, network,email)=>{
+    let user = await userDetails(email)
 
     let response
 
@@ -121,8 +145,8 @@ export const initPayment = async(price, phone, network)=>{
 
 
 
-export const verOtp = async(tnx_ref, otp)=>{
-    let user = await getUser()
+export const verOtp = async(tnx_ref, otp,email)=>{
+    let user = await userDetails(email)
 
     let response
 
@@ -149,9 +173,9 @@ export const verOtp = async(tnx_ref, otp)=>{
     return response
 }
 
-export const cardPayment = async(card, amount)=>{
-    let user = await getUser()
-    let email = user.email;
+export const cardPayment = async(card, amount,email)=>{
+    let user = await userDetails(email)
+
 
     // console.log(card)
     // console.log(amount)
@@ -162,7 +186,7 @@ export const cardPayment = async(card, amount)=>{
     try{
         let res = await axios.default.post('https://api.paystack.co/charge', {
                 "amount": amount*100, 
-                "email": `${email}`,
+                "email": `${user.email}`,
                 "pin": `${card.pin}`,
                 "card": {
                     "cvv": card.cvv,
@@ -197,17 +221,17 @@ export const cardPayment = async(card, amount)=>{
     return response
 }
 
-export const Upgrade_sub = async(plan, end)=>{
+export const Upgrade_sub = async(plan, end,email)=>{
     const key = await apiKey()
     const auth = await localStorage.getItem('access-token');
-    let user = await getUser()
-    let email = user.email;
+    let user = await userDetails(email)
+    // let email = user.email;
 
     const response = await axios({
         method: 'PUT',
         url: `https://api.clarondoc.com/subscriptions/upgrade`,
         data: {
-            email: email,
+            email: user.email,
             plan: plan,
             end: end
         },

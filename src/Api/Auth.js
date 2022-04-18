@@ -229,7 +229,7 @@ export const userDetails = async (email) => {
     })
 
     if(response.data.success){
-        // localStorage.setItem('user', JSON.stringify(response.data.userDetails))
+        localStorage.setItem('user', JSON.stringify(response.data.userDetails))
         return response.data.userDetails
     }
 }
