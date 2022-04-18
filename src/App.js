@@ -32,10 +32,7 @@ function App() {
   const [isTokenFound, setTokenFound] = useState(false);
   const userEmail = useSelector((state) => state.user.value)
 
-  const notify = (notification) =>  toast( <div>
-    <p><b>{notification?.title}</b></p>
-    <p>{notification?.body}</p>
-  </div>);
+  
 
   useEffect(() => {
 
@@ -74,6 +71,7 @@ function App() {
 
     getUserInfo();
 
+
     getTokenFn(setTokenFound).then(async(firebaseToken) => {
       try {
         console.log(firebaseToken, "qqqqqq")
@@ -90,23 +88,8 @@ function App() {
       return err;
     });;
 
-    onMessageListener().then(payload => {
-      notify(payload.notification)
-      setNotification({title: payload.notification.title, body: payload.notification.body})
-      console.log(payload);
-      }).catch(err => console.log('failed: ', err));
 
-  },[notification]);
-
-
-  // onMessageListener().then(payload => {
-  //   notify(payload.notification)
-  //   setNotification({title: payload.notification.title, body: payload.notification.body})
-  //   console.log(payload);
-  //   }).catch(err => console.log('failed: ', err));
-
-    
- 
+  },[]);
 
   return (
     <>
