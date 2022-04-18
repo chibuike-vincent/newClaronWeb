@@ -32,11 +32,47 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 const messaging = getMessaging(firebaseApp);
 
 
-export const getTokenFn = (setTokenFound) => {
+// export const askForPermissioToReceiveNotifications = async (registration) => {
+//   try {
+  
+//       const messaging = firebase.messaging();
+//       await messaging.onMessage(notification => {
+//           console.log('Notification received!', notification);
+//           message.info(notification?.data?.title + ':' + notification?.data?.body)
+//       });
+  
+//       const registration = await navigator.serviceWorker
+//           .register('firebase-message-sw.js', {scope: "/", updateViaCache: 'none'})
+//           .then((registration) => {
+//               return registration;
+//           }).catch(e => {
+//           });
+//       await Notification.requestPermission().then((callBack) => {
+//           console.log(callBack)
+//       }).catch(e => {
+//       });
+//       const token = await messaging.getToken({
+//           vapidKey: 'BHOy1wXMZwd0Mdy8EXQMA4qsV3sEzFmB34sqNjsSifcjQpTfIymePD2EpfXjGi20U5R7ZBAozUz66GFbBekno04',
+//           serviceWorkerRegistration: registration
+//       });
+//       await //send token
+  
+  
+//       console.log('token do usuário:', token);
+//       return token;
+  
+//   } catch (error) {
+//       console.error(error);
+//   }}
+
+
+
+
+
+export const getTokenFn = () => {
     return getToken(messaging, {vapidKey: 'BHOy1wXMZwd0Mdy8EXQMA4qsV3sEzFmB34sqNjsSifcjQpTfIymePD2EpfXjGi20U5R7ZBAozUz66GFbBekno04'}).then((currentToken) => {
       if (currentToken) {
         console.log('Token generated.');
-        setTokenFound(false);
         return currentToken
         // shows on the UI that permission is required 
       }

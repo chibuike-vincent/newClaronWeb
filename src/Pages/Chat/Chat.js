@@ -6,30 +6,12 @@ import MainLayout from '../MainLayout';
 import { useLocation } from 'react-router-dom'
 import { sendMessage } from '../../Api/chats';
 import { userDetails } from '../../Api/Auth'
-// import firebase from 'firebase';
 import firebase from "../../firebaseConfig"
 import loader from '../../images/spinner.gif'
 import { useSelector, useDispatch } from 'react-redux'
-// import { formatRelative } from 'date-fns'
-// import moment from 'moment';
 
-// let interval
 
 function Chat() {
-    // if (!firebase.apps.length) {
-    //     firebase.initializeApp({
-    //         apiKey: "AIzaSyA07_A7At-J9Mu6NMXBpoLVYcrKWR3ezy4",
-    //         authDomain: "fcm-notify-db9b8.firebaseapp.com",
-    //         databaseURL: "https://fcm-notify-db9b8.firebaseio.com",
-    //         projectId: "fcm-notify-db9b8",
-    //         storageBucket: "fcm-notify-db9b8.appspot.com",
-    //         messagingSenderId: "77071010064",
-    //         appId: "1:77071010064:web:e693b1fa22167a00e27d95",
-    //         measurementId: "G-VWCS7XBQC3"
-    //     });
-    // } else {
-    //     firebase.app(); // if already initialized, use that one
-    // }
 
 
     const { state } = useLocation();
@@ -125,18 +107,8 @@ function Chat() {
 
     useEffect(() => {
         (async () => {
-            let account = localStorage.getItem("user")
-            console.log(account, "account fro chat")
-            let token = localStorage.getItem('access-token')
-            let key = localStorage.getItem('api-key');
-            let ema = localStorage.getItem('email');
-            setemail(ema)
-            emailR.current = ema;
+
             loadfirebasechat()
-            // userDetails(JSON.parse(account).email, key, token).then(data => {
-            //     setUser(data)
-                
-            // })
         })()
     }, [])
 
