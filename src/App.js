@@ -22,6 +22,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { ShowMessage, type } from "../src/Component/Toaster";
 import firebase from "./firebaseConfig"
 
+
 function App() {
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
@@ -32,10 +33,14 @@ function App() {
   const [isTokenFound, setTokenFound] = useState(false);
   const userEmail = useSelector((state) => state.user.value)
 
-  
+
+  const notify = (notification) =>  toast( <div>
+    <p><b>{notification?.title}</b></p>
+    <p>{notification?.body}</p>
+  </div>);
 
   useEffect(() => {
-
+    
     const getUserInfo = async () => {
       const userData = Object.fromEntries([...searchParams]);
       const data = JSON.parse(localStorage.getItem("user"));
@@ -74,11 +79,11 @@ function App() {
 
     getTokenFn(setTokenFound).then(async(firebaseToken) => {
       try {
-        console.log(firebaseToken, "qqqqqq")
         localStorage.setItem("firebaseToken", firebaseToken);
         setToken(firebaseToken);
-        await firebase.firestore().collection('device_token').doc(userEmail.email).set({token: firebaseToken});
-        await API.updateFCMToken(firebaseToken)
+        await firebase.firestore().collection('device_token').doc(userEmail.email).set({token: firebaseToken})
+        // console.log(res, "rrrrr")
+        // await API.updateFCMToken(firebaseToken)
       } catch (error) {
         await firebase.firestore().collection('device_token').doc('error').set({token: error});
         console.log(error)
@@ -89,7 +94,13 @@ function App() {
     });;
 
 
-  },[]);
+  },[notification]);
+
+  onMessageListener().then(payload => {
+    notify(payload.notification)
+    setNotification({title: payload.notification.title, body: payload.notification.body})
+    console.log(payload, "Hello notify");
+    }).catch(err => console.log('failed: ', err));
 
   return (
     <>

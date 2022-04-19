@@ -22,7 +22,7 @@ const messaging = getMessaging(firebaseApp);
 export const getTokenFn = () => {
     return getToken(messaging, {vapidKey: 'BHOy1wXMZwd0Mdy8EXQMA4qsV3sEzFmB34sqNjsSifcjQpTfIymePD2EpfXjGi20U5R7ZBAozUz66GFbBekno04'}).then((currentToken) => {
       if (currentToken) {
-        console.log('Token generated.');
+        console.log('Token generated.', currentToken);
         return currentToken
         // shows on the UI that permission is required 
       }
