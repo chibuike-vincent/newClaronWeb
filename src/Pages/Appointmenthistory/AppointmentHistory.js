@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import firebase from "../../firebaseConfig";
+import {firebaseApp} from "../../firebaseConfig";
 import "./AppointmentHistory.css";
 import Modal from "react-modal";
 import swal from "sweetalert";
@@ -96,7 +96,7 @@ function AppointmentHistory() {
       try{
         setloadinga(true)
         const email = localStorage.getItem('email');
-        await firebase.firestore().collection('deletedAppointment').doc(email).collection('list').add({id: id});
+        await firebaseApp.firestore().collection('deletedAppointment').doc(email).collection('list').add({id: id});
         swal({
           title: "Request successful",
           text: `Appointment Deleted Successfully`,

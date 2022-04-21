@@ -3,13 +3,15 @@ import './Chat.css'
 import { userDetails } from '../../Api/DoctorApi'
 import DoctorLayout from '../../Pages/DoctorLayout'
 // import firebase from 'firebase';
-import firebase from "../../firebaseConfig"
+import {firebaseApp} from "../../firebaseConfig"
 import { useLocation } from 'react-router-dom'
 import { FaTelegramPlane} from "react-icons/fa";
 import loader from '../../images/spinner.gif'
 import { TiAttachment } from "react-icons/ti";
 import { useSelector, useDispatch } from 'react-redux'
 import * as API from '../../Api/DoctorApi';
+import axios from "axios"
+
 function Chat() {
 	// if (!firebase.apps.length) {
     //     firebase.initializeApp({
@@ -42,9 +44,9 @@ function Chat() {
     const handleImageAsFile = async (e) => {
         setloading(true)
         const image = e.target.files[0]
-        await firebase.storage().ref(`new-attaches/${image.name}`).put(image);
+        await firebaseApp.storage().ref(`new-attaches/${image.name}`).put(image);
 
-        const url = await firebase.storage().ref(`new-attaches`).child(image.name).getDownloadURL()
+        const url = await firebaseApp.storage().ref(`new-attaches`).child(image.name).getDownloadURL()
 
 
         if (url) {
@@ -78,8 +80,50 @@ function Chat() {
 
 			API.sendMessage(sen)
            
-            await firebase.firestore().collection('newSMessages').doc(chat_code(location.state.patient.email, userData.email)).collection('messages').add(sen);
+            await firebaseApp.firestore().collection('newSMessages').doc(chat_code(location.state.patient.email, userData.email)).collection('messages').add(sen);
 
+            firebaseApp.firestore().collection('device_token').doc(location.state.patient.email).get().then(snapshot=>{
+                console.log('Docs: ', snapshot.data())
+                let data = snapshot.data();
+                if(data.token != undefined){
+                  
+        
+                  axios.post('https://fcm.googleapis.com/fcm/send', {
+                    "to": data.token,
+                    "notification": {
+                      "title": `Message from Dr. ${userData.firstname} ${userData.lastname}`,
+                      "sound": "beep.mp3",
+                      "body": "Click to open",
+                      "subtitle": "You have a new message",
+                      "android_channel_id": "12345654321",
+                    },
+                    "data": {
+                        "body": "Chat message",
+                        "title": "Chat messahe",
+                        "name": "From Doc",
+                        "message": {
+                            "name": userData.email,
+                            "time": new Date(),
+                            "patient": location.state.patient.email,
+                            "doctor": userData.email,
+                            "sender": `${userData.firstname} ${userData.lastname}`,
+                            "status": 'sent',
+                        }
+                    },
+                    "content_available": true,
+                    "priority": "high"
+                  }, {
+                    headers: {
+                      Authorization : `key=AAAAEfHKSRA:APA91bH2lfkOJ8bZUGvMJo7cqdLYqk1m633KK7eu5pEaUF0J1ieFgpcWtYItCRftxVLSghEOZY5cQ8k9XfB_PVyfQeDHiC5ifuowqYUytsF0Nby4ANcZhVcFj6E0u5df2c4LItkjq4H2`
+                    }
+                  }).then((res)=>{
+                    console.log(res.data)
+                  })
+                }
+                // if(snapshot.docs.length > 0){
+                  
+                
+            })
             if (true) {
                 setmessage('')
                 // setattachment(null)
@@ -97,7 +141,7 @@ function Chat() {
 
     // LOAD FIREBASE CHAT FUNCTION
     const loadfirebasechat = async (data) => {
-        firebase.firestore().collection('newSMessages').doc(chat_code(location.state.patient.email, userData.email)).collection('messages').orderBy('timeStamp', 'asc').onSnapshot(snapshot => {
+        firebaseApp.firestore().collection('newSMessages').doc(chat_code(location.state.patient.email, userData.email)).collection('messages').orderBy('timeStamp', 'asc').onSnapshot(snapshot => {
             var r = snapshot.docs.map(doc => {
                 return (doc.data())
             });

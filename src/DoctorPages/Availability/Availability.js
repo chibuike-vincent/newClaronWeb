@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { FaTimes } from "react-icons/fa";
 
-import firebase from '../../firebaseConfig';
+import {firebaseApp} from '../../firebaseConfig';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -44,7 +44,7 @@ function Availability() {
     try {
       const user = localStorage.getItem('user')
 
-      await firebase.firestore().collection('newMyAvail').doc(user.email).set({date_entry: time_selected});
+      await firebaseApp.firestore().collection('newMyAvail').doc(user.email).set({date_entry: time_selected});
       swal({
         title: `Availability Updated`,
         text: "You Have set a new Availability",

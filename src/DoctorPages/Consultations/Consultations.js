@@ -119,9 +119,9 @@ function Consultations() {
                             </>
                         ) : (moment(item.scheduledFor) >= moment(new Date())) && item.status === "Accepted" ? (
                             <>
-                            <div className="accept"><FaPhoneAlt/></div>
+                            {/* <div className="accept"><FaPhoneAlt/></div> */}
                             <div className="reject"><FaVideo/></div>
-                            <button className='cancel-btn-book'>Cancel Appointment</button>
+                            {/* <button className='cancel-btn-book'>Cancel Appointment</button> */}
                             </>
                         ) : null
                         

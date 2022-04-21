@@ -71,6 +71,7 @@ const style = {
 function SubscriptionSummary() {
     const {state} = useLocation();
     const dispatch = useDispatch()
+    const userData = useSelector((state) => state.user.value)
     const { name, id,price } = state;
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
@@ -218,7 +219,7 @@ function SubscriptionSummary() {
       
               setLoading(true)
               setButton('Initializing Transaction...')
-              let init = await initPayment(price, phone, network)
+              let init = await initPayment(price, phone, network,userData.email)
               
               console.log(init)
       
@@ -371,7 +372,7 @@ function SubscriptionSummary() {
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1a-content"
                             id="panel1a-header"
-                        >
+                        >options
                             <Box display="flex" justifyContent="space-between">
                                 <FaMobileAlt className="phone" />
 
@@ -381,7 +382,7 @@ function SubscriptionSummary() {
                         </AccordionSummary>
                         <AccordionDetails>
 
-                            <p className="mobile-money-heading">You will be charged GHS {price.toFixed(2)} <span className="mobile-charge"></span> from your mobile money</p>
+                            <p className="mobile-money-heading">You will be choptionsarged GHS {price.toFixed(2)} <span className="mobile-charge"></span> from your mobile money</p>
                             <p className='phone-error'>{phone_error ? phone_error : ''}</p>
                             <Grid container spacing={2}>
                                     {

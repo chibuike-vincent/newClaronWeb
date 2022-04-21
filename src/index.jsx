@@ -11,6 +11,9 @@ import userReducer from "./features/user"
 import {persistStore,persistReducer,FLUSH,REHYDRATE,PAUSE,PERSIST,PURGE,REGISTER,} from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 import storage from 'redux-persist/lib/storage'
+import {registerServiceWorker} from "./serviceWorker"
+import {firebaseApp} from "./firebaseConfig"
+
 const persistConfig = {
   key: 'root',
   version: 1,
@@ -47,6 +50,8 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+
+registerServiceWorker()
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

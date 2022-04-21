@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 // import { uploadFile } from 'react-s3';
 import S3FileUpload from "react-s3";
 import S3 from "react-aws-s3";
-import firebase from "../../firebaseConfig";
+import {firebaseApp} from "../../firebaseConfig";
 
 const style = {
   position: "absolute",
@@ -66,11 +66,11 @@ function Drugs() {
   const prescriptionUpload = async (e) => {
     setloadinga(true);
     if (file) {
-      await firebase
+      await firebaseApp
         .storage()
         .ref("prescriptions/" + file.name)
         .put(file);
-      let url = await firebase
+      let url = await firebaseApp
         .storage()
         .ref(`prescriptions`)
         .child(file.name)

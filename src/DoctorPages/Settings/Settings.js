@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import image from '../../images/user-profile.jpg'
 import * as API from '../../Api/DoctorApi';
-import firebase from '../../firebaseConfig';
+import {firebaseApp} from '../../firebaseConfig';
 import { useDispatch, useSelector } from 'react-redux'
 import { UPDATE, UPDATEUSERINFO } from '../../features/user'
 import FormLabel from '@mui/material/FormLabel';
@@ -63,8 +63,8 @@ function Settings() {
     setimgloading(true)
     if (e.target.files[0]) {
       let file = e.target.files[0];
-      firebase.storage().ref('new-photo/' + file.name).put(file);
-      let url = await firebase.storage().ref(`new-photo`).child(file.name).getDownloadURL()
+      firebaseApp.storage().ref('new-photo/' + file.name).put(file);
+      let url = await firebaseApp.storage().ref(`new-photo`).child(file.name).getDownloadURL()
 
       if (url) {
         

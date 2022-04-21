@@ -13,7 +13,7 @@ import {
   createMicrophoneAndCameraTracks,
 } from "agora-rtc-react";
 import axios from "axios"
-import firebase from "../../../firebaseConfig"
+import {firebaseApp} from "../../../firebaseConfig"
 
 const config = { 
   mode: "rtc", codec: "vp8",
@@ -68,7 +68,7 @@ useEffect(() => {
         let res = await axios.get('https://api.clarondoc.com/urgent/token')
 
     
-        let doc = await firebase.firestore().collection('normal_calls').doc(patientEmail).set({data: {
+        let doc = await firebaseApp.firestore().collection('normal_calls').doc(patientEmail).set({data: {
           time: new Date(),
           patient: patientEmail,
           doctor: doctor.email,
@@ -80,7 +80,7 @@ useEffect(() => {
         }})
 
       
-      firebase.firestore().collection('device_token').doc(patientEmail).get().then(snapshot=>{
+        firebaseApp.firestore().collection('device_token').doc(patientEmail).get().then(snapshot=>{
         console.log('Docs: ', snapshot.data())
         let data = snapshot.data();
         if(data.token != undefined){

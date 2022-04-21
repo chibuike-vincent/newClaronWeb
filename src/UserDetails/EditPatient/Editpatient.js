@@ -7,7 +7,7 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import MainLayout from '../../Pages/MainLayout';
 import { update } from '../../Api/Auth';
 import swal from 'sweetalert';
-import firebase from '../../firebaseConfig';
+import {firebaseApp }from '../../firebaseConfig';
 import {UPDATE,UPDATEUSERINFO} from '../../features/user'
 import { useDispatch,useSelector } from 'react-redux'
 import {BiArrowBack} from "react-icons/bi"
@@ -67,8 +67,8 @@ function Editpatient() {
     setimgloading(true)
     if(e.target.files[0]){
         let file =  e.target.files[0];
-        firebase.storage().ref('new-photo/' + file.name).put(file);
-        let url = await firebase.storage().ref(`new-photo`).child(file.name).getDownloadURL()
+        firebaseApp.storage().ref('new-photo/' + file.name).put(file);
+        let url = await firebaseApp.storage().ref(`new-photo`).child(file.name).getDownloadURL()
        
         const data ={
             firstname:fname,

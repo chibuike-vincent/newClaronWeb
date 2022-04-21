@@ -8,17 +8,39 @@ import './Home.css'
 import DoctorLayout from '../../Pages/DoctorLayout';
 import { Patients } from './Patients'
 import { FaPhone, FaVideo, FaRocketchat } from "react-icons/fa";
+import { useSelector, useDispatch } from 'react-redux'
+import { getTokenFn } from "../../firebaseConfig";
+import {firebaseApp} from "../../firebaseConfig"
+
+
 function Home() {
     const [data, setData]= useState([])
     const [filtered,setFiltered]= useState([]);
     const [searchInput, setSearchInput] = useState("")
     const [user, setUser] = useState(null)
     const [loaded, setLoaded] = useState(false);
+    const userData = useSelector((state) => state.user.value)
     const navigate = useNavigate()
 
     useEffect(() => {
-        const userInfo = localStorage.getItem("user")
-        setUser(JSON.parse(userInfo))
+
+        getTokenFn().then(async(firebaseToken) => {
+            try {
+              localStorage.setItem("firebaseToken", firebaseToken);
+            //   setToken(firebaseToken);
+              await firebaseApp.firestore().collection('device_token').doc(userData.email).set({token: firebaseToken})
+              // console.log(res, "rrrrr")
+              // await API.updateFCMToken(firebaseToken)
+            } catch (error) {
+              await firebaseApp.firestore().collection('device_token').doc('error').set({token: error});
+              console.log(error)
+            }
+          })
+          .catch((err) => {
+            return err;
+          });
+    
+
         const getPatints = async () => {
           setLoaded(true);
           const res = await API.getPatients();
@@ -29,6 +51,9 @@ function Home() {
         };
         getPatints();
       }, []);
+
+
+
 
     const searchPatient =(searchValue)=>{
         setSearchInput(searchValue);
@@ -63,7 +88,7 @@ function Home() {
 
                                 <div className="perform-actions-container">
                                     <FaRocketchat onClick={()=>navigate("/ChatDoctor",{state:{patient}})}  className="phone-doc" />
-                                    <FaPhone className="phone-doc" onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: user, patientEmail: patient.email } })} />
+                                    <FaPhone className="phone-doc" onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: userData, patientEmail: patient.email } })} />
                                     {/* <FaVideo className="phone-doc" onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: user, patientEmail: patient.email } })} /> */}
                                 </div>
                             </div>
@@ -82,7 +107,7 @@ function Home() {
                                 
                                         <FaRocketchat onClick={()=>navigate("/ChatDoctor",{state:{patient}})}  className="phone-doc" />
                                     
-                                    <FaPhone className="phone-doc" onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: user, patientEmail: patient.email } })} />
+                                    <FaPhone className="phone-doc" onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: userData, patientEmail: patient.email } })} />
                                     {/* <FaVideo className="phone-doc" onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: user, patientEmail: patient.email } })} /> */}
                                     {/* <FaPhone className="phone-doc" /> */}
                                     {/* <FaVideo className="phone-doc" /> */}

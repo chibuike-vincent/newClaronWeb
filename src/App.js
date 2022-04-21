@@ -22,7 +22,6 @@ import toast, { Toaster } from 'react-hot-toast';
 import { ShowMessage, type } from "../src/Component/Toaster";
 import firebase from "./firebaseConfig"
 
-
 function App() {
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
@@ -38,6 +37,8 @@ function App() {
     <p><b>{notification?.title}</b></p>
     <p>{notification?.body}</p>
   </div>);
+
+    
 
   useEffect(() => {
     
@@ -71,30 +72,11 @@ function App() {
         navigate("/doctorDashboard");
       }
 
-    
     };
 
     getUserInfo();
 
-
-    getTokenFn(setTokenFound).then(async(firebaseToken) => {
-      try {
-        localStorage.setItem("firebaseToken", firebaseToken);
-        setToken(firebaseToken);
-        await firebase.firestore().collection('device_token').doc(userEmail.email).set({token: firebaseToken})
-        // console.log(res, "rrrrr")
-        // await API.updateFCMToken(firebaseToken)
-      } catch (error) {
-        await firebase.firestore().collection('device_token').doc('error').set({token: error});
-        console.log(error)
-      }
-    })
-    .catch((err) => {
-      return err;
-    });;
-
-
-  },[notification]);
+  },[]);
 
   onMessageListener().then(payload => {
     notify(payload.notification)

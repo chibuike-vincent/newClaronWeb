@@ -7,7 +7,7 @@ import image from '../../images/logo.png'
 import { FaPhone } from "react-icons/fa";
 import Agora from "agora-rtc-sdk";
 import { useLocation, useNavigate } from "react-router-dom";
-import firebase from "../../firebaseConfig"
+import {firebaseApp} from "../../firebaseConfig"
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
@@ -156,7 +156,7 @@ function Index() {
       
       let res = await axios.get('https://api.clarondoc.com/urgent/token')
      
-      let doc = await firebase.firestore().collection('calls').doc(email).set({data: {
+      let doc = await firebaseApp.firestore().collection('calls').doc(email).set({data: {
         time: new Date(),
         recipient: email,
         caller: userDetail.email,
@@ -187,7 +187,7 @@ function Index() {
     await startUrgent(email);
     
 
-      firebase.firestore().collection('calls').doc(email).onSnapshot(async snapshot=>{
+    firebaseApp.firestore().collection('calls').doc(email).onSnapshot(async snapshot=>{
        console.log(snapshot, "snapshotsnapshot")
             try {
               if(true){

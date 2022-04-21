@@ -1,5 +1,5 @@
 // import firebase from 'firebase/app';
-import firebase from '../firebaseConfig';
+import {firebaseApp} from '../firebaseConfig';
 const axios = require('axios').default
 let base_url = 'https://api.clarondoc.com'
 //authenticate doctors into the app
@@ -482,7 +482,7 @@ const sendToFireBase = async (data)=>{
 
     // API.sendMessage(sen)
 
-    await firebase.firestore().collection('newSMessages').doc(chat_code(data.recipient, data.sender)).collection('messages').add(sen);
+    await firebaseApp.firestore().collection('newSMessages').doc(chat_code(data.recipient, data.sender)).collection('messages').add(sen);
 
 }
 

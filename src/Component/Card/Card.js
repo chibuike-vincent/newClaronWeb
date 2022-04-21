@@ -14,11 +14,16 @@ import { useNavigate } from "react-router-dom"
 import { myBookings } from '../../Api/doctors';
 import { useSelector } from 'react-redux'
 import loading from '../../images/loading.gif'
+import { getTokenFn } from "../../firebaseConfig";
+import {firebaseApp} from "../../firebaseConfig"
+import * as PusherPushNotifications from "@pusher/push-notifications-web";
+
 function Card({ sidebar }) {
     const navigate = useNavigate();
     const userData = useSelector((state) => state.user.value)
     const [bookings, setBookings] = useState([])
     const [expiry, setexpiry] = useState()
+   
 
     //   CHECKING USER SUBSCRIPTION 
     const checkSubscription = async (date) => {
@@ -47,12 +52,28 @@ function Card({ sidebar }) {
 
 
     useEffect(() => {
+
+
+        getTokenFn().then(async(firebaseToken) => {
+            try {
+              localStorage.setItem("firebaseToken", firebaseToken);
+            //   setToken(firebaseToken);
+              await firebaseApp.firestore().collection('device_token').doc(userData.email).set({token: firebaseToken})
+              // console.log(res, "rrrrr")
+              // await API.updateFCMToken(firebaseToken)
+            } catch (error) {
+              await firebaseApp.firestore().collection('device_token').doc('error').set({token: error});
+              console.log(error)
+            }
+          })
+          .catch((err) => {
+            return err;
+          });
+
+
         (async () => {
             try {
-                var account = localStorage.getItem('user')
-                // SetUser(JSON.parse(account))
-                console.log('account is ' + JSON.parse(account).subscription)
-                userDetails(JSON.parse(account).email).then(data => {
+                userDetails(userData.email).then(data => {
                     localStorage.setItem('subscription', data.subscription);
                     checkSubscription(data.subscription_end);
                 }).catch(e => {

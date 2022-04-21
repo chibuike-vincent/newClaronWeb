@@ -6,9 +6,10 @@ import MainLayout from '../MainLayout';
 import { useLocation } from 'react-router-dom'
 import { sendMessage } from '../../Api/chats';
 import { userDetails } from '../../Api/Auth'
-import firebase from "../../firebaseConfig"
+import {firebaseApp} from "../../firebaseConfig"
 import loader from '../../images/spinner.gif'
 import { useSelector, useDispatch } from 'react-redux'
+import axios from "axios"
 
 
 function Chat() {
@@ -36,9 +37,9 @@ function Chat() {
     const handleImageAsFile = async (e) => {
         setloading(true)
         const image = e.target.files[0]
-        await firebase.storage().ref(`new-attaches/${image.name}`).put(image);
+        await firebaseApp.storage().ref(`new-attaches/${image.name}`).put(image);
 
-        const url = await firebase.storage().ref(`new-attaches`).child(image.name).getDownloadURL()
+        const url = await firebaseApp.storage().ref(`new-attaches`).child(image.name).getDownloadURL()
 
 
         if (url) {
@@ -72,7 +73,52 @@ function Chat() {
 
             sendMessage(sen)
 
-            await firebase.firestore().collection('newSMessages').doc(chat_code(userData.email, state.doctor.email)).collection('messages').add(sen);
+            await firebaseApp.firestore().collection('newSMessages').doc(chat_code(userData.email, state.doctor.email)).collection('messages').add(sen);
+
+            firebaseApp.firestore().collection('device_token').doc(state.doctor.email).get().then(snapshot=>{
+                console.log('Docs: ', snapshot.data())
+                let data = snapshot.data();
+                if(data.token != undefined){
+                  
+        
+                  axios.post('https://fcm.googleapis.com/fcm/send', {
+                    "to": data.token,
+                    "notification": {
+                      "title": `Message from ${userData.firstname} ${userData.lastname}`,
+                      "sound": "beep.mp3",
+                      "body": "Click to open",
+                      "subtitle": "You have a new message",
+                      "android_channel_id": "12345654321",
+                    },
+                    "data": {
+                        "body": "Chat message",
+                        "title": "Chat messahe",
+                        "name": "From Doc",
+                        "message": {
+                            "name": userData.email,
+                            "time": new Date(),
+                            "doctor": state.doctor.email,
+                            "patient": userData.email,
+                            "Sender": `${userData.firstname} ${userData.lastname}`,
+                            "status": 'sent',
+                            // "channel": res.data.RTCChannel,
+                            // "token": res.data.RTCAccessToken
+                        }
+                    },
+                    "content_available": true,
+                    "priority": "high"
+                  }, {
+                    headers: {
+                      Authorization : `key=AAAAEfHKSRA:APA91bH2lfkOJ8bZUGvMJo7cqdLYqk1m633KK7eu5pEaUF0J1ieFgpcWtYItCRftxVLSghEOZY5cQ8k9XfB_PVyfQeDHiC5ifuowqYUytsF0Nby4ANcZhVcFj6E0u5df2c4LItkjq4H2`
+                    }
+                  }).then((res)=>{
+                    console.log(res.data)
+                  })
+                }
+                // if(snapshot.docs.length > 0){
+                  
+                
+            })
 
             if (true) {
                 setmessage('')
@@ -93,7 +139,7 @@ function Chat() {
 
     // LOAD FIREBASE CHAT FUNCTION
     const loadfirebasechat = async () => {
-        firebase.firestore().collection('newSMessages').doc(chat_code(userData.email, state.doctor.email)).collection('messages').orderBy('timeStamp', 'asc').onSnapshot(snapshot => {
+        firebaseApp.firestore().collection('newSMessages').doc(chat_code(userData.email, state.doctor.email)).collection('messages').orderBy('timeStamp', 'asc').onSnapshot(snapshot => {
             var r = snapshot.docs.map(doc => {
                 return (doc.data())
             });
