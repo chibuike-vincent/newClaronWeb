@@ -30,10 +30,22 @@ function App() {
   const [show, setShow] = useState(false);
   const [notification, setNotification] = useState({title: '', body: ''});
   const [isTokenFound, setTokenFound] = useState(false);
-  const userEmail = useSelector((state) => state.user.value)
+  const userData = useSelector((state) => state.user.value)
 
+  const redirectFn = (notification, data) => {
+    if(notification.title.includes('Urgent Care')){
+      navigate("/join", { state: { notification:data, mediaType: "audio" }})
+    }else if(notification.title.includes('New message') && data.name.includes("From Patient")){
+      navigate("/ChatDoctor", { state: { notification:data }})
+    }else if(notification.title.includes('New message') && data.name.includes("From Doc")){
+      navigate("/chat", { state: { notification:data } })
+    }else{
+      navigate("/join-call", {state: {notification:data, mediaType: "video"}})
+    }
+  }
 
-  const notify = (notification) =>  toast( <div>
+  const notify = (notification, data) =>  toast( 
+  <div onClick={() => redirectFn(notification, data)}>
     <p><b>{notification?.title}</b></p>
     <p>{notification?.body}</p>
   </div>);
@@ -75,13 +87,18 @@ function App() {
     };
 
     getUserInfo();
-
   },[]);
 
   onMessageListener().then(payload => {
-    notify(payload.notification)
-    setNotification({title: payload.notification.title, body: payload.notification.body})
-    console.log(payload, "Hello notify");
+    if(payload?.notification){
+      notify(payload.notification, payload.data)
+      setNotification({title: payload.notification.title, body: payload.notification.body})
+      console.log(payload, "Hello notify");
+    }else{
+      notify(payload.data, payload.call)
+      setNotification({title: payload.data.title, body: payload.data.body})
+      console.log(payload, "Hello notify");
+    }
     }).catch(err => console.log('failed: ', err));
 
   return (

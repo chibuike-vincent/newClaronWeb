@@ -54,7 +54,9 @@ import TermsD from '../DoctorPages/Terms/Terms'
 import AboutD from '../DoctorPages/About/About'
 import CartModal from '../DoctorPages/Modals/CartModal'
 import Call from '../Pages/Call/audioCalls'
+import JoinCall from '../Pages/Call/joinAudioCAll'
 import Video from '../Pages/Call/Video'
+import JoinVideo from "../Pages/Call/Video/joinVideoCall"
 // PUBLIC PAGES
 import SignUp from '../Pages/signup/Signup'
 import SignIn from '../Pages/SignIn/SignIn'
@@ -85,7 +87,9 @@ function Index() {
                 <Route exact path="/facilityrequest" element={< FacilityRequest />} />
                 <Route exact path="/HomeCareForm" element={< HomeCareForm />} />
                 <Route exact path="/call" element={< Call />} />
+                <Route exact path="/join" element={< JoinCall />} />
                 <Route exact path="/video-call" element={<Video />} />
+                <Route exact path="/join-call" element={<JoinVideo />} />
                 <Route exact path="/Referral" element={< Referral />} />
                 <Route exact path="/AppointmentHistory" element={<AppointmentHistory/>} />
                 <Route exact path="/profile" element={<UserProfile />} />

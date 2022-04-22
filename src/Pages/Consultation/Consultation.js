@@ -239,7 +239,7 @@ function Consultation() {
                                     </div>
 
                                     <div
-                                        onClick={() => userData.subscription === null || userData.subscription === 'Normal' || userData.subscription === 'Pay As You go' ? navigate('/PayAsYouGo', { state: { name: 'Chat', price: 50, doctor } }) : navigate('/chat', { state: { doctor } })}
+                                        onClick={() => userData.subscription === null || userData.subscription === 'Normal' || userData.subscription === 'Pay As You go' ? navigate('/PayAsYouGo', { state: { name: 'Chat', price: 50, doctor } }) : navigate('/chat', { state: { userData: doctor } })}
                                         class="action-container">
                                         <BsFillChatSquareTextFill className="doctor-icon" />
                                         <span>Chat</span>
@@ -309,7 +309,7 @@ function Consultation() {
                                         </div>
 
                                         <div
-                                            onClick={() => userData.subscription === null || userData.subscription === 'Normal' || userData.subscription === 'Pay As You go' ? navigate('/PayAsYouGo', { state: { name: 'Chat', price: 50, doctor } }) : navigate('/chat', { state: { doctor } })}
+                                            onClick={() => userData.subscription === null || userData.subscription === 'Normal' || userData.subscription === 'Pay As You go' ? navigate('/PayAsYouGo', { state: { name: 'Chat', price: 50, doctor } }) : navigate('/chat', { state: { userData: doctor } })}
                                             class="action-container">
                                             <BsFillChatSquareTextFill className="doctor-icon" />
                                             <span>Chat</span>

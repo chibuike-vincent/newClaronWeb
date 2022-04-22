@@ -59,23 +59,7 @@ function Index() {
   countt_r.current = 0;
   const email_r = useRef('')
 
-  const doctors = [
-    {
-      text: "Line For Dr. Seth",
-      email: 'krebscycle07@yahoo.com',
-      style: "default",
-    },
-    {
-      text: "Line For Dr. Joseph",
-      email: 'oppongjoseph69@gmail.com',
-      style: "default",
-    },
-    {
-      text: "Line For Dr. Samuel",
-      email: 'samuel.anakwa@claronhealth.com',
-      style: "default",
-    },
-  ]
+  console.log(JSON.parse(location.state.notification.call), "JSON.parse(location.state.notification.call)")
 
 
   useEffect(() => {
@@ -86,17 +70,18 @@ function Index() {
       setTrackType(type)
       setClient(clientInstance);
       setClientInstance(clientInstance)
-        setOpen(true)
+      join_now(JSON.parse(location.state.notification.call))
       
     }
     getClienInstance()
-   
+    
   }, [])
 
   let user = localStorage.getItem('user')
   const userDetail = JSON.parse(user)
 
   const join = async(channelName, token) => {
+      console.log(token, channelName, "token, channelName")
     if(client){
     clientInstance.init(appId, () => {
       clientInstance.join(token, channelName, null, (uid) => {
@@ -148,120 +133,120 @@ function Index() {
   };
 
 
-  const startUrgent = async(email)=>{
-    setInitializing(true)
+//   const startUrgent = async(email)=>{
+//     setInitializing(true)
     
-    try{
+//     try{
       
-      let res = await axios.get('https://api.clarondoc.com/urgent/token')
+//       let res = await axios.get('https://api.clarondoc.com/urgent/token')
      
-      let doc = await firebaseApp.firestore().collection('calls').doc(email).set({data: {
-        time: new Date(),
-        recipient: email,
-        caller: userDetail.email,
-        status: 'started',
-        channel: res.data.RTCChannel,
-        token: res.data.RTCAccessToken
-      }})
-      // call_id = (recp)
-      await join(res.data.RTCChannel,res.data.RTCAccessToken)
+//       let doc = await firebaseApp.firestore().collection('calls').doc(email).set({data: {
+//         time: new Date(),
+//         recipient: email,
+//         caller: userDetail.email,
+//         status: 'started',
+//         channel: res.data.RTCChannel,
+//         token: res.data.RTCAccessToken
+//       }})
+//       // call_id = (recp)
+//       await join(res.data.RTCChannel,res.data.RTCAccessToken)
       
-    }catch(e){
-      console.log(e)
-      alert('Unable to start call', e.message)
-      setTimeout(()=>{
-        navigate(-1)
-      }, 3000)
-    }
-  }
+//     }catch(e){
+//       console.log(e)
+//       alert('Unable to start call', e.message)
+//       setTimeout(()=>{
+//         navigate(-1)
+//       }, 3000)
+//     }
+//   }
 
 
-  const start_now = async(email)=>{
+  const join_now = async(data)=>{
     // start
-    setrecp(email)
-    email_r.current = email;
+    setrecp(data.doctor)
+    email_r.current = data.doctor;
 
-  
+    setInCall(true)
     
-    await startUrgent(email);
+    await join(data.channel,data.token)
     
 
-    firebaseApp.firestore().collection('calls').doc(email).onSnapshot(async snapshot=>{
-       console.log(snapshot, "snapshotsnapshot")
-            try {
-              if(true){
-                urgent = snapshot.data().data;
+    // firebaseApp.firestore().collection('calls').doc(email).onSnapshot(async snapshot=>{
+    //    console.log(snapshot, "snapshotsnapshot")
+    //         try {
+    //           if(true){
+    //             urgent = snapshot.data().data;
   
-                console.log('count:'+ countt_r.current)
+    //             console.log('count:'+ countt_r.current)
   
-                if(urgent.status == 'ongoing'){
-                  setpicked(true);
-                  console.log('picked')
-                }
+    //             if(urgent.status == 'ongoing'){
+    //               setpicked(true);
+    //               console.log('picked')
+    //             }
 
-                let tokenRes = await axios.get('https://api.clarondoc.com/urgent/token')
+    //             let tokenRes = await axios.get('https://api.clarondoc.com/urgent/token')
 
-                firebaseApp.firestore().collection('device_token').doc(email).get().then(snapshot=>{
-                  console.log('Docs: ', snapshot.data())
-                  let data = snapshot.data();
-                  if(data.token != undefined){
+    //             firebaseApp.firestore().collection('device_token').doc(email).get().then(snapshot=>{
+    //               console.log('Docs: ', snapshot.data())
+    //               let data = snapshot.data();
+    //               if(data.token != undefined){
                     
           
-                    axios.post('https://fcm.googleapis.com/fcm/send', {
-                      "to": data.token,
-                      "notification": {
-                        "title": "Urgent Care",
-                        "sound": "ring.mp3",
-                        "body": "Incoming calling call",
-                        "subtitle": "You have a call request",
-                        "android_channel_id": "12345654321",
-                      },
-                      "data": {
-                          "body": "call request",
-                          "title": "call request",
-                          "name": "hellworld",
-                          "call": {
-                              "name": userDetail.email,
-                              "time": new Date(),
-                              "patient": userDetail.email,
-                              "doctor": email,
-                              "caller": `${userDetail.firstname} ${userDetail.lastname}`,
-                              "status": 'started',
-                              "end_now": 'false',
-                              "channel": tokenRes.data.RTCChannel,
-                              "token": tokenRes.data.RTCAccessToken
-                          }
-                      },
-                      "content_available": true,
-                      "priority": "high"
-                    }, {
-                      headers: {
-                        Authorization : `key=AAAAEfHKSRA:APA91bH2lfkOJ8bZUGvMJo7cqdLYqk1m633KK7eu5pEaUF0J1ieFgpcWtYItCRftxVLSghEOZY5cQ8k9XfB_PVyfQeDHiC5ifuowqYUytsF0Nby4ANcZhVcFj6E0u5df2c4LItkjq4H2`
-                      }
-                    }).then((res)=>{
-                      console.log(res.data)
-                    })
-                  }
-                  // if(snapshot.docs.length > 0){
+    //                 axios.post('https://fcm.googleapis.com/fcm/send', {
+    //                   "to": data.token,
+    //                   "notification": {
+    //                     "title": "Urgent Care",
+    //                     "sound": "ring.mp3",
+    //                     "body": "Incoming calling call",
+    //                     "subtitle": "You have a call request",
+    //                     "android_channel_id": "12345654321",
+    //                   },
+    //                   "data": {
+    //                       "body": "call request",
+    //                       "title": "call request",
+    //                       "name": "hellworld",
+    //                       "call": {
+    //                           "name": userDetail.email,
+    //                           "time": new Date(),
+    //                           "patient": userDetail.email,
+    //                           "doctor": email,
+    //                           "caller": `${userDetail.firstname} ${userDetail.lastname}`,
+    //                           "status": 'started',
+    //                           "end_now": 'false',
+    //                           "channel": tokenRes.data.RTCChannel,
+    //                           "token": tokenRes.data.RTCAccessToken
+    //                       }
+    //                   },
+    //                   "content_available": true,
+    //                   "priority": "high"
+    //                 }, {
+    //                   headers: {
+    //                     Authorization : `key=AAAAEfHKSRA:APA91bH2lfkOJ8bZUGvMJo7cqdLYqk1m633KK7eu5pEaUF0J1ieFgpcWtYItCRftxVLSghEOZY5cQ8k9XfB_PVyfQeDHiC5ifuowqYUytsF0Nby4ANcZhVcFj6E0u5df2c4LItkjq4H2`
+    //                   }
+    //                 }).then((res)=>{
+    //                   console.log(res.data)
+    //                 })
+    //               }
+    //               // if(snapshot.docs.length > 0){
                     
                   
-              })
+    //           })
                
                 
   
-                countt_r.current+=1;
-                setInitializing(false)
-                setOpen(false)
-                setInCall(true)
+    //             countt_r.current+=1;
+    //             setInitializing(false)
+    //             setOpen(false)
+    //             setInCall(true)
 
-            }              
-            } catch (error) {
+    //         }              
+    //         } catch (error) {
               
-            }
+    //         }
           
-      }, e => {
-          console.log('Firebase Error: ', e)
-      })
+    //   }, e => {
+    //       console.log('Firebase Error: ', e)
+    //   })
 
      
     // stop
@@ -275,34 +260,7 @@ function Index() {
 
   return (
     <div className="out-container-call">
-      
-          <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        
-        <Box sx={style} className="call-container-modal">
-        <div className="closeBtn">
-          <h2 onClick={() => handleGoBack()}>X</h2>
-        </div>
-        <h4 className="initialize">{initializing ? "Initializing call... Please wait!" : null }</h4>
-          <p className="stand-by">Stand-By Line for emergency call</p>
-
-          {
-            doctors.map((doc) => {
-              return (
-                <div className="doc-call-container">
-                  <p className="doc-btn" key={doc.email} onClick={() => start_now(doc.email)}>{doc.text} <FaPhone className="call-em"/></p>
-                </div>
-                
-              )
-            })
-          }
          
-        </Box>
-      </Modal>
      
       {inCall ? (
          <>

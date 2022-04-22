@@ -84,13 +84,13 @@ function DoctorProfile({openP,handleCloseProfile,selectedData}) {
                    </p>
                    </div>
                 <div
-                onClick={ ()=>userData.subscription === null || userData.subscription === 'Normal' || userData.subscription === 'Pay As You go'? navigate('/PayAsYouGo',{ state: { name: 'Pay As You go', price: 50,doctor} }): navigate('/Book',{state:{doctor}})}
+                onClick={ ()=>userData.subscription === null || userData.subscription === 'Normal' || userData.subscription === 'Pay As You go'? navigate('/PayAsYouGo',{ state: { name: 'Pay As You go', price: 50,doctor} }): navigate('/Book',{state:{userData:doctor}})}
                 class="item-doc">
                   <FaCalendarAlt  className='icon-phone'/>
                   <p>Check Availability</p>
                   </div>
                 <div
-                onClick={ ()=>userData.subscription === null || userData.subscription === 'Normal' || userData.subscription === 'Pay As You go'? navigate('/PayAsYouGo',{ state: { name: 'Pay As You go', price: 50,doctor} }): navigate('/chat',{state:{doctor}})}
+                onClick={ ()=>userData.subscription === null || userData.subscription === 'Normal' || userData.subscription === 'Pay As You go'? navigate('/PayAsYouGo',{ state: { name: 'Pay As You go', price: 50,doctor} }): navigate('/chat',{state:{userData: doctor}})}
                 class="item-doc">
                   <FaRegCommentDots  className='icon-phone'/>
                   <p>Chat</p>

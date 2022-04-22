@@ -13,21 +13,6 @@ import * as API from '../../Api/DoctorApi';
 import axios from "axios"
 
 function Chat() {
-	// if (!firebase.apps.length) {
-    //     firebase.initializeApp({
-    //         apiKey: "AIzaSyA07_A7At-J9Mu6NMXBpoLVYcrKWR3ezy4",
-    //         authDomain: "fcm-notify-db9b8.firebaseapp.com",
-    //         databaseURL: "https://fcm-notify-db9b8.firebaseio.com",
-    //         projectId: "fcm-notify-db9b8",
-    //         storageBucket: "fcm-notify-db9b8.appspot.com",
-    //         messagingSenderId: "77071010064",
-    //         appId: "1:77071010064:web:e693b1fa22167a00e27d95",
-    //         measurementId: "G-VWCS7XBQC3"
-    //     });
-    // } else {
-    //     firebase.app(); // if already initialized, use that one
-    // }
-
     const [email, setemail] = useState('')
     const [user, setUser] = useState({})
     const [message, setmessage] = useState('')
@@ -40,6 +25,8 @@ function Chat() {
     const messagesEndRef = useRef(null)
 	const userData = useSelector((state) => state.user.value)
 	const location = useLocation();
+
+    const recipientEmail = location.state.userData === undefined ? JSON.parse(location.state.notification.message).patient : location.state.userData.email
 
     const handleImageAsFile = async (e) => {
         setloading(true)
@@ -69,7 +56,7 @@ function Chat() {
         try {
             let sen = {
                 message: messag.trim(),
-                recipient: location.state.patient.email,
+                recipient: recipientEmail,
                 attachment: image,
                 file_type: type,
                 sender: userData.email,
@@ -79,10 +66,12 @@ function Chat() {
             };
 
 			API.sendMessage(sen)
-           
-            await firebaseApp.firestore().collection('newSMessages').doc(chat_code(location.state.patient.email, userData.email)).collection('messages').add(sen);
 
-            firebaseApp.firestore().collection('device_token').doc(location.state.patient.email).get().then(snapshot=>{
+            console.log(recipientEmail, "location.state.userData.emaillocation.state.userData.emaillocation.state.userData.email")
+           
+            await firebaseApp.firestore().collection('newSMessages').doc(chat_code(recipientEmail, userData.email)).collection('messages').add(sen);
+
+            firebaseApp.firestore().collection('device_token').doc(recipientEmail).get().then(snapshot=>{
                 console.log('Docs: ', snapshot.data())
                 let data = snapshot.data();
                 if(data.token != undefined){
@@ -91,7 +80,7 @@ function Chat() {
                   axios.post('https://fcm.googleapis.com/fcm/send', {
                     "to": data.token,
                     "notification": {
-                      "title": `Message from Dr. ${userData.firstname} ${userData.lastname}`,
+                      "title": `New message from Dr. ${userData.firstname} ${userData.lastname}`,
                       "sound": "beep.mp3",
                       "body": "Click to open",
                       "subtitle": "You have a new message",
@@ -104,7 +93,7 @@ function Chat() {
                         "message": {
                             "name": userData.email,
                             "time": new Date(),
-                            "patient": location.state.patient.email,
+                            "patient": recipientEmail,
                             "doctor": userData.email,
                             "sender": `${userData.firstname} ${userData.lastname}`,
                             "status": 'sent',
@@ -141,7 +130,7 @@ function Chat() {
 
     // LOAD FIREBASE CHAT FUNCTION
     const loadfirebasechat = async (data) => {
-        firebaseApp.firestore().collection('newSMessages').doc(chat_code(location.state.patient.email, userData.email)).collection('messages').orderBy('timeStamp', 'asc').onSnapshot(snapshot => {
+        firebaseApp.firestore().collection('newSMessages').doc(chat_code(recipientEmail, userData.email)).collection('messages').orderBy('timeStamp', 'asc').onSnapshot(snapshot => {
             var r = snapshot.docs.map(doc => {
                 return (doc.data())
             });
@@ -197,7 +186,7 @@ function Chat() {
 		<DoctorLayout>
 <div className="chart-cantaner">
 
-<h4 className="dr-chat-detail">You are Chatting with <span>{location.state.patient.firstname}</span>  </h4>
+<h4 className="dr-chat-detail">You are Chatting with <span>{location.state.userData === undefined ? JSON.parse(location.state.notification.message).sender : location.state.userData.firstname}</span>  </h4>
 
 {conversation.length > 0 ? conversation.map(chat => {
 	return (
