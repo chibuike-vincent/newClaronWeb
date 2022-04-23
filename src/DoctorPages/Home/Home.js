@@ -89,7 +89,6 @@ function Home() {
                                 <div className="perform-actions-container">
                                     <FaRocketchat onClick={()=>navigate("/ChatDoctor",{state:{userData: patient}})}  className="phone-doc" />
                                     <FaPhone className="phone-doc" onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: userData, patientEmail: patient.email } })} />
-                                    {/* <FaVideo className="phone-doc" onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: user, patientEmail: patient.email } })} /> */}
                                 </div>
                             </div>
                         </div>
@@ -108,9 +107,6 @@ function Home() {
                                         <FaRocketchat onClick={()=>navigate("/ChatDoctor",{state:{userData: patient}})}  className="phone-doc" />
                                     
                                     <FaPhone className="phone-doc" onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: userData, patientEmail: patient.email } })} />
-                                    {/* <FaVideo className="phone-doc" onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: user, patientEmail: patient.email } })} /> */}
-                                    {/* <FaPhone className="phone-doc" /> */}
-                                    {/* <FaVideo className="phone-doc" /> */}
                                 </div>
                             </div>
                         </div>

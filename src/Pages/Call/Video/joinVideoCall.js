@@ -49,12 +49,6 @@ function App() {
   let countt_r = useRef(0)
   countt_r.current = 0;
   const email_r = useRef('')
-  
-  console.log(JSON.parse(location.state.notification.call), "JSON.parse(location.state.notification.call)")
-
-  const doctor = location.state.doctor
-    const patientEmail = location.state.patientEmail
-   
 
 useEffect(() => {
   setInCall(true)
@@ -66,7 +60,7 @@ useEffect(() => {
     <div>
       {inCall ? (
           
-        <VideoCall setInCall={setInCall} appId={appId} token={JSON.parse(location.state.notification.call).token} channelName={JSON.parse(location.state.notification.call).channel} useClient={useClient} useMicrophoneAndCameraTracks={useMicrophoneAndCameraTracks} />
+        <VideoCall guest={"doctor"} setInCall={setInCall} appId={appId} token={JSON.parse(location.state.notification.call).token} channelName={JSON.parse(location.state.notification.call).channel} useClient={useClient} useMicrophoneAndCameraTracks={useMicrophoneAndCameraTracks} />
       ) : null
       }
     </div>

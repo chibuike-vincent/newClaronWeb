@@ -19,8 +19,7 @@ import {
   onMessageListener
 } from "./firebaseConfig";
 import toast, { Toaster } from 'react-hot-toast';
-import { ShowMessage, type } from "../src/Component/Toaster";
-import firebase from "./firebaseConfig"
+
 
 function App() {
   const dispatch = useDispatch();
@@ -32,7 +31,7 @@ function App() {
   const [isTokenFound, setTokenFound] = useState(false);
   const userData = useSelector((state) => state.user.value)
 
-  const redirectFn = (notification, data) => {
+  const redirectFn = (notification, data) => { 
     if(notification.title.includes('Urgent Care')){
       navigate("/join", { state: { notification:data, mediaType: "audio" }})
     }else if(notification.title.includes('New message') && data.name.includes("From Patient")){
@@ -45,7 +44,7 @@ function App() {
   }
 
   const notify = (notification, data) =>  toast( 
-  <div onClick={() => redirectFn(notification, data)}>
+  <div style={{cursor:"pointer"}} onClick={() => redirectFn(notification, data)}>
     <p><b>{notification?.title}</b></p>
     <p>{notification?.body}</p>
   </div>);

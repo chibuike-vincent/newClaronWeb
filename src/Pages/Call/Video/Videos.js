@@ -4,7 +4,7 @@ import {
   } from "agora-rtc-react";
   
 function Videos(props) {
-    const { users, tracks } = props;
+    const { users, tracks, guest } = props;
     return (
         <div >
         
@@ -18,7 +18,7 @@ function Videos(props) {
                 );
               } else return null;
             }) : (
-              <p>Waiting for patient to join...</p>
+              <p>{guest === "doctor" ? "Waiting for doctor to re-join..." : "Waiting for patient to join..."}</p>
             )
             }
         </div>

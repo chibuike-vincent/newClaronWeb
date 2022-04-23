@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import { FaPhoneAlt, FaVideo } from "react-icons/fa";
-// import './DoctorNotification.css'
-import './Consultations.css'
+import './Consultations.css';
 import DoctorLayout from '../../Pages/DoctorLayout';
 import * as API from "../../Api/DoctorApi";
 import moment from 'moment';
@@ -10,6 +9,10 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import { useSelector} from 'react-redux';
+import {useNavigate } from "react-router-dom";
+
+
 function Consultations() {
   const [schedules, setSchedules] = useState([])
   const [loaded, setLoaded] = useState(false);
@@ -19,6 +22,8 @@ function Consultations() {
   const [Rloading, setRLoading] = useState(false);
   const [color, setColor] = useState("");
   const [total, setTotal] = useState(null);
+  const userData = useSelector((state) => state.user.value)
+  const navigate = useNavigate()
 
   const [value, setValue] = React.useState(new Date('2014-08-18T21:11:54'));
 
@@ -119,9 +124,7 @@ function Consultations() {
                             </>
                         ) : (moment(item.scheduledFor) >= moment(new Date())) && item.status === "Accepted" ? (
                             <>
-                            {/* <div className="accept"><FaPhoneAlt/></div> */}
-                            <div className="reject"><FaVideo/></div>
-                            {/* <button className='cancel-btn-book'>Cancel Appointment</button> */}
+                            <div className="reject"><FaVideo onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: userData, patientEmail: item.patient.email } })}/></div>
                             </>
                         ) : null
                         
