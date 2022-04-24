@@ -18,9 +18,7 @@ function Chat() {
   const [message, setmessage] = useState("");
   const [loading, setloading] = useState(false);
   const [conversation, setconversation] = useState([]);
-  const userData = useSelector((state) => state.user.value);
-
-  console.log(userData.email, JSON.parse(state.notification.message), "userData.email");
+  const userData = useSelector((state) => state.user.value)
 
   const recipientEmail = state.userData === undefined ? JSON.parse(state.notification.message).doctor : state.userData.email
 
