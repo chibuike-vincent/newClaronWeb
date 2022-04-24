@@ -45,16 +45,15 @@
 
 /* TERMS AND PRIVACY PAGE */
 .terms-and-privacy-container{
-    width: 100%;
-    margin-right: auto;
-    margin-left: auto;
+    width: 82%;
+    margin: 150px auto;
     color: #0d2344;
 
-    background-color: #fff !important;
+    /* background-color: #fff !important; */
 }
 
-.terms-and-privacy-container h2{
-    text-align: center;
+.terms-and-privacy-container h1{
+    padding-bottom: 20px;
 }
 
 .terms-and-privacy-container p{
@@ -74,4 +73,21 @@
 .contact-us h1{
     margin-top: 20px;
     margin-bottom: 10px;
+}
+
+
+
+
+/* TERMS AND CONDITIONS STYLINGS */
+.first-text{
+    margin-top: 50px !important;
+    
+}
+.terms-list{
+    margin-left: 20px !important;
+    margin-top: 20px;
+}
+
+.terms-list li{
+    list-style-type: square !important;
 }
