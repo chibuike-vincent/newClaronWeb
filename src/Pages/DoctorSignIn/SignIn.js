@@ -122,21 +122,20 @@ function SignIn() {
           />
 
           <div className="passForgotContainer">
-            <p onClick={handleOpen}>forgot Password</p>
-
-            <Button
+          <Button
               onClick={loginDoctor}
               className="sigInBtn"
               variant="contained"
             >
               Login
             </Button>
+            <p onClick={handleOpen}>forgot Password</p>
           </div>
 
           <p className="dont-have-account">
             Don't have account?{" "}
             <Link to="/SignUp" className="sign-up">
-              Contact Claron support team
+              Register
             </Link>
           </p>
         </div>

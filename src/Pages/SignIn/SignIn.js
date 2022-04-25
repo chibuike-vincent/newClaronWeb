@@ -220,9 +220,8 @@ function SignIn() {
                         
 
                         <div className="passForgotContainer">
+                        <Button onClick={loginUser}  className='sigInBtn' variant="contained">Login</Button>
                             <p onClick={handleOpen}>forgot Password</p>
-
-                            <Button onClick={loginUser}  className='sigInBtn' variant="contained">Login</Button>
                         </div>
                         <p className="or">Or</p>
                     {/* </div> */}
