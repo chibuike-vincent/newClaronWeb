@@ -11,7 +11,9 @@ import { getTokenFn } from "../../firebaseConfig";
 import {firebaseApp} from "../../firebaseConfig"
 import { USERS } from '../../features/user'
 
+const PERPAGE = 6;
 function Home() {
+    const [page,setPage] = useState(1)
     const [data, setData]= useState([])
     const [filtered,setFiltered]= useState([]);
     const [searchInput, setSearchInput] = useState("")
@@ -22,8 +24,9 @@ function Home() {
     const dispatch = useDispatch()
     const patientsData = useSelector((state)=>state.user.patients)
 
-    useEffect(() => {
 
+
+    useEffect(() => {
         getTokenFn().then(async(firebaseToken) => {
             try {
               localStorage.setItem("firebaseToken", firebaseToken);

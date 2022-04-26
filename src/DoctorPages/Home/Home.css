@@ -3,7 +3,7 @@ a{
     color: black;
 }
 .patients-platform-container{
-    margin-top: 50px;
+    margin-top: 10px;
     height: 100vh;
     width: 95%;
     margin-right: auto;
@@ -17,7 +17,7 @@ a{
     margin-left: 5px;
     overflow: scroll;
     height: 800px;
-    padding-bottom: 60px;
+    padding-bottom: 350px;
 }
 
 .card-container-patient{
