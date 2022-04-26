@@ -2,13 +2,14 @@ import React,{useState, useEffect} from 'react'
 import './LabRequest.css'
 // import docuser from '../../images/doc-1.jpg'
 import TextField from '@mui/material/TextField';
-import {Patients} from '../LabRequest/Patient'
 import {Box,Dialog,DialogTitle,DialogContent,IconButton} from '@mui/material';
 import { FiX } from "react-icons/fi";
 import LabTests from '../LabRequest/LabTests'
 import doc from '../../images/doc-1.jpg'
 import DoctorLayout from '../../Pages/DoctorLayout';
 import * as API from "../../Api/DoctorApi";
+import { USERS } from '../../features/user'
+import { useSelector, useDispatch } from 'react-redux'
 function LabRequest() {
     const[openModal, setOpenModal]= useState(false)
     const [data, setData]= useState([])
@@ -16,14 +17,16 @@ function LabRequest() {
     const [searchInput, setSearchInput] = useState("")
     const [loaded, setLoaded] = useState(false);
     const [patientEmail, setPatientEmail] = useState("");
-
+    const dispatch = useDispatch()
+    const patientsData = useSelector((state)=>state.user.patients)
 
     useEffect(() => {
         const getPatints = async () => {
           setLoaded(true);
           const res = await API.getPatients();
           if (res) {
-            setData(res);
+            dispatch(USERS(res));
+            setData(patientsData);
             setLoaded(false);
           }
         };
@@ -86,7 +89,7 @@ function LabRequest() {
     </div>
             <Dialog open={openModal} fullWidth>
                 <DialogTitle>
-                    <Box display="flex" justifyContent="space-between" alignItems="center">
+                    <Box className='lab-head' display="flex" justifyContent="space-between" alignItems="center">
                     Add Lab Test For Patient
                     <IconButton onClick={()=>setOpenModal(false)}>
                         <FiX/>

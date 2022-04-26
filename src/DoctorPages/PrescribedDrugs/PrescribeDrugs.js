@@ -15,6 +15,8 @@ import { Link } from "react-router-dom";
 import DoctorLayout from "../../Pages/DoctorLayout";
 import * as API from "../../Api/DoctorApi";
 import DocDrugs from "./DocDrugs";
+import { USERS } from '../../features/user'
+import { useSelector, useDispatch } from 'react-redux'
 
 function PrescribeDrugs() {
   const [openModal, setOpenModal] = useState(false);
@@ -25,15 +27,20 @@ function PrescribeDrugs() {
   const [patientEmail, setPatientEmail] = useState("");
   const [drugs, setDrugs] = useState([]);
 
+  const dispatch = useDispatch()
+  const patientsData = useSelector((state)=>state.user.patients)
+
   useEffect(() => {
     const getPatints = async () => {
       setLoaded(true);
       const res = await API.getPatients();
       const drugs = await API.getDrugs();
       if (res) {
-        setData(res);
         setDrugs(drugs);
+        dispatch(USERS(res));
+        setData(patientsData);
         setLoaded(false);
+      
       }
     };
     getPatints();
@@ -134,6 +141,7 @@ function PrescribeDrugs() {
             display="flex"
             justifyContent="space-between"
             alignItems="center"
+            className='lab-head'
           >
             Add Drugs For Patient
             <IconButton onClick={() => setOpenModal(false)}>

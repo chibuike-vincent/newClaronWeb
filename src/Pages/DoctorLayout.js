@@ -156,7 +156,7 @@ function DoctorLayout({ children }) {
                 <div className="hover-menu">
                   <Link to="/Settings">Settings</Link>
                   <Link to="/Availability">Availability</Link>
-                  <Link to="/ClaronTerms">Terms and Condition</Link>
+                  <Link to="/Terms">Terms and Condition</Link>
                   <span onClick={logOut}>Logout</span>
                 
                 </div>

@@ -113,5 +113,25 @@
 
 .date-container{
     width: 99% !important;
-    
+}
+
+@media(max-width:550px){
+    .container-notification-card{
+        width: 100%;
+        margin-left: 0px;
+        margin-top: 10px;
+        height: 100vh;
+        overflow: auto;
+        margin-bottom: 200px;
+    }
+    .user_id{
+        font-size: 13px;
+    }
+
+    .consult-n{
+        padding-left: 25px;
+    }
+    .date-created-container{
+        font-size: 15px;
+    }
 }

@@ -113,6 +113,7 @@ export default function MultipleSelectChip({email}) {
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
+          className='lab-input'
           multiple
           value={labRequest}
           onChange={handleChange}

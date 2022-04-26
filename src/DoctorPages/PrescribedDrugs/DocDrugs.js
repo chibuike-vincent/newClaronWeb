@@ -114,6 +114,7 @@ export default function MultipleSelectChip({email, drugs}) {
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
+          className='lab-input'
           multiple
           value={drugsRequest}
           onChange={handleChange}
@@ -129,6 +130,7 @@ export default function MultipleSelectChip({email, drugs}) {
         >
           {names.map((name) => (
             <MenuItem
+             className="drug-name"
               key={name}
               value={name}
               style={getStyles(name, drugsRequest, theme)}

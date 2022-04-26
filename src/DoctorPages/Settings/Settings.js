@@ -134,7 +134,7 @@ function Settings() {
 
           <Grid sx={{ mb: 1 }} container spacing={2}>
 
-            <Grid full item xs={6}>
+            <Grid full item xs={12} lg={6}>
               <label for="">First Name</label>
               <TextField
                 disabled={true}
@@ -144,7 +144,7 @@ function Settings() {
                 fullWidth id="outlined-basic" variant="outlined" />
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={12} lg={6}>
               <label for="">Last Name</label>
               <TextField
                 disabled={true}

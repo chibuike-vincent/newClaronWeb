@@ -5,7 +5,8 @@ const userSlice = createSlice({
     initialState:{
         value:{},
         cart: [],
-        notifications: []
+        notifications: [],
+        patients:{}
     },
     reducers:{
         LOGIN: (state,action)=>{
@@ -58,7 +59,11 @@ const userSlice = createSlice({
         NOTIFICATIONS: (state,action)=>{
             state.notifications = action.payload
         },
+
+        USERS:(state,action)=>{
+            state.patients = action.payload
+        }
     }
 })
-export const {UPDATEAVAILABILITY,LOGIN,LOGOUT,UPDATE,UPDATESUB,UPDATEUSERINFO,UPDATECARTINFO,REMOVEFROMCART, UPDATECARTQUANTITY, NOTIFICATIONS,CLEARCARTINFO} = userSlice.actions
+export const {UPDATEAVAILABILITY,LOGIN,LOGOUT,UPDATE,UPDATESUB,UPDATEUSERINFO,UPDATECARTINFO,REMOVEFROMCART, UPDATECARTQUANTITY, NOTIFICATIONS,CLEARCARTINFO,USERS} = userSlice.actions
 export default userSlice.reducer;

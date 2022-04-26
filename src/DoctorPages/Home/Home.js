@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from "react-router-dom"
 import TextField from '@mui/material/TextField';
 import * as API from "../../Api/DoctorApi";
 import doc from '../../images/doc-1.jpg'
 import {useNavigate } from "react-router-dom"
 import './Home.css'
 import DoctorLayout from '../../Pages/DoctorLayout';
-import { Patients } from './Patients'
 import { FaPhone, FaVideo, FaRocketchat } from "react-icons/fa";
 import { useSelector, useDispatch } from 'react-redux'
 import { getTokenFn } from "../../firebaseConfig";
 import {firebaseApp} from "../../firebaseConfig"
-
+import { USERS } from '../../features/user'
 
 function Home() {
     const [data, setData]= useState([])
@@ -21,6 +19,8 @@ function Home() {
     const [loaded, setLoaded] = useState(false);
     const userData = useSelector((state) => state.user.value)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const patientsData = useSelector((state)=>state.user.patients)
 
     useEffect(() => {
 
@@ -44,17 +44,17 @@ function Home() {
         const getPatints = async () => {
           setLoaded(true);
           const res = await API.getPatients();
-          if (res) {
-            setData(res);
+          if (res) { 
+            dispatch(USERS(res));
+            setData(patientsData);
             setLoaded(false);
           }
         };
         getPatints();
+        
       }, []);
 
-
-
-
+      console.log(patientsData,'redux')
     const searchPatient =(searchValue)=>{
         setSearchInput(searchValue);
         if(searchInput){

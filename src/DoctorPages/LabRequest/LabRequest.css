@@ -98,3 +98,25 @@
     height: 800px;
     padding-bottom: 60px;
 }
+
+@media(max-width:569px){
+  .add-lab-test-btn{
+    display: block;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 15px;
+    background-color: #61cd88;
+    font-size: 19px;
+    width: 100%;
+    opacity: 0.9;
+    transition: 0.3s;
+  }
+  .lab-head{
+    font-size: 17px;
+  }
+  .lab-input{
+    width: 50% !important;
+    margin-left: -20px !important;
+  }
+}
