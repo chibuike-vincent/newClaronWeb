@@ -6,13 +6,18 @@ const userSlice = createSlice({
         value:{},
         cart: [],
         notifications: [],
-        patients:{}
+        patients:[]
     },
     reducers:{
         LOGIN: (state,action)=>{
-            console.log(action.payload, "action.payload")
             state.value = action.payload
         },
+
+        USERS:(state,action)=>{
+            state.patients.push(action.payload)
+            // state.patients = action.payload
+        },
+        
         LOGOUT:(state)=>{
             state.value ={}
         },
@@ -58,10 +63,6 @@ const userSlice = createSlice({
 
         NOTIFICATIONS: (state,action)=>{
             state.notifications = action.payload
-        },
-
-        USERS:(state,action)=>{
-            state.patients = action.payload
         }
     }
 })

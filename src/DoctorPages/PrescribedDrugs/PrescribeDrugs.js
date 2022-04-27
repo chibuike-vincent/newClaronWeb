@@ -26,9 +26,14 @@ function PrescribeDrugs() {
   const [loaded, setLoaded] = useState(false);
   const [patientEmail, setPatientEmail] = useState("");
   const [drugs, setDrugs] = useState([]);
-
+  const [visible,setVisible] = useState(6);
   const dispatch = useDispatch()
   const patientsData = useSelector((state)=>state.user.patients)
+
+
+  const showMore = ()=>{
+    setVisible(prevValue=>prevValue + 6);
+}
 
   useEffect(() => {
     const getPatints = async () => {
@@ -49,7 +54,7 @@ function PrescribeDrugs() {
   const searchPatient = (searchValue) => {
     setSearchInput(searchValue);
     if (searchInput) {
-      const filteredPatient = data.filter((person) =>
+      const filteredPatient = data[0].filter((person) =>
         Object.values(person)
           .join("")
           .toLowerCase()
@@ -104,9 +109,9 @@ function PrescribeDrugs() {
             ))}
           </div>
         ) : (
-          <div className="drug-patient-container">
+          <div className="all-patient-container">
             {data && data.length ? (
-              data.map((patient) => (
+             data[0].slice(0,visible).map((patient) => (
                 <div class="card-container-patient">
                   <img src={doc} alt="" />
                   <div className="pat-info-claron-docs">
@@ -131,6 +136,7 @@ function PrescribeDrugs() {
             ) : (
               <p>Loading...</p>
             )}
+             {data && <button onClick={showMore} className='view-more-btn'>View More</button>} 
           </div>
         )}
       </div>

@@ -17,8 +17,15 @@ function LabRequest() {
     const [searchInput, setSearchInput] = useState("")
     const [loaded, setLoaded] = useState(false);
     const [patientEmail, setPatientEmail] = useState("");
+    const [visible,setVisible] = useState(6);
     const dispatch = useDispatch()
     const patientsData = useSelector((state)=>state.user.patients)
+
+        // show more users function
+        const showMore = ()=>{
+            setVisible(prevValue=>prevValue + 6);
+        }
+        
 
     useEffect(() => {
         const getPatints = async () => {
@@ -41,7 +48,7 @@ function LabRequest() {
     const searchPatient =(searchValue)=>{
         setSearchInput(searchValue);
         if(searchInput){
-            const filteredPatient = data.filter((person)=>(
+            const filteredPatient = data[0].filter((person)=>(
                 Object.values(person).join("").toLowerCase().includes(searchValue.toLowerCase())
             ))
             setFiltered(filteredPatient)  
@@ -59,7 +66,7 @@ function LabRequest() {
         className="search-p" id="outlined-basic" 
         label="Search for Patient by name phone or email" 
         variant="outlined" fullWidth/>
-        {searchInput.length> 0? <div className="lab-patient-container">
+        {searchInput.length> 0? <div className="all-patient-container">
          {filtered.map(patient=>(
               <div class="card-container-patient">
               <img src={doc} alt=""/>
@@ -72,8 +79,8 @@ function LabRequest() {
               </div>
       </div>
          ))}   
-        </div>:<div className="lab-patient-container">
-         {data && data.length ? data.map(patient=>(
+        </div>:<div className="all-patient-container">
+         {data && data.length ? data[0].slice(0,visible).map(patient=>(
               <div class="card-container-patient">
               <img src={doc} alt=""/>
               <div className="pat-info-claron-docs">
@@ -85,6 +92,7 @@ function LabRequest() {
               </div>
       </div>
          )) : <p>Loading...</p>}   
+        {data && <button onClick={showMore} className='view-more-btn'>View More</button>} 
         </div>}
     </div>
             <Dialog open={openModal} fullWidth>

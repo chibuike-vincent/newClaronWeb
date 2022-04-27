@@ -1,8 +1,10 @@
 import React from 'react'
 import './Terms.css'
+import DoctorLayout from '../../Pages/DoctorLayout';
 function Terms() {
     return (
-        <div className="terms-and-privacy-container">
+        <DoctorLayout>
+        <div className="terms-and-privacy-container doc-term">
         <h1>Our Terms and Privacy</h1>
         <p>Last updated April 19th, 2020</p>
 
@@ -246,6 +248,7 @@ function Terms() {
         </p>
 
     </div>
+    </DoctorLayout>
     )
 }
 

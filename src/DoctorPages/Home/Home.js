@@ -11,20 +11,23 @@ import { getTokenFn } from "../../firebaseConfig";
 import {firebaseApp} from "../../firebaseConfig"
 import { USERS } from '../../features/user'
 
-const PERPAGE = 6;
 function Home() {
-    const [page,setPage] = useState(1)
-    const [data, setData]= useState([])
+    const [data, setData]= useState()
+    const [visible,setVisible] = useState(6);
     const [filtered,setFiltered]= useState([]);
     const [searchInput, setSearchInput] = useState("")
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState([])
     const [loaded, setLoaded] = useState(false);
     const userData = useSelector((state) => state.user.value)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const patientsData = useSelector((state)=>state.user.patients)
 
-
+    // show more users function
+    const showMore = ()=>{
+        setVisible(prevValue=>prevValue + 6);
+    }
+    
 
     useEffect(() => {
         getTokenFn().then(async(firebaseToken) => {
@@ -48,7 +51,9 @@ function Home() {
           setLoaded(true);
           const res = await API.getPatients();
           if (res) { 
+             console.log(res,'from db...')
             dispatch(USERS(res));
+            setUser(res)
             setData(patientsData);
             setLoaded(false);
           }
@@ -57,11 +62,11 @@ function Home() {
         
       }, []);
 
-      console.log(patientsData,'redux')
+    //   console.log(data.length,'redux data')
     const searchPatient =(searchValue)=>{
         setSearchInput(searchValue);
         if(searchInput){
-            const filteredPatient = data.filter((person)=>(
+            const filteredPatient = data[0].filter((person)=>(
                 Object.values(person).join("").toLowerCase().includes(searchValue.toLowerCase())
             ))
             setFiltered(filteredPatient)  
@@ -69,11 +74,14 @@ function Home() {
             setFiltered(data)
         }
     }
+
+    console.log(user,'.....')
     return (
         <>
             <DoctorLayout>
             <div class="patients-platform-container">
                 <h2>PATIENTS</h2>
+                
                 <TextField 
                 onChange={(e)=>searchPatient(e.target.value)}
                 className="search-p"
@@ -97,7 +105,8 @@ function Home() {
                         </div>
                     ))}
                 </div>:<div className="all-patient-container">
-                    {data && data.length ? data.map(patient => (
+                    {data && data.length ? data[0].slice(0,visible).map(patient => (
+                        <>
                         <div className="card-container-patient" key={patient.id}>
                             <img src={doc} alt="" />
                             <div className="pat-info-claron-docs">
@@ -113,8 +122,14 @@ function Home() {
                                 </div>
                             </div>
                         </div>
-                    )): (<p>Loading</p>)}
-                </div>}
+                        
+                        </>
+                        
+                    )): <p>Loading.......</p>}
+                   {data && <button onClick={showMore} className='view-more-btn'>View More</button>} 
+                </div>
+               
+                }
             </div>
             </DoctorLayout>
         </>
