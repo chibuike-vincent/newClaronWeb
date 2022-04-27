@@ -96,7 +96,8 @@ function DoctorLayout({ children }) {
             </li>
             <li className="service-d">
               <Link to="/PrescribeDrugsUser">
-                <span class="las la-user-injured"></span>
+                <span class="las la-capsules"></span>
+                
                 <span>Prescribe Drugs</span>
               </Link>
             </li>
@@ -110,6 +111,13 @@ function DoctorLayout({ children }) {
               <Link to="/Consultations">
                 <span class="las la-ambulance"></span>
                 <span>Consultation</span>
+              </Link>
+            </li>
+
+            <li className="service-d">
+              <Link to="/DocWallet">
+              <span class="las la-wallet"></span>
+                <span>Wallet</span>
               </Link>
             </li>
             {/* <li className="service-d">

@@ -1,0 +1,54 @@
+.wallet-container{
+    width: 93%;
+    height: 100vh;
+    margin: 20px auto;
+}
+
+.wallet-boxes{
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+  
+    margin: 0 auto;
+}
+
+.box-w{
+    padding: 20px;
+}
+
+.box-f{
+    padding: 10px;
+    height: 50% !important;
+}
+
+.wallet-box{
+    background-color: #fff;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 10px;
+    line-height: 40px;
+    width: 70%;
+}
+
+.withdraw-funds-btn{
+    background-color: #1bcc88;
+    border-radius: 10px;
+    padding: 5px;
+    cursor: pointer;
+    margin-top: 30px;
+    font-size: 20px;
+    color: #fff;
+}
+
+.withdraw-date-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.earning-overview-container{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    width: 90%;
+    margin: 30px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+}

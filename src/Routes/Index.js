@@ -25,7 +25,6 @@ import Blog from '../Pages/Blog/Blog'
 import PendingOrders from '../Pages/PendingOrders/PendingOrders'
 import SavedDoctors from '../Pages/SavedDoctors/SavedDoctors'
 import Referral from '../Pages/Referral/Referral';
-import Wallet from '../Pages/Wallet/Wallet'
 import Notification from '../Pages/Notification/Notification'
 import Chat from '../Pages/Chat/Chat'
 import AboutClaron from '../Pages/AboutClaron/AboutClaron'
@@ -57,6 +56,9 @@ import Call from '../Pages/Call/audioCalls'
 import JoinCall from '../Pages/Call/joinAudioCAll'
 import Video from '../Pages/Call/Video'
 import JoinVideo from "../Pages/Call/Video/joinVideoCall"
+import Wallet from '../Pages/Wallet/Wallet'
+import DocWallet from '../DoctorPages/DocWallet/DocWallet'
+// import DocWallet from '../DoctorPages/DocWallet/DocWallet'
 // PUBLIC PAGES
 import SignUp from '../Pages/signup/Signup'
 import SignIn from '../Pages/SignIn/SignIn'
@@ -135,6 +137,7 @@ function Index() {
                     <Route exact path="/About" element={<AboutD />}></Route>
                     <Route exact path="/CartModal" element={<CartModal />}></Route>
                     <Route exact path="/Availability" element={<Availability />}></Route>
+                    <Route exact path="/DocWallet" element={<DocWallet />}></Route>
 
                 {/* PUBLIC PAGES */}
                 
