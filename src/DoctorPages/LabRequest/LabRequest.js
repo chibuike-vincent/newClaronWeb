@@ -1,6 +1,5 @@
 import React,{useState, useEffect} from 'react'
 import './LabRequest.css'
-// import docuser from '../../images/doc-1.jpg'
 import TextField from '@mui/material/TextField';
 import {Box,Dialog,DialogTitle,DialogContent,IconButton} from '@mui/material';
 import { FiX } from "react-icons/fi";
@@ -18,27 +17,23 @@ function LabRequest() {
     const [loaded, setLoaded] = useState(false);
     const [patientEmail, setPatientEmail] = useState("");
     const [visible,setVisible] = useState(6);
-    const dispatch = useDispatch()
-    const patientsData = useSelector((state)=>state.user.patients)
+    const patientsData = useSelector((state)=>state.user.patients) || []
+    
 
-        // show more users function
+        
         const showMore = ()=>{
             setVisible(prevValue=>prevValue + 6);
         }
         
 
     useEffect(() => {
-        const getPatints = async () => {
-          setLoaded(true);
-          const res = await API.getPatients();
-          if (res) {
-            dispatch(USERS(res));
-            setData(patientsData);
-            setLoaded(false);
-          }
-        };
-        getPatints();
-      }, []);
+        
+        if (patientsData.length) {
+          setLoaded(false);
+        }else{
+            setLoaded(true);
+        }
+      }, [patientsData]);
 
       const handleOpenModal = (email) => {
         setPatientEmail(email)
@@ -48,12 +43,10 @@ function LabRequest() {
     const searchPatient =(searchValue)=>{
         setSearchInput(searchValue);
         if(searchInput){
-            const filteredPatient = data[0].filter((person)=>(
+            const filteredPatient = patientsData.filter((person)=>(
                 Object.values(person).join("").toLowerCase().includes(searchValue.toLowerCase())
             ))
             setFiltered(filteredPatient)  
-        }else{
-            setFiltered(data)
         }
     }
     return (
@@ -80,7 +73,7 @@ function LabRequest() {
       </div>
          ))}   
         </div>:<div className="all-patient-container">
-         {data && data.length ? data[0].slice(0,visible).map(patient=>(
+         {patientsData && patientsData.length ? patientsData.slice(0,visible).map(patient=>(
               <div class="card-container-patient">
               <img src={doc} alt=""/>
               <div className="pat-info-claron-docs">
@@ -92,7 +85,7 @@ function LabRequest() {
               </div>
       </div>
          )) : <p>Loading...</p>}   
-        {data && <button onClick={showMore} className='view-more-btn'>View More</button>} 
+        {patientsData && <button onClick={showMore} className='view-more-btn'>View More</button>} 
         </div>}
     </div>
             <Dialog open={openModal} fullWidth>

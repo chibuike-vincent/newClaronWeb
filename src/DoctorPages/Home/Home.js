@@ -54,7 +54,7 @@ function Home() {
              console.log(res,'from db...')
             dispatch(USERS(res));
             setUser(res)
-            setData(patientsData);
+            setData(res);
             setLoaded(false);
           }
         };
@@ -62,11 +62,10 @@ function Home() {
         
       }, []);
 
-    //   console.log(data.length,'redux data')
     const searchPatient =(searchValue)=>{
         setSearchInput(searchValue);
         if(searchInput){
-            const filteredPatient = data[0].filter((person)=>(
+            const filteredPatient = data.filter((person)=>(
                 Object.values(person).join("").toLowerCase().includes(searchValue.toLowerCase())
             ))
             setFiltered(filteredPatient)  
@@ -105,7 +104,7 @@ function Home() {
                         </div>
                     ))}
                 </div>:<div className="all-patient-container">
-                    {data && data.length ? data[0].slice(0,visible).map(patient => (
+                    {data && data.length ? data.slice(0,visible).map(patient => (
                         <>
                         <div className="card-container-patient" key={patient.id}>
                             <img src={doc} alt="" />

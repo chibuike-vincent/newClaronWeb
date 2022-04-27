@@ -40,30 +40,28 @@ function PrescribeDrugs() {
       setLoaded(true);
       const res = await API.getPatients();
       const drugs = await API.getDrugs();
-      if (res) {
-        setDrugs(drugs);
-        dispatch(USERS(res));
-        setData(patientsData);
+      setDrugs(drugs);
+      if (patientsData.length) {
+  
         setLoaded(false);
       
       }
     };
     getPatints();
-  }, []);
+  }, [patientsData]);
 
   const searchPatient = (searchValue) => {
     setSearchInput(searchValue);
     if (searchInput) {
-      const filteredPatient = data[0].filter((person) =>
+      const filteredPatient = patientsData.filter((person) =>
         Object.values(person)
           .join("")
           .toLowerCase()
           .includes(searchValue.toLowerCase())
       );
       setFiltered(filteredPatient);
-    } else {
-      setFiltered(data);
-    }
+    } 
+   
   };
 
   const handleOpenModal = (email) => {
@@ -110,8 +108,8 @@ function PrescribeDrugs() {
           </div>
         ) : (
           <div className="all-patient-container">
-            {data && data.length ? (
-             data[0].slice(0,visible).map((patient) => (
+            {patientsData && patientsData.length ? (
+             patientsData.slice(0,visible).map((patient) => (
                 <div class="card-container-patient">
                   <img src={doc} alt="" />
                   <div className="pat-info-claron-docs">

@@ -14,8 +14,8 @@ const userSlice = createSlice({
         },
 
         USERS:(state,action)=>{
-            state.patients.push(action.payload)
-            // state.patients = action.payload
+            // state.patients.push(action.payload)
+            state.patients = action.payload
         },
         
         LOGOUT:(state)=>{
