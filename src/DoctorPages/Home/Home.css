@@ -107,7 +107,8 @@ a{
 .perform-actions-container{
     display: flex;
     margin-top: 20px;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     width: 250px;
 }
 
