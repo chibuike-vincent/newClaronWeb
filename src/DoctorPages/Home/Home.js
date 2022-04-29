@@ -90,7 +90,7 @@ function Home() {
                  <div className="all-patient-container">
                     {filtered.map(patient => (
                         <div class="card-container-patient" key={patient.id}>
-                            <img src={doc} alt="" />
+                            <img src={patient.avatar || doc} alt="" />
                             <div className="pat-info-claron-docs">
                                 <p className="p-name-c">{patient.firstname} {patient.lastname}</p>
                                 <p><span className="p-title-doc">{patient.phone}</span></p>
@@ -107,7 +107,7 @@ function Home() {
                     {data && data.length ? data.slice(0,visible).map(patient => (
                         <>
                         <div className="card-container-patient" key={patient.id}>
-                            <img src={doc} alt="" />
+                            <img src={patient.avatar || doc} alt="" />
                             <div className="pat-info-claron-docs">
                                 <p className="p-name-c">{patient.firstname} {patient.lastname}</p>
                                 <p><span className="p-title-doc">{patient.phone}</span></p>
@@ -117,7 +117,7 @@ function Home() {
                                 
                                         <FaRocketchat onClick={()=>navigate("/ChatDoctor",{state:{userData: patient}})}  className="phone-doc" />
                                     
-                                    <FaPhone className="phone-doc" onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: userData, patientEmail: patient.email } })} />
+                                    <FaPhone className="phoneter-doc" onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: userData, patientEmail: patient.email } })} />
                                 </div>
                             </div>
                         </div>

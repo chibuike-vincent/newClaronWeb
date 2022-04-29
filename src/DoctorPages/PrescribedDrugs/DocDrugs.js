@@ -110,7 +110,7 @@ export default function MultipleSelectChip({email, drugs}) {
             {message ? message : ""}
           </p>
       <FormControl sx={{ m: 1, width: 550 }}>
-        <InputLabel id="demo-multiple-chip-label">Tests</InputLabel>
+        <InputLabel id="demo-multiple-chip-label">Drugs</InputLabel>
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"

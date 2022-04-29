@@ -36,7 +36,7 @@ import Dash from '../Pages/Dash/Dash'
 import UserProfileDropDown from '../Pages/Dashboard/UserProfileDropDown'
 
 // // DOCTORS PAGE IMPORT
-import Home from '../DoctorPages/Home/Home'
+import Home from '../DoctorPages/Home/Chats'
 import LabRequest from '../DoctorPages/LabRequest/LabRequest'
 import PrescribeDrugs from '../DoctorPages/PrescribedDrugs/PrescribeDrugs'
 import Settings from '../DoctorPages/Settings/Settings'

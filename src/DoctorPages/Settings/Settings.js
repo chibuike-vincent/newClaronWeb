@@ -12,7 +12,8 @@ import Button from '@mui/material/Button';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import image from '../../images/user-profile.jpg'
 import * as API from '../../Api/DoctorApi';
-import {firebaseApp} from '../../firebaseConfig';
+import {storage} from '../../firebaseConfig';
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage"
 import { useDispatch, useSelector } from 'react-redux'
 import { UPDATE, UPDATEUSERINFO } from '../../features/user'
 import FormLabel from '@mui/material/FormLabel';
@@ -21,6 +22,7 @@ function Settings() {
   const dispatch = useDispatch()
   const userData = useSelector((state) => state.user.value)
   const [imgloading, setimgloading] = useState(false)
+  const [progresspercent, setProgresspercent] = useState(0);
   const [user, setUser] = useState()
   const [error, seterror] = useState()
   const [loading, setloading] = useState(false)
@@ -44,8 +46,6 @@ function Settings() {
     })
   }
 
-  // const {  avatar, bio, department,  firstname, lastname, phone, seniority } = userData
-
   useEffect(() => {
     (async () => {
 
@@ -59,31 +59,81 @@ function Settings() {
   }, [])
 
   // UPDATE IMAGE FUNCTION
-  const ImageUpload = async (e) => {
-    setimgloading(true)
-    if (e.target.files[0]) {
-      let file = e.target.files[0];
-      firebaseApp.storage().ref('new-photo/' + file.name).put(file);
-      let url = await firebaseApp.storage().ref(`new-photo`).child(file.name).getDownloadURL()
+  // const ImageUpload = async (e) => {
+  //   setimgloading(true)
+  //   if (e.target.files[0]) {
+  //     let file = e.target.files[0];
+  //     console.log(typeof storage, "storage")
+  //     await storage().ref('new-photo/' + file.name).put(file);
+  //     let url = await storage().ref(`new-photo`).child(file.name).getDownloadURL()
+  //     console.log(url, "url")
 
-      if (url) {
+    //   if (url) {
         
-        dispatch(UPDATEUSERINFO({ ...account, ...{ avatar: url} }))
-        setaccount({ ...account, ...{ avatar: url } });
-        swal({
-          title: "Update",
-          text: "Image updated successfully",
-          icon: "success",
-          button: "Ok",
-        });
-        setimgloading(false)
-      }
+    //     dispatch(UPDATEUSERINFO({ ...account, ...{ avatar: url} }))
+    //     setaccount({ ...account, ...{ avatar: url } });
+    //     swal({
+    //       title: "Update",
+    //       text: "Image updated successfully",
+    //       icon: "success",
+    //       button: "Ok",
+    //     });
+    //     setimgloading(false)
+    //   }
     
-    }
-    else {
-      alert('error updating picture')
-    }
+    // }
+    // else {
+    //   alert('error updating picture')
+    // }
 
+  // }
+
+  const ImageUpload = (e) => {
+    setimgloading(true)
+    e.preventDefault()
+    const file = e.target?.files[0]
+
+    console.log(file, "fffff")
+
+    if (!file) return;
+
+    const storageRef = ref(storage, `files/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on("state_changed",
+      (snapshot) => {
+        const progress =
+          Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        setProgresspercent(progress);
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
+          if (downloadURL) {
+            console.log(downloadURL, "aaaaaaaaa")
+
+          
+           await API.update_physician_image({email:account.email, avatar: downloadURL})
+        
+            dispatch(UPDATEUSERINFO({ ...account, ...{ avatar: downloadURL} }))
+            setaccount({ ...account, ...{ avatar: downloadURL } });
+            swal({
+              title: "Update",
+              text: "Image updated successfully",
+              icon: "success",
+              button: "Ok",
+            });
+            setimgloading(false)
+          }else {
+            alert('error updating picture')
+          }
+        
+          // setImgUrl(downloadURL)
+        });
+      }
+    );
   }
 
   //   UPDATING DOCTOR RECORD
@@ -122,7 +172,7 @@ function Settings() {
           <div className="doc-image-container">
             <img src={userData.avatar !== "undefined" ? userData.avatar : image} alt="" />
             <div class="parent-div">
-              <button class="btn-upload" >{imgloading ? "Uploading" : "Change Photo"}</button>
+              <button class="btn-upload" >{progresspercent ? progresspercent : "Change Photo"}</button>
               <input onChange={(e) => ImageUpload(e)} type="file" name="upfile" />
             </div>
           </div>

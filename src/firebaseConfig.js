@@ -3,6 +3,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { getStorage } from "firebase/storage";
 import { collection, query, where, getDocs, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -18,7 +19,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const firebaseApp = firebase.initializeApp(firebaseConfig);
+export const storage = getStorage(firebaseApp)
 const messaging = getMessaging(firebaseApp);
+
 export const db = firebase.firestore();
 // export default firebaseApp
 

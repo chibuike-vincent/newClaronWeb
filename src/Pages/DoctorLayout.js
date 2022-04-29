@@ -120,12 +120,14 @@ function DoctorLayout({ children }) {
                 <span>Wallet</span>
               </Link>
             </li>
-            {/* <li className="service-d">
-              <Link to="/RequestHistoryDoctor">
-                <span class="las la-clinic-medical"></span>
-                <span>Lab Request History</span>
-              </Link>
-            </li> */}
+
+            <li className="service-d">
+              <a target="_blank" href="https://webapp.clarondoc.com:5501/">
+              <span class="las la-wallet"></span>
+                <span>Medical Reports</span>
+              </a>
+            </li>
+
           </ul>
         </div>
       </div>
@@ -138,13 +140,13 @@ function DoctorLayout({ children }) {
             </label>
           </div>
 
-          {notifications && notifications.length ? (
+
             <Link to="/DoctorNotification" class="notification">
-              <Badge badgeContent={notifications.length} color="success">
+              <Badge badgeContent={notifications.length ? notifications.length : 0} color="success">
                 <NotificationsIcon color="action" />
               </Badge>
             </Link>
-          ) : null}
+          
 
           <div class="user-wrapper">
             <Switch />

@@ -67,6 +67,28 @@ export const update_physician = async(data)=>{
     return console.log(response.data)
 }
 
+
+export const update_physician_image = async(data)=>{
+    let key = await localStorage.getItem('_apikey')
+    let auth = await localStorage.getItem('_accesstoken')
+    const response = await axios.put('https://api.clarondoc.com/physicians/picture',
+        data,
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${auth}`,
+                'x-api-key': key
+            },
+            options: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }
+    )
+
+    return console.log(response.data)
+}
+
+
 export const login = async (email, password)=>{
 
     let response

@@ -14,6 +14,7 @@ import {useNavigate } from "react-router-dom";
 
 
 function Consultations() {
+  const [recentSchedules, setRecentSchedules] = useState([])
   const [schedules, setSchedules] = useState([])
   const [filtered, setFiltered] = useState([])
   const [loaded, setLoaded] = useState(false);
@@ -28,19 +29,13 @@ function Consultations() {
 
   const [value, setValue] = React.useState(new Date());
 
-
-
-
-
-  
-
   const handleChange = (newValue) => {
     setValue(newValue);
     const filter = schedules.filter(sch =>{
      return moment(sch.scheduledFor).format("YYYY-MM-DD") === moment(newValue).format("YYYY-MM-DD")
     })
-    console.log(filter, newValue, "ddddddd")
-    setFiltered(filter)
+    // console.log(filter, newValue, "ddddddd")
+    setRecentSchedules(filter)
   };
 
 
@@ -48,9 +43,10 @@ function Consultations() {
     const getPatints = async () => {
       setLoaded(true);
       const res = await API.getSchedule();
-      console.log(res.filter(i => i.createDate === Date.now()), "ress")
       if (res) {
         setSchedules(res);
+        const schedule = res.filter(i => moment(i.scheduledFor).format("YYYY-MM-DD") === moment(Date.now()).format("YYYY-MM-DD"))
+        setRecentSchedules(schedule);
         setLoaded(false);
       }
     };
@@ -121,7 +117,9 @@ function Consultations() {
           </div>
           
           {
-            filtered && filtered.length ? filtered.map((item, index) => (
+            schedules.length === 0 && loaded ? (
+              <p style={{ textAlign: 'center' }}>Loading...</p>
+            ) : recentSchedules && recentSchedules.length ? recentSchedules.map((item, index) => (
               <div className="reject-accept-container">
                <p className="user_id">CID: {item.cid}<span className="consult-n">Consult on:</span> <span className="consult-time">{moment(item.scheduledFor).format("YYYY-MM-DD hh:mm A")}</span></p>
 
@@ -147,33 +145,7 @@ function Consultations() {
                   <p>Created on: {moment(item.createDate).format("YYYY-MM-DD hh:mm A")}</p>
                 </div>
               </div>
-            )) : schedules && !!schedules.length ? schedules.filter(i => moment(i.scheduledFor).format("YYYY-MM-DD") === moment(Date.now()).format("YYYY-MM-DD")).map((item, index) => (
-              <div className="reject-accept-container">
-               <p className="user_id">CID: {item.cid}<span className="consult-n">Consult on:</span> <span className="consult-time">{moment(item.scheduledFor).format("YYYY-MM-DD hh:mm A")}</span></p>
-
-                <div class="actions-doc-claron">
-                    <p style={{fontSize:20}}>Patient:</p><span style={{fontSize:20, marginLeft: '-30px',color:'#636363'}}>{item.patient.fullName}</span>
-                    {
-                        
-                        (moment(item.scheduledFor).format("YYYY-MM-DD hh:mm A") >= moment(new Date()).format("YYYY-MM-DD hh:mm A")) && item.status === "Pending" ? (
-                            <>
-                            <div onClick={() => handleRejectSchedule("Rejected", item.id)} className="accept-r">{Rloading ? "Processing..." : "Reject"}</div>
-                            <div onClick={() => handleAcceptSchedule("Accepted", item.id)} className="reject-a">{Aloading ? "Processing..." : "Accept"}</div>
-                            </>
-                        ) : (moment(item.scheduledFor) >= moment(new Date())) && item.status === "Accepted" ? (
-                            <>
-                            <div className="reject"><FaVideo onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: userData, patientEmail: item.patient.email } })}/></div>
-                            </>
-                        ) : null
-                        
-                    }
-                </div>
-
-                <div class="date-created-container">
-                  <p>Created on: {moment(item.createDate).format("YYYY-MM-DD hh:mm A")}</p>
-                </div>
-              </div>
-            )) : <p style={{ textAlign: 'center' }}>Loading...</p>
+            )) : <p style={{ textAlign: 'center' }}>No consultation to display.</p>
           }
         </div>
       </DoctorLayout>
