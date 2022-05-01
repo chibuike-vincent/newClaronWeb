@@ -28,7 +28,6 @@ function Home() {
         setVisible(prevValue=>prevValue + 6);
     }
     
-
     useEffect(() => {
         getTokenFn().then(async(firebaseToken) => {
             try {
@@ -62,6 +61,8 @@ function Home() {
         
       }, []);
 
+      console.log('mounted......')
+
     const searchPatient =(searchValue)=>{
         setSearchInput(searchValue);
         if(searchInput){
@@ -74,7 +75,7 @@ function Home() {
         }
     }
 
-    console.log(user,'.....')
+   
     return (
         <>
             <DoctorLayout>

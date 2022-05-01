@@ -8,9 +8,13 @@ export default function SwitchesSize() {
   const [checked, setChecked] = React.useState();
 
     useEffect(() => {
-      const status = localStorage.getItem("doctor-status")
-      let checkedValue = status === "Online" ? true : false
-      setChecked(checkedValue)
+      const updateAvailbility = async ()=>{
+        const user = await API.getuserDetails()
+        let checkedValue = user.physicianDetails.availability === "Online" ? true : false
+        setChecked(checkedValue)
+
+      }
+      updateAvailbility()
     }, [])
 
   const changeStatus = async(status) => {
@@ -18,10 +22,10 @@ export default function SwitchesSize() {
     let statusState;
     if(status === true){
       statusState = "Online"
-      localStorage.setItem("doctor-status", "Online")
+      // localStorage.setItem("doctor-status", "Online")
     }else{
       statusState = "Offline"
-      localStorage.setItem("doctor-status", "Offline")
+      // localStorage.setItem("doctor-status", "Offline")
     }
     
     await API.changeStatus(statusState);
@@ -31,6 +35,7 @@ export default function SwitchesSize() {
   const handleChange = (event) => {
     setChecked(event.target.checked)
     changeStatus(event.target.checked)
+    console.log(event.target.checked)
   };
 
   return (

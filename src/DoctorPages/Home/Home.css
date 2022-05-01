@@ -127,6 +127,121 @@ a{
     background-color: #2c854d;  
 }
 
+.time-msg-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.chat-name-p{
+    font-weight: 600;
+}
+
+.chat-profile-img{
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 50%;
+}
+
+.reject-accept-container:last-child{
+margin-bottom: 200px !important;
+}
+.actions-doc-msg{
+display: flex;
+position: relative;
+}
+
+.mesage-name-time-container{
+    display: flex;
+   
+    justify-content: space-between;
+    flex: 1;
+}
+
+.chat-time{
+    position: absolute;
+    top: 2px;
+    right: 5px;
+}
+
+/* FIXED CHAT ICON STYLINGS */
+
+.fixed-chat-icon{
+    background-color: #1bcc88;
+    color: #fff;
+    font-size: 20px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    cursor: pointer;
+}
+
+/* MODAL STYLING */
+.search-for-patient-input{
+    border: 1px solid grey !important;
+    border-radius: 5px;
+    width: 100% !important;
+    padding: 10px;
+}
+
+.patient-details{
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    margin-left: 0px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+
+}
+
+.patient-details>p{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px !important;
+}
+
+.modal-wrapper-chat{
+ overflow-y: scroll !important;
+ height: 70% !important;
+ overflow-x: hidden;
+ position: relative;
+}
+
+.fixed-top-chat{
+    position: sticky;
+    width: 100% !important;
+    top: -35px !important;
+    background-color: #fff !important;
+}
+
+.chat-head-text{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    padding: 10px;
+}
+
+h1>span{
+    background-color: #1bcc88;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+}
 
 @media(max-width:569px){
     .all-patient-container{
@@ -139,6 +254,7 @@ a{
         height: 800px;
         padding-bottom: 60px; */
     }
+
 
     .patients-platform-container{
         margin-top: 20px;
@@ -161,5 +277,20 @@ a{
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         margin-right: 15px;
         cursor: pointer;
+    }
+    .mesage-name-time-container{
+        margin-left: 35px;
+        font-size: 13px;
+    }
+
+    .modal-wrapper-chat{
+        width: 100% !important;
+    }
+    .name-email{
+        font-size: 12px;
+    }
+
+    .call-head{
+        font-size: 15px;
     }
 }

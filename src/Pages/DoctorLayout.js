@@ -1,36 +1,19 @@
 import React, { useState, useEffect } from "react";
-import TextField from "@mui/material/TextField";
-import { FaAlignJustify, FaCartPlus } from "react-icons/fa";
+
 import { useNavigate, Link } from "react-router-dom";
 import Badge from "@mui/material/Badge";
-import { SidebarMenus } from "../DoctorPages/Sidbar/SidebarMenu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import "../DoctorPages/Dashboard/Dashboard.css";
 import * as API from "../Api/DoctorApi";
 // PAGES IMPORTS
 import docuser from "../images/doc-1.jpg";
-import { FaCaretDown } from "react-icons/fa";
+import { FaCaretDown} from "react-icons/fa";
 import { LOGOUT } from "../features/user";
 import { useSelector, useDispatch } from "react-redux";
 import Switch from "../DoctorPages/DocComponent/Switch";
-// import UserDropDown from './UserDropDown'
-import doc from "../images/doc-1.jpg";
-// import DocFacilityRequest from '../DocFacilityRequest/DocFacilityRequest'
-// import DoctorNotification from '../DoctorNotification/DoctorNotification'
-// import UpdateProfile from '../Settings/UpdateProfile'
-// import UserDropDown from './UserDropDown'
-// import Consultations from '../Consultations/Consultations';
-// import Terms from '../Terms/Terms'
-// import About from '../About/About'
-// import Switch from '../DocComponent/Switch'
-// import CartModal from '../Modals/CartModal'
 function DoctorLayout({ children }) {
   const [open, setOpen] = useState(false);
-  const [sidebar, setSidebar] = useState(true);
-  const [activeRoute, setActiveRoute] = useState("");
-  const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
-  const openAction = Boolean(anchorEl);
   const userData = useSelector((state) => state.user.value);
   const navigate = useNavigate();
   const [notifications, setNotifications] = useState([]);
@@ -48,10 +31,7 @@ function DoctorLayout({ children }) {
   const handleClick = (event) => {
     setOpen(!open);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
+ 
   const logOut = () => {
     localStorage.removeItem("email");
     localStorage.removeItem("access-token");
@@ -66,11 +46,11 @@ function DoctorLayout({ children }) {
     <>
       <input type="checkbox" id="nav-toggle" />
       <div class="sidebar">
-        <div className="profile-container">
+        <div className="profile-container doc-profile-container">
           <img
             src={userData.avatar !== "undefined" ? userData.avatar : docuser}
             alt=""
-            className="user"
+            className="user doc-picture"
           />
         </div>
         <div className="responsive-title">
@@ -142,7 +122,7 @@ function DoctorLayout({ children }) {
 
 
             <Link to="/DoctorNotification" class="notification">
-              <Badge badgeContent={notifications.length ? notifications.length : 0} color="success">
+              <Badge badgeContent={notifications.length ? notifications.length : (<span>0</span>)} color="info">
                 <NotificationsIcon color="action" />
               </Badge>
             </Link>

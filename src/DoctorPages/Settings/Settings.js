@@ -58,35 +58,7 @@ function Settings() {
 
   }, [])
 
-  // UPDATE IMAGE FUNCTION
-  // const ImageUpload = async (e) => {
-  //   setimgloading(true)
-  //   if (e.target.files[0]) {
-  //     let file = e.target.files[0];
-  //     console.log(typeof storage, "storage")
-  //     await storage().ref('new-photo/' + file.name).put(file);
-  //     let url = await storage().ref(`new-photo`).child(file.name).getDownloadURL()
-  //     console.log(url, "url")
 
-    //   if (url) {
-        
-    //     dispatch(UPDATEUSERINFO({ ...account, ...{ avatar: url} }))
-    //     setaccount({ ...account, ...{ avatar: url } });
-    //     swal({
-    //       title: "Update",
-    //       text: "Image updated successfully",
-    //       icon: "success",
-    //       button: "Ok",
-    //     });
-    //     setimgloading(false)
-    //   }
-    
-    // }
-    // else {
-    //   alert('error updating picture')
-    // }
-
-  // }
 
   const ImageUpload = (e) => {
     setimgloading(true)
@@ -172,7 +144,7 @@ function Settings() {
           <div className="doc-image-container">
             <img src={userData.avatar !== "undefined" ? userData.avatar : image} alt="" />
             <div class="parent-div">
-              <button class="btn-upload" >{progresspercent ? progresspercent : "Change Photo"}</button>
+              <button class="btn-upload" >{imgloading ? "loading..." : "Change Photo"}</button>
               <input onChange={(e) => ImageUpload(e)} type="file" name="upfile" />
             </div>
           </div>

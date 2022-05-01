@@ -1,0 +1,19 @@
+.class-label{
+    width: 200px;
+    height: 100px;
+    background: #c5101f;
+    color:white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    cursor: pointer;
+    margin: 10px;
+  }
+  /* input:checked ~ label {
+    background: #09ff00;
+  } */
+
+  .checked-item {
+    background-color: blue;
+  }

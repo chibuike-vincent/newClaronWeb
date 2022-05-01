@@ -35,7 +35,7 @@ export const Controls = (props) => {
   };
 
   return (
-    <div className="video-controls" style={{ display: "flex" }}>
+    <div className="video-controls">
       <p className="video-controls-button" onClick={() => mute("audio")}>
         {trackState.audio ? (
           <FaVolumeMute size={50} className="mute-audio-control" />

@@ -30,8 +30,8 @@ function Availability() {
   const [reason, setReason] = useState('')
   const [error, setError] = useState()
   const [open, setOpen] = useState(true);
-  const [time_selected, settime_selected] = useState([])
   const [loading, setloading] = useState(false)
+  const [checked, setChecked] = useState([]);
 
   const handleGoBack = () => {
       navigate("/doctorDashboard")
@@ -44,7 +44,7 @@ function Availability() {
     try {
       const user = localStorage.getItem('user')
 
-      await firebaseApp.firestore().collection('newMyAvail').doc(user.email).set({date_entry: time_selected});
+      await firebaseApp.firestore().collection('newMyAvail').doc(user.email).set({date_entry: checked});
       swal({
         title: `Availability Updated`,
         text: "You Have set a new Availability",
@@ -55,6 +55,20 @@ function Availability() {
     }
     setloading(false)
   }
+
+
+  // Add/Remove checked item from list
+const handleCheck = (event) => {
+  var updatedList = [...checked];
+  if (event.target.checked) {
+    updatedList = [...checked, event.target.value];
+  } else {
+    updatedList.splice(checked.indexOf(event.target.value), 1);
+  }
+  setChecked(updatedList);
+};
+
+console.log(checked,'time...')
   return (
     <DoctorLayout>
        <Modal
@@ -78,7 +92,7 @@ function Availability() {
                             label="Book Date"
                             type="date"
                             className='avilability-booking-input'
-                            defaultValue={date}
+                            value={date}
                             fullWidth
                             onChange={(e) => setDate(e.target.value)}
                             sx={{ width: 400 }}
@@ -95,8 +109,9 @@ function Availability() {
                                   className='time-btn'>{t}</div> */}
                                   
                                     <input
-                                     onClick={(e) => settime_selected((oldTime) => [...oldTime, e.target.value])}
-                                      type="radio" className="radio-input" value={t} name="claron-radio" id={index} />
+                                    value={t} type="checkbox" onChange={handleCheck} 
+                                     
+                                       className="radio-input" name="claron-radio" id={index} />
                                     <label className='time-btn' htmlFor={index}>{t}</label>
                                 </div>
 

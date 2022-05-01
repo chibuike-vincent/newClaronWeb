@@ -1,5 +1,7 @@
 import React from 'react'
 import DoctorLayout from '../../Pages/DoctorLayout';
+import bookingChart from '../../images/booking-chart.PNG'
+import EarningChart from '../../images/earnings-chat.PNG'
 import './DocWallet.css'
 function DocWallet() {
   return (
@@ -19,11 +21,15 @@ function DocWallet() {
 
         </div>
         <div class="earning-overview-container">
+          <div class="wallet earning-container">
           <h2>EARNINGS OVERVIEW</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, sint!</p>
-          <h2>BOOKINGS OVERVIEW</h2>
+          <img className='wallet-img' src={bookingChart} alt=""/>
+          </div>
+          <div class="wallet-booking-overview">
+            <h2>BOOKINGS OVERVIEW</h2>
+            <img className='wallet-img' src={EarningChart} alt=""/>
+          </div>
         </div>
-
       </div>
     </DoctorLayout>
 

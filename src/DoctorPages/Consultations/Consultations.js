@@ -11,6 +11,7 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { useSelector} from 'react-redux';
 import {useNavigate } from "react-router-dom";
+import CallModal from '../Home/CallModal'
 
 
 function Consultations() {
@@ -26,8 +27,11 @@ function Consultations() {
   const [total, setTotal] = useState(null);
   const userData = useSelector((state) => state.user.value)
   const navigate = useNavigate()
+  const [value, setValue] = useState(new Date());
 
-  const [value, setValue] = React.useState(new Date());
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleChange = (newValue) => {
     setValue(newValue);
@@ -148,6 +152,8 @@ function Consultations() {
             )) : <p style={{ textAlign: 'center' }}>No consultation to display.</p>
           }
         </div>
+        <button className='fixed-chat-icon'onClick={handleOpen} >Call</button>
+        <CallModal handleOpen={handleOpen} handleClose={handleClose} open={open} setOpen={setOpen} />
       </DoctorLayout>
     </>
   )

@@ -1,7 +1,8 @@
 .wallet-container{
-    width: 93%;
+    width: 100%;
     height: 100vh;
     margin: 20px auto;
+    overflow-y: scroll;
 }
 
 .wallet-boxes{
@@ -51,4 +52,14 @@
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
+}
+
+.wallet-img{
+    width: 50%;
+    height: 50%;
+}
+
+.wallet-booking-overview{
+    margin-top: 30px;
+    margin-bottom: 100px;
 }

@@ -181,7 +181,7 @@ function Chat() {
         return Math.floor(seconds) + " seconds";
     }
 
-	// console.log(location.state.patient,'location')
+	// console.log(conversation,'yyy')
     return (
 		<DoctorLayout>
 <div className="chart-cantaner">
