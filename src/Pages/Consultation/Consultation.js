@@ -25,6 +25,8 @@ import { fetchDoctors } from '../../Api/doctors';
 import { makeBooking } from '../../Api/doctors';
 import doctorDefault from '../../images/doctor.png'
 import load from '../../images/loading.gif'
+import { firebaseApp } from "../../firebaseConfig";
+import axios from "axios";
 
 import { useSelector } from 'react-redux'
 const style = {
@@ -84,33 +86,13 @@ function Consultation() {
         setOthers(!others)
     }
 
+    console.log(value, "doctordoctordoctor")
+
     // HANDLING PROFILE PAGE
     const handleOpenProfile = (selectedRec) => {
         setSelectedData(selectedRec);
         setOpenP(true)
     };
-
-    // const checkSubscription = async (date) => {
-
-    //     if (date == null) {
-    //         return
-    //     }
-
-    //     const days = moment().diff(date, 'days')
-    //     const left = moment(date).add(1, 'day').fromNow()
-
-    //     if (days === 0) {
-    //         setexpiry('Your subscription ends today. Renew now to avoid losing access to services')
-    //     } else if (days < 0 && days > -11) {
-    //         setexpiry(`Your subscription ends in ${left}. Renew now to avoid losing access to services`)
-    //     } else if (days > 0 && days < 10) {
-    //         setexpiry(`Your subscription ended ${left}. Renew now to avoid losing access to services`)
-    //     } else if (days > 10) {
-    //         let res = await downgrade()
-    //         console.info(res)
-    //         // setexpiry(`Your subscription ended ${left}. Renew now to avoid losing access to services`)
-    //     }
-    // }
 
     // SEARCH FUNCTIONALITY FUNCTION
     const searchPatient = (searchValue) => {
@@ -126,8 +108,6 @@ function Consultation() {
     }
 
     
-    // let token = localStorage.getItem('access-token')
-    // let key = localStorage.getItem('api-key');
 
     console.log(searchParams, "from consultation")
 
@@ -173,8 +153,6 @@ function Consultation() {
                 symptoms: [reason]
             })
 
-            // console.log(res)
-
             if (res.success) {
                 swal({
                     title: `${value.firstname}  ${value.lastname} has received your call booking.`,
@@ -182,6 +160,48 @@ function Consultation() {
                     icon: "success",
                 })
                 setOpen(false);
+                firebaseApp
+                .firestore()
+                .collection("device_token")
+                .doc(value.email)
+                .get()
+                .then((snapshot) => {
+                  console.log("Docs: ", snapshot.data());
+                  let data = snapshot.data();
+                  if (data.token != undefined) {
+                    axios
+                      .post(
+                        "https://fcm.googleapis.com/fcm/send",
+                        {
+                          to: data.token,
+                          notification: {
+                            title: "Booking alert",
+                            sound: "ring.mp3",
+                            body: `You have a new booking!`,
+                            subtitle: `You have a new booking!`,
+                            android_channel_id: "12345654321",
+                          },
+                          data: {
+                            body: `You have a new booking!`,
+                            title: "Booking alert",
+                            name: "New booking from patient",
+                           
+                          },
+                          content_available: true,
+                          priority: "high",
+                        },
+                        {
+                          headers: {
+                            Authorization: `key=AAAAEfHKSRA:APA91bH2lfkOJ8bZUGvMJo7cqdLYqk1m633KK7eu5pEaUF0J1ieFgpcWtYItCRftxVLSghEOZY5cQ8k9XfB_PVyfQeDHiC5ifuowqYUytsF0Nby4ANcZhVcFj6E0u5df2c4LItkjq4H2`,
+                          },
+                        }
+                      )
+                      .then((res) => {
+                        console.log(res.data);
+                      });
+                  }
+                  // if(snapshot.docs.length > 0){
+                });
             } else {
                 alert('Booking Error confirmed')
             }

@@ -39,24 +39,17 @@ const dispatch = useDispatch()
   const handleChange = (newValue) => {
     setValue(newValue);
     dispatch(SCHEDULE({res:schedules, filter:newValue}))
-    // if(newValue === undefined || newValue === null){
-    //   return  DocSchedule.filter(i => moment(i.scheduledFor).format("YYYY-MM-DD") === moment(Date.now()).format("YYYY-MM-DD"))
-    // }else{
-    //   return DocSchedule.filter(sch => moment(sch.scheduledFor).format("YYYY-MM-DD") === moment(newValue).format("YYYY-MM-DD"))
-    // }
   };
 
-
-// const valuesBack = handleChange()
-console.log(DocSchedule, "handleChange")
-
   useEffect(() => {
+    console.log( "Is useEffect running?")
     const getPatints = async () => {
       setLoaded(true);
       const res = await API.getSchedule();
+      console.log(res, "ffffff")
       if (res) {
         setSchedules(res);
-        dispatch(SCHEDULE({res, filter:""}))
+        dispatch(SCHEDULE({res, filter:" "}))
         setLoaded(false);
       }
     };
@@ -134,7 +127,7 @@ console.log(DocSchedule, "handleChange")
           {
             schedules.length === 0 && loaded ? (
               <p style={{ textAlign: 'center' }}>Loading...</p>
-            ) : DocSchedule.length ? DocSchedule.map((item, index) => (
+            ) : DocSchedule && DocSchedule.length ? DocSchedule.map((item, index) => (
               <div className="reject-accept-container">
                <p className="user_id">CID: {item.cid}<span className="consult-n">Consult on:</span> <span className="consult-time">{moment(item.scheduledFor).format("YYYY-MM-DD hh:mm A")}</span></p>
 

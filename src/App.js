@@ -38,6 +38,8 @@ function App() {
       navigate("/ChatDoctor", { state: { notification:data }})
     }else if(notification.title.includes('New message') && data.name.includes("From Doc")){
       navigate("/chat", { state: { notification:data } })
+    }else if(notification.title.includes("Booking alert") && data.name.includes("from patient")){
+      navigate("/Consultations")
     }else{
       navigate("/join-call", {state: {notification:data, mediaType: "video"}})
     }
