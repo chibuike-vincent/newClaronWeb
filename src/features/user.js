@@ -1,12 +1,13 @@
 import {createSlice} from "@reduxjs/toolkit"
-
+import moment from 'moment';
 const userSlice = createSlice({
     name:"user",
     initialState:{
         value:{},
         cart: [],
         notifications: [],
-        patients:[]
+        patients:[],
+        schedule:null
     },
     reducers:{
         LOGIN: (state,action)=>{
@@ -16,6 +17,16 @@ const userSlice = createSlice({
         USERS:(state,action)=>{
             // state.patients.push(action.payload)
             state.patients = action.payload
+        },
+
+        SCHEDULE:(state,action)=>{
+            state.schedule = action.payload
+            if(action.payload.filter === ""){
+                state.schedule = action.payload.res.filter(i => moment(i.scheduledFor).format("YYYY-MM-DD") === moment(Date.now()).format("YYYY-MM-DD"))
+              }else{
+                state.schedule = action.payload.res.filter(sch => moment(sch.scheduledFor).format("YYYY-MM-DD") === moment(action.payload.filter).format("YYYY-MM-DD"))
+                
+              }
         },
         
         LOGOUT:(state)=>{
@@ -66,5 +77,5 @@ const userSlice = createSlice({
         }
     }
 })
-export const {UPDATEAVAILABILITY,LOGIN,LOGOUT,UPDATE,UPDATESUB,UPDATEUSERINFO,UPDATECARTINFO,REMOVEFROMCART, UPDATECARTQUANTITY, NOTIFICATIONS,CLEARCARTINFO,USERS} = userSlice.actions
+export const {SCHEDULE,UPDATEAVAILABILITY,LOGIN,LOGOUT,UPDATE,UPDATESUB,UPDATEUSERINFO,UPDATECARTINFO,REMOVEFROMCART, UPDATECARTQUANTITY, NOTIFICATIONS,CLEARCARTINFO,USERS} = userSlice.actions
 export default userSlice.reducer;

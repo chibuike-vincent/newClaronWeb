@@ -9,9 +9,11 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import { useSelector} from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
 import {useNavigate } from "react-router-dom";
 import CallModal from '../Home/CallModal'
+import {SCHEDULE} from "../../features/user"
+
 
 
 function Consultations() {
@@ -26,22 +28,27 @@ function Consultations() {
   const [color, setColor] = useState("");
   const [total, setTotal] = useState(null);
   const userData = useSelector((state) => state.user.value)
+  const DocSchedule = useSelector((state) => state.user.schedule)
   const navigate = useNavigate()
   const [value, setValue] = useState(new Date());
-
+const dispatch = useDispatch()
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const handleChange = (newValue) => {
     setValue(newValue);
-    const filter = schedules.filter(sch =>{
-     return moment(sch.scheduledFor).format("YYYY-MM-DD") === moment(newValue).format("YYYY-MM-DD")
-    })
-    // console.log(filter, newValue, "ddddddd")
-    setRecentSchedules(filter)
+    dispatch(SCHEDULE({res:schedules, filter:newValue}))
+    // if(newValue === undefined || newValue === null){
+    //   return  DocSchedule.filter(i => moment(i.scheduledFor).format("YYYY-MM-DD") === moment(Date.now()).format("YYYY-MM-DD"))
+    // }else{
+    //   return DocSchedule.filter(sch => moment(sch.scheduledFor).format("YYYY-MM-DD") === moment(newValue).format("YYYY-MM-DD"))
+    // }
   };
 
+
+// const valuesBack = handleChange()
+console.log(DocSchedule, "handleChange")
 
   useEffect(() => {
     const getPatints = async () => {
@@ -49,13 +56,13 @@ function Consultations() {
       const res = await API.getSchedule();
       if (res) {
         setSchedules(res);
-        const schedule = res.filter(i => moment(i.scheduledFor).format("YYYY-MM-DD") === moment(Date.now()).format("YYYY-MM-DD"))
-        setRecentSchedules(schedule);
+        dispatch(SCHEDULE({res, filter:""}))
         setLoaded(false);
       }
     };
     getPatints();
   }, []);
+
 
   const handleRejectSchedule = async (res, id) => {
     setRLoading(true);
@@ -64,6 +71,8 @@ function Consultations() {
 
       if (response.success) {
         setRLoading(false);
+        const res = await API.getSchedule();
+        dispatch(SCHEDULE({res, filter:""}))
         setColor("green")
         setMessage("Response successfully sent.", "fffff");
       } else {
@@ -85,6 +94,8 @@ function Consultations() {
 
       if (response.success) {
         setALoading(false);
+        const res = await API.getSchedule();
+        dispatch(SCHEDULE({res, filter:""}))
         setColor("green")
         setMessage("Response successfully sent.", "fffff");
       } else {
@@ -123,7 +134,7 @@ function Consultations() {
           {
             schedules.length === 0 && loaded ? (
               <p style={{ textAlign: 'center' }}>Loading...</p>
-            ) : recentSchedules && recentSchedules.length ? recentSchedules.map((item, index) => (
+            ) : DocSchedule.length ? DocSchedule.map((item, index) => (
               <div className="reject-accept-container">
                <p className="user_id">CID: {item.cid}<span className="consult-n">Consult on:</span> <span className="consult-time">{moment(item.scheduledFor).format("YYYY-MM-DD hh:mm A")}</span></p>
 

@@ -160,7 +160,7 @@ export const respondRequest = async (response, id)=>{
         });
 
         console.log(res.data);
-        return res.data.success;
+        return res.data;
     }catch(e){
         console.log(e.response.data);
         return false
