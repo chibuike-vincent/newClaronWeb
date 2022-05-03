@@ -8,6 +8,8 @@ import {useNavigate } from "react-router-dom";
 import {  formatDistance } from 'date-fns'
 import doctor from '../../images/doc-1.jpg'
 import UserModal from '../Home/UserModal'
+import { getTokenFn } from "../../firebaseConfig";
+import {firebaseApp} from "../../firebaseConfig"
 
 function Chats() {
   const [chats, setChats] = useState([])
@@ -19,6 +21,21 @@ function Chats() {
   const navigate = useNavigate()
 
   useEffect(() => {
+    getTokenFn().then(async(firebaseToken) => {
+      try {
+        localStorage.setItem("firebaseToken", firebaseToken);
+      //   setToken(firebaseToken);
+        await firebaseApp.firestore().collection('device_token').doc(userData.email).set({token: firebaseToken})
+        // console.log(res, "rrrrr")
+        // await API.updateFCMToken(firebaseToken)
+      } catch (error) {
+        await firebaseApp.firestore().collection('device_token').doc('error').set({token: error});
+        console.log(error)
+      }
+    })
+    .catch((err) => {
+      return err;
+    });
     const getChats = async () => {
       setLoaded(true);
       const res = await API.getChats();
