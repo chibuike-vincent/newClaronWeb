@@ -81,12 +81,6 @@ function DoctorLayout({ children }) {
                 <span>Prescribe Drugs</span>
               </Link>
             </li>
-            {/* <li className="service-d">
-              <Link to="/DrugHistoryDoctor">
-                <span class="las la-history"></span>
-                <span>Prescription History</span>
-              </Link>
-            </li> */}
             <li className="service-d">
               <Link to="/Consultations">
                 <span class="las la-ambulance"></span>
@@ -103,7 +97,7 @@ function DoctorLayout({ children }) {
 
             <li className="service-d">
               <a target="_blank" href="https://webapp.clarondoc.com:5501/">
-              <span class="las la-wallet"></span>
+              <span class="las la-info"></span>
                 <span>Medical Reports</span>
               </a>
             </li>
