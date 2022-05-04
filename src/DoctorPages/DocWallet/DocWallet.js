@@ -1,7 +1,9 @@
 import React from 'react'
 import DoctorLayout from '../../Pages/DoctorLayout';
-import bookingChart from '../../images/booking-chart.PNG'
-import EarningChart from '../../images/earnings-chat.PNG'
+// import bookingChart from '../../images/booking-chart.PNG'
+// import EarningChart from '../../images/earnings-chat.PNG'
+import BookingGraph from "../GraphComponents/BookingGraph"
+import EarningGraph from '../GraphComponents/EarningGraph';
 import './DocWallet.css'
 function DocWallet() {
   return (
@@ -14,7 +16,7 @@ function DocWallet() {
 
             <div class="withdraw-date-container">
               <span>last cashout Apr 19, 2021</span>
-              <button className='withdraw-funds-btn'>Place Withdraw</button>
+              <button className='withdraw-funds-btn'>Place Withdrawal</button>
             </div>
 
           </div>
@@ -23,11 +25,11 @@ function DocWallet() {
         <div class="earning-overview-container">
           <div class="wallet earning-container">
           <h2>EARNINGS OVERVIEW</h2>
-          <img className='wallet-img' src={bookingChart} alt=""/>
+          <EarningGraph/>
           </div>
           <div class="wallet-booking-overview">
             <h2>BOOKINGS OVERVIEW</h2>
-            <img className='wallet-img' src={EarningChart} alt=""/>
+            <BookingGraph/>
           </div>
         </div>
       </div>
