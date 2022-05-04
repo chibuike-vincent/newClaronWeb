@@ -6,18 +6,83 @@
     margin-right: 70px;
 }
 
+.patient-details-container{
+width: 70%;
+margin: 0 auto;
+display: flex;
+flex-direction: column;
+align-items: center;
+box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+padding: 20px;
+border-radius: 10px;
+background-color: #fff;
+}
+
 .patient-profile-pic>img{
     width: 100px;
     height: 100px;
     display: inline-block;
-    margin-right: 20px;
+    border-radius: 50%;
 }
 
-.patient-details{
-    display: flex;
-    margin: 0 30px !important;
-    flex: 2;
+.patient-profile-pic h4{
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
+
+.patient-profile-pic{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-container{
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+
+}
+
+.info-container p{
+    padding-bottom: 10px !important;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.pat-icon{
+    margin-right: 20px;
+    font-size: 32px !important;
+    background-color: #33cc99;
+    color: #fff;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.sub-card{
+   padding-left: 20px;
+    color: #f8a664;
+    font-weight: bold;
+}
+
+.plan-title{
+display: flex;
+align-items: center;
+}
+
+
+.plan-profile{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+
+/* OLD STYLING */
+
+
+
 
 .info-pat h4{
     font-size: 20px !important;
@@ -61,18 +126,8 @@
     margin-right: 40px;
 }
 
-.plan-title{
-    font-size: 16x;
-    font-weight: bold;
-    padding-bottom: 10px;
-    align-self: center;
-}
 
-.sub-card{
-    font-size: 16px;
-    color: #f8a664;
-    margin-bottom: 15px;
-}
+
 
 
 /* BUTTON STYLES */
@@ -146,10 +201,7 @@
     color: #7a7a7a;
 }
 
-.plan-profile{
-    display: flex;
-    justify-content: space-between;
-}
+
 
 @media(max-width:569px){
     .details-container{
@@ -192,11 +244,7 @@
         margin-left: 10px;
         margin-top: 10px;
     }
-    .patient-profile-pic img{
-        border-radius: 10px;
-        margin-top: 10px;
-        margin-left: 10px;
-    }
+
 
     .patient-details{
 
@@ -214,4 +262,9 @@
         width: 100%;
         margin-bottom: 100px !important;
     }
+
+    .patient-details-container{
+        width: 95%;
+        margin-bottom: 100px !important;
+        }
 }
