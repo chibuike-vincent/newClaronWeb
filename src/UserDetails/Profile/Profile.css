@@ -30,6 +30,8 @@
     justify-content: space-between;
     width: 100%;
     padding: 20px;
+    background-color: #fff;
+    margin-left: 50px;
 }
 /* DATA STYLING */
 .info-pat{
