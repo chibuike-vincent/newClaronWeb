@@ -39,7 +39,7 @@ function Profile() {
                         <p><FaMapMarkerAlt className="pat-icon" />Ghana</p>
                         <p> <FaEnvelope className="pat-icon" />{user ? user.email : ''}</p>
                       
-                            <p className="plan-title"> <FaCcAmazonPay className="pat-icon" />Subscription Plan: <span className="sub-card">{user ? user.subscription : ''}</span> </p>
+                            <p className="plan-title"> <FaCcAmazonPay className="pat-icon" /> <span className='sub-plan-head'>Subscription Plan:</span><span className="sub-card">{user ? user.subscription : ''}</span> </p>
                             {/* <p className="sub-card"> </p> */}
                        
                     </div>
@@ -52,21 +52,15 @@ function Profile() {
                             className="upgrad-btn txt"> {user.subscription != null && user.subscription != 'Normal' ? `Continue with ${user.subscription} Plan` : 'Try ClaronDoc free for 14 days'}</button>
 
 
-                        <button onClick={() => { editPage() }}>
-                            <button className="edit-btn txt"> Edit Profile</button>
-                        </button>
+                            <button onClick={() => { editPage() }} className="edit-btn txt"> Edit Profile</button>
+          
 
                         <div>
                             <Link to="/SavedDoctors">
                                 <button className="saved-btn txt">   View Saved Doctors</button>
                             </Link>
                         </div>
-
-
-                        <button onClick={() => navigate('/ChangePassword')}>
-                            <button className="edit-btn txt"> Update Password</button>
-                        </button>
-
+                            <button onClick={() => navigate('/ChangePassword')} className="edit-btn txt"> Update Password</button>
                     </div>
 
 

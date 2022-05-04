@@ -267,4 +267,12 @@ align-items: center;
         width: 95%;
         margin-bottom: 100px !important;
         }
+
+        /* .sub-plan-head{
+            font-size: 18px;
+        } */
+
+        .sub-card{
+            font-size: 15px;
+        }
 }
