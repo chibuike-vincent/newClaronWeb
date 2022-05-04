@@ -97,7 +97,8 @@ function DoctorLayout({ children }) {
 
             <li className="service-d">
               <a target="_blank" href="https://webapp.clarondoc.com:5501/">
-              <span class="las la-info"></span>
+                
+              <span class="las la-file-alt"></span>
                 <span>Medical Reports</span>
               </a>
             </li>
