@@ -56,7 +56,7 @@ function DoctorNotification() {
                 <p>{data.prescription}</p>
               </div>
                     )
-                }) : <h2>No notifications available</h2>}
+                }) : <p>No notifications available</p>}
         </div>
          </DoctorLayout>
         </>

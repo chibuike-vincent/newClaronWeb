@@ -1,12 +1,13 @@
 .notification-top-container{
     display: flex;
     flex-direction: column;
-    margin: 30px;
     margin-top: 30px;
     margin-bottom: 50px;
     height: 100%;
     overflow-y: auto;
-    width: 95%;
+    width: 98% !important;
+    margin-left: 70px !important;
+    
 }
 
 .notification-container{
@@ -16,8 +17,10 @@
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
     margin-top: 30px;
     margin-bottom: 10px;
-    width: 98%;
+    width: 95%;
     font-size: 15px;
+    /* margin-left: 30px !important;
+    margin-right: 30px !important; */
 }
 
 .notification-container-read{
@@ -206,3 +209,13 @@
     display: flex;
     justify-content: space-around;
 } */
+
+
+@media(max-width:569px){
+    .notification-container{
+       width: 100%;
+    }
+    .notification-container{
+        width: 100% !important;
+    }
+}
