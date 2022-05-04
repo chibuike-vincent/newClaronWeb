@@ -268,11 +268,18 @@ align-items: center;
         margin-bottom: 100px !important;
         }
 
-        /* .sub-plan-head{
-            font-size: 18px;
-        } */
+        .sub-plan-head{
+            font-size: 17px;
+        }
 
         .sub-card{
             font-size: 15px;
+        }
+
+        .plan-profile{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
         }
 }
