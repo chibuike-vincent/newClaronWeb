@@ -20,7 +20,7 @@ import { requestHomeCare, insurancerequestHomeCare, get_insurance_provider, requ
 import { buyDrugs } from '../../Api/pharmacy'
 import swal from 'sweetalert';
 import {CLEARCARTINFO} from '../../features/user'
-import { useDispatch} from 'react-redux'
+import { useSelector, useDispatch} from 'react-redux';
 
 
 
@@ -126,6 +126,7 @@ function OrderReview() {
     const [insurancePolicyTypeError, setinsurancePolicyTypeError] = useState(false)
     const [phone_error, setPhoneError] = useState()
     const [card_error, setCardError] = useState()
+    const userData = useSelector((state) => state.user.value)
     const [otp, setOTP] = useState("")
     const mtns = ['024', '054', '055', '059']
     const tigos = ['027', '057', '026', '056']
@@ -167,9 +168,9 @@ function OrderReview() {
         try {
             setLoading(true)
             setButton('Initializing Transaction...')
-            let init = await initPayment(item.totalCost + 5, phone, network)
+            let init = await initPayment(Math.ceil(Number(item.totalCost)), phone, network, userData.email)
 
-            console.log(init, "init")
+            console.log(init, Math.ceil(Number(item.totalCost)), "init")
 
             if (init.status) {
 
@@ -180,7 +181,13 @@ function OrderReview() {
 
                 } else if (init.data.status === 'pay_offline') {
                     setLoading(false)
-                    setButton('Awaiting for payment confirmation...')
+                    swal({
+                        title: "Awaiting for payment confirmation...",
+                        text: "Please complete the authorisation process by inputting your PIN on your mobile device",
+                        icon: "success",
+                        button: "Ok",
+                    });
+                    setButton('Pay Now')
                 } else if (init.data.status === 'success') {
                     
 
@@ -268,9 +275,7 @@ function OrderReview() {
         setButton('Initializing Transaction, Please wait...')
 
 
-        let init = await cardPayment(card, netAmount);
-
-        console.log(card, netAmount, init)
+        let init = await cardPayment(card, Math.ceil(Number(netAmount)), userData.email);
 
         // start
         if (init.status) {
@@ -282,7 +287,13 @@ function OrderReview() {
                 setButton('Pay Now')
             } else if (init.data.status == 'pay_offline') {
                 setLoading(false)
-                setButton('Awaiting for payment confirmation...')
+                swal({
+                    title: "Awaiting for payment confirmation...",
+                    text: "Please complete the authorisation process by inputting your PIN on your mobile device",
+                    icon: "success",
+                    button: "Ok",
+                });
+                setButton('Pay Now')
             } else if (init.data.status == 'success') {
 
                 if (location.state.type == 'lab') {
@@ -355,7 +366,6 @@ function OrderReview() {
             setButton('Initializing Process')
             // sending to get data
             var dt = { id: 1 };
-            // console.log(route.params.data)
             try {
                 if (type === 'lab') {
                     if (data.type === 'facility') {
@@ -430,7 +440,7 @@ function OrderReview() {
         setLoading(true)
         setButton('Initializing Verification for Otp...')
 
-        let init = await verOtp(tnx_ref, otp);
+        let init = await verOtp(tnx_ref, otp, userData.email);
         // start
         if (init.status) {
 
@@ -441,7 +451,13 @@ function OrderReview() {
                 setButton('Pay Now')
             } else if (init.data.status == 'pay_offline') {
                 setLoading(false)
-                setButton('Awaiting for payment confirmation...')
+                swal({
+                    title: "Awaiting for payment confirmation...",
+                    text: "Please complete the authorisation process by inputting your PIN on your mobile device",
+                    icon: "success",
+                    button: "Ok",
+                });
+                setButton('Pay Now')
             } else if (init.data.status == 'success') {
 
                 if (location.state.type == 'lab') {

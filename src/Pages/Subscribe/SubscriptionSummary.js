@@ -153,7 +153,7 @@ function SubscriptionSummary() {
           }
           setLoading(true)
           setButton('Initializing Transaction...')
-          let init = await cardPayment(card, price*1);
+          let init = await cardPayment(card, price);
           console.log(card)
 
           if(init.status){
@@ -164,7 +164,13 @@ function SubscriptionSummary() {
               setButton('Submit OTP ABOVE')
             }else if(init.data.status === 'pay_offline'){
               setLoading(false)
-              setButton('Awaiting for payment confirmation...')
+              swal({
+                title: "Awaiting for payment confirmation...",
+                text: "Please complete the authorisation process by inputting your PIN on your mobile device",
+                icon: "success",
+                button: "Ok",
+            });
+            setButton('Pay Now')
             }else if(init.data.status === 'success'){
               
               try {
@@ -232,7 +238,13 @@ function SubscriptionSummary() {
                   setButton('Submit OTP ABOVE')
                 }else if(init.data.status == 'pay_offline'){
                   setLoading(false)
-                  setButton('Awaiting for payment confirmation...')
+                  swal({
+                    title: "Awaiting for payment confirmation...",
+                    text: "Please complete the authorisation process by inputting your PIN on your mobile device",
+                    icon: "success",
+                    button: "Ok",
+                });
+                setButton('Pay Now')
                 }else if(init.data.status === 'success'){
                   try {
                      await Upgrade_sub( name, moment(new Date().toString().substr(0, 16)).add(1,"months"))
@@ -290,7 +302,13 @@ function SubscriptionSummary() {
             setButton('Submit OTP Above')
           }else if(init.data.status == 'pay_offline'){
             setLoading(false)
-            setButton('Awaiting for payment confirmation...')
+            swal({
+              title: "Awaiting for payment confirmation...",
+              text: "Please complete the authorisation process by inputting your PIN on your mobile device",
+              icon: "success",
+              button: "Ok",
+          });
+          setButton('Pay Now')
           }else if(init.data.status == 'success'){
             try {
              const sub = await Upgrade_sub( name, moment(new Date().toString().substr(0, 16)).add(1,"months"))
