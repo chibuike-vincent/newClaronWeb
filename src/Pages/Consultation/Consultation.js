@@ -46,12 +46,6 @@ function Consultation() {
     const [searchParams] = useSearchParams()
     const [open, setOpen] = useState(false);
     const [call, setCall] = useState(false)
-    const handleOpen = (doctor) => {
-        setOpen(true);
-        setValue(doctor)
-    }
-    const handleClose = () => setOpen(false);
-
     const [openP, setOpenP] = React.useState(false);
     const handleCloseProfile = () => setOpenP(false);
     const [selectedData, setSelectedData] = useState({});
@@ -70,16 +64,38 @@ function Consultation() {
     const [loader, setLoader] = useState(false)
     const [favorites, setfavorites] = useState([])
     const [loading, setloading] = useState(false)
-    const available = ['06:00 - 07:00', '07:00 - 08:00', '08:00 - 09:00', '09:00 - 10:00', '10:00 - 11:00', '11:00 - 12:00', '12:00 - 13:00', '13:00 - 14:00', '14:00 - 15:00', '15:00 - 16:00', '16:00 - 17:00', '17:00 - 18:00', '18:00 - 19:00', '19:00 - 20:00', '20:00 - 21:00'];
+    const [available,setAvailable]= useState(null)
+    const Available = ['06:00 - 07:00', '07:00 - 08:00', '08:00 - 09:00', '09:00 - 10:00', '10:00 - 11:00', '11:00 - 12:00', '12:00 - 13:00', '13:00 - 14:00', '14:00 - 15:00', '15:00 - 16:00', '16:00 - 17:00', '17:00 - 18:00', '18:00 - 19:00', '19:00 - 20:00', '20:00 - 21:00'];
     // Search State
     const [filtered, setFiltered] = useState([]);
     const [searchInput, setSearchInput] = useState("")
 
     const navigate = useNavigate()
 
-    const handleDateChange = (date) => {
-        console.log(date);
-        setSelectedDate(date);
+
+    const handleOpen = async(doctor) => {
+        setOpen(true);
+        setValue(doctor)
+        await firebaseApp.firestore().collection('newMyAvail').doc(doctor.email).get().then(snapshot=>{
+            const value =  snapshot.data().date_entry.filter(data => moment(new Date(data.date)).format("YYYY-MM-DD") === moment(new Date()).format("YYYY-MM-DD"))
+           setAvailable(value)
+           console.log(value,'dattttt')
+          })
+    }
+
+
+    console.log(available, "avaliableavaliable")
+
+    const handleClose = () => setOpen(false);
+
+    const handleDateChange = async(date) => {
+        console.log(date, "sss");
+        setDate(date);
+        await firebaseApp.firestore().collection('newMyAvail').doc(value.email).get().then(snapshot=>{
+            const value =  snapshot.data().date_entry.filter(data => moment(new Date(data.date)).format("YYYY-MM-DD") === moment(new Date(date)).format("YYYY-MM-DD"))
+           setAvailable(value)
+           console.log(value,'dattttt')
+          })
     };
 
     const changeInput = () => {
@@ -109,7 +125,7 @@ function Consultation() {
 
     
 
-    console.log(searchParams, "from consultation")
+    console.log(date, "from consultation")
 
     useEffect(() => {
        setLoader(true)
@@ -379,7 +395,7 @@ function Consultation() {
                                             className='avilability-booking-input'
                                             defaultValue={date}
                                             fullWidth
-                                            onChange={(e) => setDate(e.target.value)}
+                                            onChange={(e) => handleDateChange(e.target.value)}
                                             sx={{ width: 400 }}
                                             InputLabelProps={{
                                                 shrink: true,
@@ -387,13 +403,13 @@ function Consultation() {
                                         />
                                         <h4 style={{ marginTop: 20, marginBottom: 10 }}> Select Doctor Availabilty Time</h4>
                                         <div className="time-availability">
-                                            {available.map((t, index) => (
+                                            {available !== null ? available[0]?.times.map((t, index) => (
                                                 <div className='time-btn-contaner'>
                                                     <input onChange={(e) => setTime(e.target.value)} type="radio" className="radio-input" value={t} name="claron-radio" id={index} />
                                                     <label className='time-btn' htmlFor={index}>{t}</label>
                                                 </div>
 
-                                            ))}
+                                            )) : <p>Loading Availabilitis</p>}
                                         </div>
 
                                         <p style={{ color: 'red' }}>{error ? error : ''}</p>
