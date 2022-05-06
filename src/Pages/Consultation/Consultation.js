@@ -82,27 +82,19 @@ function Consultation() {
           })
     }
 
-
-    console.log(available, "avaliableavaliable")
-
     const handleClose = () => setOpen(false);
 
     const handleDateChange = async(date) => {
-        console.log(date, "sss");
         setDate(date);
         await firebaseApp.firestore().collection('newMyAvail').doc(value.email).get().then(snapshot=>{
-            console.log(snapshot, "qqqqqq")
             const value =  snapshot.data().date_entry.filter(data => moment(new Date(data.date)).format("YYYY-MM-DD") === moment(new Date(date)).format("YYYY-MM-DD"))
            setAvailable(value)
-           console.log(value,'dattttt')
           })
     };
 
     const changeInput = () => {
         setOthers(!others)
     }
-
-    console.log(value, "doctordoctordoctor")
 
     // HANDLING PROFILE PAGE
     const handleOpenProfile = (selectedRec) => {
@@ -122,10 +114,6 @@ function Consultation() {
             setFiltered(doctors)
         }
     }
-
-    
-
-    console.log(date, "from consultation")
 
     useEffect(() => {
        setLoader(true)

@@ -499,7 +499,6 @@ function OrderReview() {
         // stop
     }
 
-    console.log(location.type,'ttttttttt')
     return (
         <MainLayout>
         <div class="order-container">

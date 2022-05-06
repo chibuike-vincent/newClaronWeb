@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import MainLayout from '../MainLayout';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -8,6 +8,8 @@ import swal from 'sweetalert';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { FaTimes } from "react-icons/fa";
+import { firebaseApp } from "../../firebaseConfig";
+import moment from 'moment';
 
 const style = {
     position: 'absolute',
@@ -21,7 +23,7 @@ const style = {
     p: 4,
 };
 function Book() {
-    const available = ['06:00 - 07:00', '07:00 - 08:00', '08:00 - 09:00', '09:00 - 10:00', '10:00 - 11:00', '11:00 - 12:00', '12:00 - 13:00', '13:00 - 14:00', '14:00 - 15:00', '15:00 - 16:00', '16:00 - 17:00', '17:00 - 18:00', '18:00 - 19:00', '19:00 - 20:00', '20:00 - 21:00'];
+    // const available = ['06:00 - 07:00', '07:00 - 08:00', '08:00 - 09:00', '09:00 - 10:00', '10:00 - 11:00', '11:00 - 12:00', '12:00 - 13:00', '13:00 - 14:00', '14:00 - 15:00', '15:00 - 16:00', '16:00 - 17:00', '17:00 - 18:00', '18:00 - 19:00', '19:00 - 20:00', '20:00 - 21:00'];
     // Search State
     const { state } = useLocation();
     const navigate = useNavigate()
@@ -30,11 +32,33 @@ function Book() {
     const [time, setTime] = useState('')
     const [reason, setReason] = useState('')
     const [error, setError] = useState()
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
+    const [available,setAvailable]= useState(null)
+    const [value, setValue] = useState()
 
     const handleGoBack = () => {
         navigate("/consultation")
     }
+
+    useEffect(() => {
+        const handleOpen = async() => {
+            setOpen(true);
+            setValue(doctor)
+            await firebaseApp.firestore().collection('newMyAvail').doc(doctor.email).get().then(snapshot=>{
+                const dataValue =  snapshot.data().date_entry.filter(data => moment(new Date(data.date)).format("YYYY-MM-DD") === moment(new Date()).format("YYYY-MM-DD"))
+               setAvailable(dataValue)
+              })
+        }
+        handleOpen()
+    })
+
+    const handleDateChange = async(date) => {
+        setDate(date);
+        await firebaseApp.firestore().collection('newMyAvail').doc(value.email).get().then(snapshot=>{
+            const dataValue =  snapshot.data().date_entry.filter(data => moment(new Date(data.date)).format("YYYY-MM-DD") === moment(new Date(date)).format("YYYY-MM-DD"))
+           setAvailable(dataValue)
+          })
+    };
 
     const book = async () => {
         if (reason.length === 0) {
@@ -48,8 +72,6 @@ function Book() {
                 schedule: date,
                 symptoms: [reason]
             })
-
-            // console.log(res)
 
             if (res.success) {
                 swal({
@@ -91,7 +113,7 @@ function Book() {
                             className='avilability-booking-input'
                             defaultValue={date}
                             fullWidth
-                            onChange={(e) => setDate(e.target.value)}
+                            onChange={(e) => handleDateChange(e.target.value)}
                             sx={{ width: 400 }}
                             InputLabelProps={{
                                 shrink: true,
