@@ -9,6 +9,7 @@ import Modal from '@mui/material/Modal';
 import { FaTimes } from "react-icons/fa";
 import { useSelector } from 'react-redux'
 import {firebaseApp} from '../../firebaseConfig';
+import firebase from 'firebase/compat/app';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -44,8 +45,12 @@ function Availability() {
   const updateAvailbility = async()=>{
     setloading(true)
     try {
-      const user = localStorage.getItem('user')
-      await firebaseApp.firestore().collection('newMyAvail').doc(user.email).set({date_entry: checked});
+      // const user = localStorage.getItem('user')
+      const data= {
+        date: new Date(date).getTime(),
+        times: checked
+      }
+      await firebaseApp.firestore().collection('newMyAvail').doc(user.email).update({date_entry: firebase.firestore.FieldValue.arrayUnion(data) });
       swal({
         title: `Availability Updated`,
         text: "You Have set a new Availability",
