@@ -371,6 +371,8 @@ function Consultation() {
                             ))}
 
                             {/* BOOK DOCTOR MODAL */}
+
+                            
                             <Modal
                                 open={open}
                                 onClose={handleClose}
@@ -385,7 +387,6 @@ function Consultation() {
                                     <h2 className='availibility-header'>{value ? value.firstname : ''} Availability</h2>    
                                     <FaTimes className='cloxe' onClick={() => handleGoBack()}/>
                                 </div>
-                                    
                                     
                                     <div>
                                         <TextField
