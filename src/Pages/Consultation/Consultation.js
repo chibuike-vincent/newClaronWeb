@@ -65,7 +65,7 @@ function Consultation() {
     const [favorites, setfavorites] = useState([])
     const [loading, setloading] = useState(false)
     const [available,setAvailable]= useState(null)
-    const Available = ['06:00 - 07:00', '07:00 - 08:00', '08:00 - 09:00', '09:00 - 10:00', '10:00 - 11:00', '11:00 - 12:00', '12:00 - 13:00', '13:00 - 14:00', '14:00 - 15:00', '15:00 - 16:00', '16:00 - 17:00', '17:00 - 18:00', '18:00 - 19:00', '19:00 - 20:00', '20:00 - 21:00'];
+    // const Available = ['06:00 - 07:00', '07:00 - 08:00', '08:00 - 09:00', '09:00 - 10:00', '10:00 - 11:00', '11:00 - 12:00', '12:00 - 13:00', '13:00 - 14:00', '14:00 - 15:00', '15:00 - 16:00', '16:00 - 17:00', '17:00 - 18:00', '18:00 - 19:00', '19:00 - 20:00', '20:00 - 21:00'];
     // Search State
     const [filtered, setFiltered] = useState([]);
     const [searchInput, setSearchInput] = useState("")
@@ -79,30 +79,22 @@ function Consultation() {
         await firebaseApp.firestore().collection('newMyAvail').doc(doctor.email).get().then(snapshot=>{
             const value =  snapshot.data().date_entry.filter(data => moment(new Date(data.date)).format("YYYY-MM-DD") === moment(new Date()).format("YYYY-MM-DD"))
            setAvailable(value)
-           console.log(value,'dattttt')
           })
     }
-
-
-    console.log(available, "avaliableavaliable")
 
     const handleClose = () => setOpen(false);
 
     const handleDateChange = async(date) => {
-        console.log(date, "sss");
         setDate(date);
         await firebaseApp.firestore().collection('newMyAvail').doc(value.email).get().then(snapshot=>{
             const value =  snapshot.data().date_entry.filter(data => moment(new Date(data.date)).format("YYYY-MM-DD") === moment(new Date(date)).format("YYYY-MM-DD"))
            setAvailable(value)
-           console.log(value,'dattttt')
           })
     };
 
     const changeInput = () => {
         setOthers(!others)
     }
-
-    console.log(value, "doctordoctordoctor")
 
     // HANDLING PROFILE PAGE
     const handleOpenProfile = (selectedRec) => {
@@ -122,10 +114,6 @@ function Consultation() {
             setFiltered(doctors)
         }
     }
-
-    
-
-    console.log(date, "from consultation")
 
     useEffect(() => {
        setLoader(true)

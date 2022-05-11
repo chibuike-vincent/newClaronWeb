@@ -162,7 +162,13 @@ function PayAsYouGo() {
               setButton('Submit OTP ABOVE')
             }else if(init.data.status === 'pay_offline'){
               setLoading(false)
-              setButton('Awaiting for payment confirmation...')
+              swal({
+                title: "Awaiting for payment confirmation...",
+                text: "Please complete the authorisation process by inputting your PIN on your mobile device",
+                icon: "success",
+                button: "Ok",
+            });
+            setButton('Pay Now')
             }else if(init.data.status === 'success'){
               setLoading(false)
               setButton('Done')
@@ -226,7 +232,13 @@ function PayAsYouGo() {
                   setButton('Submit OTP ABOVE')
                 }else if(init.data.status == 'pay_offline'){
                   setLoading(false)
-                  setButton('Awaiting for payment confirmation...')
+                  swal({
+                    title: "Awaiting for payment confirmation...",
+                    text: "Please complete the authorisation process by inputting your PIN on your mobile device",
+                    icon: "success",
+                    button: "Ok",
+                });
+                setButton('Pay Now')
                 }else if(init.data.status === 'success'){
 
                   swal({
@@ -279,7 +291,13 @@ function PayAsYouGo() {
             setButton('Submit OTP Above')
           }else if(init.data.status == 'pay_offline'){
             setLoading(false)
-            setButton('Awaiting for payment confirmation...')
+            swal({
+              title: "Awaiting for payment confirmation...",
+              text: "Please complete the authorisation process by inputting your PIN on your mobile device",
+              icon: "success",
+              button: "Ok",
+          });
+          setButton('Pay Now')
           }else if(init.data.status == 'success'){
             try {
              const sub = await Upgrade_sub( name, moment(new Date().toString().substr(0, 16)).add(1,"months"))

@@ -20,7 +20,7 @@ const userSlice = createSlice({
         },
 
         SCHEDULE:(state,action)=>{
-            state.schedule = action.payload
+            // state.schedule = action.payload
             if(action.payload.filter === ""){
                 state.schedule = action.payload.res.filter(i => moment(i.scheduledFor).format("YYYY-MM-DD") === moment(Date.now()).format("YYYY-MM-DD"))
               }else{

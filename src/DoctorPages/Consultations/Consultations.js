@@ -11,6 +11,7 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { useSelector, useDispatch} from 'react-redux';
 import {useNavigate } from "react-router-dom";
+import swal from 'sweetalert';
 import CallModal from '../Home/CallModal'
 import {SCHEDULE} from "../../features/user"
 
@@ -24,7 +25,9 @@ function Consultations() {
   const [names, setNames] = useState([]);
   const [message, setMessage] = useState();
   const [Aloading, setALoading] = useState(false);
+  const [AIdloading, setAIdLoading] = useState(null);
   const [Rloading, setRLoading] = useState(false);
+  const [RIdloading, setRIdLoading] = useState(null);
   const [color, setColor] = useState("");
   const [total, setTotal] = useState(null);
   const userData = useSelector((state) => state.user.value)
@@ -42,14 +45,12 @@ const dispatch = useDispatch()
   };
 
   useEffect(() => {
-    console.log( "Is useEffect running?")
     const getPatints = async () => {
       setLoaded(true);
       const res = await API.getSchedule();
-      console.log(res, "ffffff")
       if (res) {
         setSchedules(res);
-        dispatch(SCHEDULE({res, filter:" "}))
+        dispatch(SCHEDULE({res, filter:""}))
         setLoaded(false);
       }
     };
@@ -59,47 +60,65 @@ const dispatch = useDispatch()
 
   const handleRejectSchedule = async (res, id) => {
     setRLoading(true);
+    setRIdLoading(id);
     try {
       const response = await API.respondRequest(res, id);
 
       if (response.success) {
         setRLoading(false);
         const res = await API.getSchedule();
-        dispatch(SCHEDULE({res, filter:""}))
+        dispatch(SCHEDULE({res, filter:value}))
         setColor("green")
         setMessage("Response successfully sent.", "fffff");
       } else {
         setColor("red")
         setMessage(response.message, "fffff");
         setRLoading(false);
+        setRIdLoading(null);
       }
     } catch (e) {
       setColor("red")
       setMessage(e.message, "rrrrrr");
       setRLoading(false);
+      setRIdLoading(null);
     }
   }
 
   const handleAcceptSchedule = async (res, id) => {
     setALoading(true);
+    setAIdLoading(id);
     try {
       const response = await API.respondRequest(res, id);
 
       if (response.success) {
         setALoading(false);
         const res = await API.getSchedule();
-        dispatch(SCHEDULE({res, filter:""}))
+        dispatch(SCHEDULE({res, filter:value}))
         setColor("green")
         setMessage("Response successfully sent.", "fffff");
       } else {
         setColor("red")
         setMessage(response.message, "fffff");
         setALoading(false);
+        setAIdLoading(null);
       }
     } catch (e) {
       setColor("red")
       setMessage(e.message, "rrrrrr");
       setALoading(false);
+      setAIdLoading(null);
+    }
+  }
+
+
+  const handleChangeResponse = async (res, id) => {
+
+    const response = window.confirm("You previously rejected this request, do you want to change that?")
+
+    if(response === true){
+      return handleAcceptSchedule(res, id)
+    }else{
+      console.log("Cancel Pressed")
     }
   }
 
@@ -137,14 +156,18 @@ const dispatch = useDispatch()
                         
                         (moment(item.scheduledFor).format("YYYY-MM-DD hh:mm A") >= moment(new Date()).format("YYYY-MM-DD hh:mm A")) && item.status === "Pending" ? (
                             <>
-                            <div onClick={() => handleRejectSchedule("Rejected", item.id)} className="accept-r">{Rloading ? "Processing..." : "Reject"}</div>
-                            <div onClick={() => handleAcceptSchedule("Accepted", item.id)} className="reject-a">{Aloading ? "Processing..." : "Accept"}</div>
+                            <div onClick={() => handleRejectSchedule("Rejected", item.id)} className="accept-r">{Rloading && RIdloading === item.id ? "Processing..." : "Reject"}</div>
+                            <div onClick={() => handleAcceptSchedule("Accepted", item.id)} className="reject-a">{Aloading && AIdloading === item.id ? "Processing..." : "Accept"}</div>
                             </>
                         ) : (moment(item.scheduledFor) >= moment(new Date())) && item.status === "Accepted" ? (
                             <>
                             <div className="reject"><FaVideo onClick={() => navigate("/video-call", { state: { mediaType: "video", doctor: userData, patientEmail: item.patient.email } })}/></div>
                             </>
-                        ) : null
+                        ) : (moment(item.scheduledFor).format("YYYY-MM-DD hh:mm A") >= moment(new Date()).format("YYYY-MM-DD hh:mm A")) && item.status === "Rejected" ? (
+                          <>
+                          <div onClick={() => handleChangeResponse("Accepted", item.id)} className="reject-a">{Aloading && AIdloading === item.id ? "Processing..." : "Change response"}</div>
+                          </>
+                      ) : null
                         
                     }
                 </div>
