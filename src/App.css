@@ -9,12 +9,12 @@ a{
  
 }
 
-
-
 /* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px #61cd88;
   border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   
 }
 
@@ -22,6 +22,6 @@ a{
 ::-webkit-scrollbar-thumb {
   background: #16a085 !important;
   border-radius: 10px;
-  height: 100px;
+  height: 70%;
   position: absolute !important;
 }

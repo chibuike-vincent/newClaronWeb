@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import "./PrescribeDrugs.css";
 import TextField from "@mui/material/TextField";
 import {
@@ -29,7 +29,7 @@ function PrescribeDrugs() {
   const [visible,setVisible] = useState(6);
   const dispatch = useDispatch()
   const patientsData = useSelector((state)=>state.user.patients)
-
+  const messagesEndRef = useRef(null)
 
   const showMore = ()=>{
     setVisible(prevValue=>prevValue + 6);
@@ -68,6 +68,10 @@ function PrescribeDrugs() {
     setPatientEmail(email);
     setOpenModal(true);
   };
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [visible]);
 
   return (
     <DoctorLayout>
@@ -134,7 +138,10 @@ function PrescribeDrugs() {
             ) : (
               <p>Loading...</p>
             )}
-             {data && <button onClick={showMore} className='view-more-btn'>View More</button>} 
+             {data &&<>
+              <button onClick={showMore} className='view-more-btn'>View More</button>
+              <div ref={messagesEndRef} />
+             </> } 
           </div>
         )}
       </div>

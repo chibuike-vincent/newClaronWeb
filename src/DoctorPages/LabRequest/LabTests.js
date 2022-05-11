@@ -8,7 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 import * as API from "../../Api/DoctorApi";
-
+import * as Const from './constants'
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -19,19 +19,6 @@ const MenuProps = {
     },
   },
 };
-
-const names = [
-  'Full Blood Count FBC GHS35.00',
-  'Hepatitis Bs Ag GHS30.00',
-  'Kidney Function Test GHS65.00',
-  'Lipid Profile GHS65.00',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
 
 function getStyles(name, personName, theme) {
   return {
@@ -95,6 +82,7 @@ export default function MultipleSelectChip({email}) {
     }
   }
 
+  console.log(Const.tests,'labssssss')
   return (
     <div>
       <p
@@ -127,7 +115,7 @@ export default function MultipleSelectChip({email}) {
           )}
           MenuProps={MenuProps}
         >
-          {names.map((name) => (
+          {Const.tests.map((name) => (
             <MenuItem
               key={name}
               value={name}

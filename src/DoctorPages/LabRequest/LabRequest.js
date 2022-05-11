@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState, useEffect,useRef} from 'react'
 import './LabRequest.css'
 import TextField from '@mui/material/TextField';
 import {Box,Dialog,DialogTitle,DialogContent,IconButton} from '@mui/material';
@@ -8,6 +8,7 @@ import doc from '../../images/doc-1.jpg'
 import DoctorLayout from '../../Pages/DoctorLayout';
 import * as API from "../../Api/DoctorApi";
 import { USERS } from '../../features/user'
+import * as Const from './constants'
 import { useSelector, useDispatch } from 'react-redux'
 function LabRequest() {
     const[openModal, setOpenModal]= useState(false)
@@ -17,15 +18,13 @@ function LabRequest() {
     const [loaded, setLoaded] = useState(false);
     const [patientEmail, setPatientEmail] = useState("");
     const [visible,setVisible] = useState(6);
-    const patientsData = useSelector((state)=>state.user.patients) || []
+    const patientsData = useSelector((state)=>state.user.patients) || [];
+    const messagesEndRef = useRef(null)
     
-
-        
         const showMore = ()=>{
             setVisible(prevValue=>prevValue + 6);
         }
         
-
     useEffect(() => {
         
         if (patientsData.length) {
@@ -49,6 +48,12 @@ function LabRequest() {
             setFiltered(filteredPatient)  
         }
     }
+
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+      }, [visible]);
+
+     
     return (
         <>
         <DoctorLayout>
@@ -85,7 +90,10 @@ function LabRequest() {
               </div>
       </div>
          )) : <p>Loading...</p>}   
-        {patientsData && <button onClick={showMore} className='view-more-btn'>View More</button>} 
+        {patientsData &&<>
+        <button onClick={showMore} className='view-more-btn'>View More</button>
+        <div ref={messagesEndRef} />
+        </> } 
         </div>}
     </div>
             <Dialog open={openModal} fullWidth>
